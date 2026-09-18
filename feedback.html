@@ -4,6 +4,7 @@
 <head>
 
 <meta charset="utf-8">
+
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>PHANTOM FEEDBACK</title>
@@ -20,13 +21,14 @@
 
 
 *{
-box-sizing:border-box
+box-sizing:border-box;
 }
 
 
 body{
 
 margin:0;
+
 min-height:100vh;
 
 color:var(--w);
@@ -37,29 +39,17 @@ Impact,
 "Microsoft YaHei",
 sans-serif;
 
+
 background:
 
-radial-gradient(
-circle,
-rgba(0,0,0,.72)
+radial-gradient(circle,
+rgba(0,0,0,.7)
 0 1.3px,
-transparent 1.5px
-)
+transparent 1.5px)
 0 0/10px 10px,
 
-linear-gradient(
-118deg,
-var(--b)
-0 22%,
-transparent
-22.2% 73%,
-var(--b)
-73.2% 89%,
-transparent
-89.2%
-),
-
 var(--r);
+
 
 overflow:hidden;
 
@@ -74,8 +64,6 @@ content:"";
 position:fixed;
 
 inset:0;
-
-pointer-events:none;
 
 opacity:.18;
 
@@ -92,16 +80,8 @@ transparent 38px 72px
 
 
 
-a{
+/* 顶部按钮 */
 
-text-decoration:none;
-color:inherit;
-
-}
-
-
-
-/* 顶部 */
 
 .top{
 
@@ -115,9 +95,8 @@ display:flex;
 
 gap:14px;
 
-z-index:5;
-
 }
+
 
 
 .top a{
@@ -132,16 +111,7 @@ padding:9px 16px;
 
 box-shadow:4px 4px 0 var(--b);
 
-transform:skew(-7deg);
-
-font-size:14px;
-
-}
-
-
-.top a:first-child{
-
-background:var(--y);
+text-decoration:none;
 
 }
 
@@ -166,7 +136,7 @@ padding:80px 20px;
 
 .stage{
 
-width:min(800px,100%);
+width:min(700px,100%);
 
 text-align:center;
 
@@ -178,13 +148,13 @@ text-align:center;
 
 display:inline-block;
 
-color:var(--b);
-
 background:var(--y);
+
+color:var(--b);
 
 border:4px solid var(--b);
 
-padding:7px 15px;
+padding:8px 15px;
 
 box-shadow:5px 5px 0 var(--b);
 
@@ -196,23 +166,13 @@ transform:rotate(-2deg);
 
 h1{
 
-font-size:
-
-clamp(60px,12vw,110px);
+font-size:80px;
 
 line-height:.85;
 
-margin:25px 0;
+margin:30px 0;
 
-letter-spacing:-.06em;
-
-text-shadow:
-
-8px 8px 0 var(--b);
-
--webkit-text-stroke:
-
-3px var(--b);
+text-shadow:8px 8px 0 var(--b);
 
 }
 
@@ -224,90 +184,37 @@ color:var(--r);
 
 background:var(--w);
 
-padding:0 .08em;
-
 }
 
 
 
-.sub{
+.card{
 
-font-family:"Microsoft YaHei";
+background:rgba(0,0,0,.75);
 
-font-weight:700;
+border:5px solid var(--b);
 
-background:var(--b);
+padding:25px;
 
-padding:12px;
-
-}
-
-
-
-.box{
-
-
-margin-top:30px;
-
-padding:30px;
-
-
-background:
-
-rgba(255,255,255,.12);
-
-
-border:
-
-5px solid var(--b);
-
-
-box-shadow:
-
-8px 8px 0 var(--b);
-
-
-transform:rotate(-1deg);
-
+box-shadow:8px 8px 0 var(--b);
 
 }
 
 
 
 input,
-select,
-textarea{
-
+textarea,
+select{
 
 width:100%;
 
-padding:15px;
+padding:14px;
 
-margin:10px 0;
+margin:8px 0;
 
+font-family:"Microsoft YaHei";
 
-font-family:
-
-"Microsoft YaHei";
-
-
-font-weight:bold;
-
-
-border:
-
-4px solid var(--b);
-
-
-background:
-
-var(--w);
-
-
-color:
-
-var(--b);
-
+border:4px solid var(--b);
 
 }
 
@@ -317,181 +224,72 @@ textarea{
 
 height:120px;
 
-resize:none;
-
 }
 
 
 
 button{
 
+background:var(--y);
 
-margin-top:15px;
+border:4px solid var(--b);
 
+padding:12px 35px;
 
-padding:
+font-size:18px;
 
-14px 40px;
-
-
-background:
-
-var(--y);
-
-
-border:
-
-4px solid var(--b);
-
-
-box-shadow:
-
-5px 5px 0 var(--b);
-
-
-font:
-
-bold 18px "Microsoft YaHei";
-
+font-weight:bold;
 
 cursor:pointer;
 
+box-shadow:4px 4px 0 var(--b);
 
 }
 
 
 
-button:hover{
-
-background:var(--w);
-
-}
-
-
-
-
-.feedback-list{
-
-margin-top:35px;
-
-}
-
-
-
-.card{
-
-
-background:
-
-var(--b);
-
-
-padding:18px;
-
-
-margin:15px 0;
-
-
-border:
-
-3px solid var(--w);
-
-
-text-align:left;
-
-
-font-family:"Microsoft YaHei";
-
-
-}
-
-
-
-.status{
-
-color:var(--y);
-
-}
-
-
-
-/* phantom */
+/* 人影 */
 
 
 .phantom{
 
 position:fixed;
 
-left:25px;
+left:30px;
 
-bottom:68px;
+bottom:40px;
 
-width:70px;
-
-height:112px;
-
-z-index:30;
-
-pointer-events:none;
-
-filter:
-
-drop-shadow(5px 5px 0 var(--b));
-
-
-animation:
-
-float 2.8s infinite;
-
+animation:f 3s infinite;
 
 }
 
 
 
-.phantom i{
+.head{
 
-position:absolute;
+width:35px;
 
-background:var(--b);
+height:35px;
 
-display:block;
-
-}
-
-
-.phantom .h{
-
-left:25px;
-
-top:0;
-
-width:24px;
-
-height:24px;
-
-border:5px solid var(--b);
-
-background:var(--w);
+background:white;
 
 border-radius:50%;
 
+border:5px solid black;
+
 }
 
 
 
-.phantom .bd{
+.body{
 
-left:14px;
+width:45px;
 
-top:28px;
+height:70px;
 
-width:44px;
+background:black;
 
-height:60px;
-
-clip-path:
-
-polygon(
+clip-path:polygon(
 30% 0,
 70% 0,
 100% 100%,
@@ -501,73 +299,12 @@ polygon(
 }
 
 
-.phantom .a{
 
-top:35px;
-
-width:32px;
-
-height:8px;
-
-border-radius:8px;
-
-}
-
-
-.phantom .a1{
-
-left:0;
-
-transform:rotate(25deg);
-
-}
-
-
-.phantom .a2{
-
-left:39px;
-
-transform:rotate(-25deg);
-
-}
-
-
-
-.phantom .l{
-
-top:84px;
-
-width:10px;
-
-height:28px;
-
-}
-
-
-
-.phantom .l1{
-
-left:20px;
-
-}
-
-
-.phantom .l2{
-
-left:44px;
-
-}
-
-
-
-@keyframes float{
+@keyframes f{
 
 50%{
 
-transform:
-
-translateY(-7px)
-rotate(3deg);
+transform:translateY(-10px);
 
 }
 
@@ -575,73 +312,27 @@ rotate(3deg);
 
 
 
-/* 转场 */
+.feedback{
 
+margin-top:30px;
 
-.transition{
-
-position:fixed;
-
-inset:0;
-
-background:var(--r);
-
-z-index:100;
-
-opacity:0;
-
-pointer-events:none;
-
-clip-path:
-
-polygon(
-0 100%,
-100% 100%,
-100% 100%,
-0 100%
-);
-
-
-transition:
-
-opacity .15s,
-
-clip-path .42s cubic-bezier(.77,0,.18,1);
+font-family:"Microsoft YaHei";
 
 }
 
 
 
-body.leaving .transition{
+.item{
 
-opacity:1;
+background:black;
 
-clip-path:
+padding:15px;
 
-polygon(
-0 0,
-100% 8%,
-100% 100%,
-0 92%
-);
+margin:10px;
 
-}
+border:3px solid white;
 
-
-
-body.leaving .phantom{
-
-animation:none;
-
-transform:
-
-translate(55vw,-45vh)
-rotate(360deg)
-scale(1.35);
-
-transition:
-
-transform .45s;
+text-align:left;
 
 }
 
@@ -657,42 +348,29 @@ transform .45s;
 <body>
 
 
-<div class="transition"></div>
+
+<header class="top">
+
+<a href="index.html">
+返回搜索
+</a>
+
+
+<a href="creator.html">
+创作者信息
+</a>
+
+</header>
 
 
 
 <div class="phantom">
 
-<i class="h"></i>
+<div class="head"></div>
 
-<i class="bd"></i>
-
-<i class="a a1"></i>
-
-<i class="a a2"></i>
-
-<i class="l l1"></i>
-
-<i class="l l2"></i>
+<div class="body"></div>
 
 </div>
-
-
-
-
-<header class="top">
-
-<a href="index.html" data-transition>
-返回搜索
-</a>
-
-
-<a href="creator.html" data-transition>
-创作者信息
-</a>
-
-
-</header>
 
 
 
@@ -704,13 +382,15 @@ transform .45s;
 
 
 <div class="stamp">
-PHANTOM SYSTEM
+FEEDBACK CENTER
 </div>
 
 
 
 <h1>
+
 PHANTOM
+
 <br>
 
 <span>
@@ -721,20 +401,10 @@ FEEDBACK
 
 
 
-<p class="sub">
-
-告诉创造者你的想法，让 Phantom 不断进化。
-
-</p>
+<div class="card">
 
 
-
-
-<div class="box">
-
-
-<input
-id="name"
+<input id="name"
 placeholder="你的昵称">
 
 
@@ -749,7 +419,7 @@ Bug反馈
 </option>
 
 <option>
-页面设计
+设计建议
 </option>
 
 <option>
@@ -762,7 +432,7 @@ Bug反馈
 
 <textarea
 id="msg"
-placeholder="写下你的反馈">
+placeholder="告诉创造者你的想法">
 </textarea>
 
 
@@ -774,13 +444,11 @@ placeholder="写下你的反馈">
 </button>
 
 
-
 </div>
 
 
 
-
-<div class="feedback-list" id="list">
+<div class="feedback" id="list">
 
 <h2>
 最新反馈
@@ -797,13 +465,7 @@ placeholder="写下你的反馈">
 
 
 
-
 <script>
-
-
-const list=
-document.getElementById("list");
-
 
 
 function send(){
@@ -830,147 +492,38 @@ return;
 
 
 
-let data=
-
-JSON.parse(
-localStorage.getItem(
-"phantom-feedback"
-)
-||
-"[]"
-);
+let box=
+document.getElementById("list");
 
 
 
-data.unshift({
+box.innerHTML+=`
 
-name,
+<div class="item">
 
-msg,
+👤 ${name}
 
-time:
-new Date().toLocaleDateString(),
+<br><br>
 
-status:
-"🟡 等待查看"
+${msg}
 
-});
+<br><br>
 
-
-
-localStorage.setItem(
-"phantom-feedback",
-JSON.stringify(data)
-);
-
-
-
-document.getElementById("msg").value="";
-
-
-show();
-
-
-alert(
-"感谢你的反馈！"
-);
-
-
-
-}
-
-
-
-function show(){
-
-
-let data=
-
-JSON.parse(
-localStorage.getItem(
-"phantom-feedback"
-)
-||
-"[]"
-);
-
-
-
-list.innerHTML=
-"<h2>最新反馈</h2>";
-
-
-
-data.forEach(x=>{
-
-
-list.innerHTML+=`
-
-<div class="card">
-
-<h3>
-👤 ${x.name}
-</h3>
-
-<p>
-${x.msg}
-</p>
-
-
-<div class="status">
-
-${x.status}
-
-</div>
-
+🟡 等待查看
 
 </div>
 
 `;
 
-});
+
+document.getElementById("msg").value="";
 
 
 }
 
 
-show();
-
-
-
-
-
-document
-.querySelectorAll("[data-transition]")
-.forEach(a=>{
-
-
-a.onclick=e=>{
-
-e.preventDefault();
-
-
-document.body.classList.add(
-"leaving"
-);
-
-
-setTimeout(()=>{
-
-location.href=a.href;
-
-},430);
-
-
-};
-
-
-});
-
-
 
 </script>
-
 
 
 </body>
