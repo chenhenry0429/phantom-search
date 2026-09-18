@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>PHANTOM FEEDBACK</title>
+
+
+<style>
+
+:root{
+--r:#ef1023;
+--b:#070707;
+--w:#fffdf2;
+--y:#ffe600;
+}
+
+
+*{
+box-sizing:border-box
+}
+
+
+body{
+
+margin:0;
+min-height:100vh;
+
+color:var(--w);
+
+font-family:
+Impact,
+"Arial Black",
+"Microsoft YaHei",
+sans-serif;
+
+background:
+
+radial-gradient(
+circle,
+rgba(0,0,0,.72)
+0 1.3px,
+transparent 1.5px
+)
+0 0/10px 10px,
+
+linear-gradient(
+118deg,
+var(--b)
+0 22%,
+transparent
+22.2% 73%,
+var(--b)
+73.2% 89%,
+transparent
+89.2%
+),
+
+var(--r);
+
+overflow:hidden;
+
+}
+
+
+
+body:before{
+
+content:"";
+
+position:fixed;
+
+inset:0;
+
+pointer-events:none;
+
+opacity:.18;
+
+background:
+
+repeating-linear-gradient(
+105deg,
+transparent 0 34px,
+#fff 35px 37px,
+transparent 38px 72px
+);
+
+}
+
+
+
+a{
+
+text-decoration:none;
+color:inherit;
+
+}
+
+
+
+/* 顶部 */
+
+.top{
+
+position:absolute;
+
+top:25px;
+
+right:4vw;
+
+display:flex;
+
+gap:14px;
+
+z-index:5;
+
+}
+
+
+.top a{
+
+color:var(--b);
+
+background:var(--w);
+
+border:3px solid var(--b);
+
+padding:9px 16px;
+
+box-shadow:4px 4px 0 var(--b);
+
+transform:skew(-7deg);
+
+font-size:14px;
+
+}
+
+
+.top a:first-child{
+
+background:var(--y);
+
+}
+
+
+
+/* 主体 */
+
+
+main{
+
+min-height:100vh;
+
+display:grid;
+
+place-items:center;
+
+padding:80px 20px;
+
+}
+
+
+
+.stage{
+
+width:min(800px,100%);
+
+text-align:center;
+
+}
+
+
+
+.stamp{
+
+display:inline-block;
+
+color:var(--b);
+
+background:var(--y);
+
+border:4px solid var(--b);
+
+padding:7px 15px;
+
+box-shadow:5px 5px 0 var(--b);
+
+transform:rotate(-2deg);
+
+}
+
+
+
+h1{
+
+font-size:
+
+clamp(60px,12vw,110px);
+
+line-height:.85;
+
+margin:25px 0;
+
+letter-spacing:-.06em;
+
+text-shadow:
+
+8px 8px 0 var(--b);
+
+-webkit-text-stroke:
+
+3px var(--b);
+
+}
+
+
+
+h1 span{
+
+color:var(--r);
+
+background:var(--w);
+
+padding:0 .08em;
+
+}
+
+
+
+.sub{
+
+font-family:"Microsoft YaHei";
+
+font-weight:700;
+
+background:var(--b);
+
+padding:12px;
+
+}
+
+
+
+.box{
+
+
+margin-top:30px;
+
+padding:30px;
+
+
+background:
+
+rgba(255,255,255,.12);
+
+
+border:
+
+5px solid var(--b);
+
+
+box-shadow:
+
+8px 8px 0 var(--b);
+
+
+transform:rotate(-1deg);
+
+
+}
+
+
+
+input,
+select,
+textarea{
+
+
+width:100%;
+
+padding:15px;
+
+margin:10px 0;
+
+
+font-family:
+
+"Microsoft YaHei";
+
+
+font-weight:bold;
+
+
+border:
+
+4px solid var(--b);
+
+
+background:
+
+var(--w);
+
+
+color:
+
+var(--b);
+
+
+}
+
+
+
+textarea{
+
+height:120px;
+
+resize:none;
+
+}
+
+
+
+button{
+
+
+margin-top:15px;
+
+
+padding:
+
+14px 40px;
+
+
+background:
+
+var(--y);
+
+
+border:
+
+4px solid var(--b);
+
+
+box-shadow:
+
+5px 5px 0 var(--b);
+
+
+font:
+
+bold 18px "Microsoft YaHei";
+
+
+cursor:pointer;
+
+
+}
+
+
+
+button:hover{
+
+background:var(--w);
+
+}
+
+
+
+
+.feedback-list{
+
+margin-top:35px;
+
+}
+
+
+
+.card{
+
+
+background:
+
+var(--b);
+
+
+padding:18px;
+
+
+margin:15px 0;
+
+
+border:
+
+3px solid var(--w);
+
+
+text-align:left;
+
+
+font-family:"Microsoft YaHei";
+
+
+}
+
+
+
+.status{
+
+color:var(--y);
+
+}
+
+
+
+/* phantom */
+
+
+.phantom{
+
+position:fixed;
+
+left:25px;
+
+bottom:68px;
+
+width:70px;
+
+height:112px;
+
+z-index:30;
+
+pointer-events:none;
+
+filter:
+
+drop-shadow(5px 5px 0 var(--b));
+
+
+animation:
+
+float 2.8s infinite;
+
+
+}
+
+
+
+.phantom i{
+
+position:absolute;
+
+background:var(--b);
+
+display:block;
+
+}
+
+
+.phantom .h{
+
+left:25px;
+
+top:0;
+
+width:24px;
+
+height:24px;
+
+border:5px solid var(--b);
+
+background:var(--w);
+
+border-radius:50%;
+
+}
+
+
+
+.phantom .bd{
+
+left:14px;
+
+top:28px;
+
+width:44px;
+
+height:60px;
+
+clip-path:
+
+polygon(
+30% 0,
+70% 0,
+100% 100%,
+0 100%
+);
+
+}
+
+
+.phantom .a{
+
+top:35px;
+
+width:32px;
+
+height:8px;
+
+border-radius:8px;
+
+}
+
+
+.phantom .a1{
+
+left:0;
+
+transform:rotate(25deg);
+
+}
+
+
+.phantom .a2{
+
+left:39px;
+
+transform:rotate(-25deg);
+
+}
+
+
+
+.phantom .l{
+
+top:84px;
+
+width:10px;
+
+height:28px;
+
+}
+
+
+
+.phantom .l1{
+
+left:20px;
+
+}
+
+
+.phantom .l2{
+
+left:44px;
+
+}
+
+
+
+@keyframes float{
+
+50%{
+
+transform:
+
+translateY(-7px)
+rotate(3deg);
+
+}
+
+}
+
+
+
+/* 转场 */
+
+
+.transition{
+
+position:fixed;
+
+inset:0;
+
+background:var(--r);
+
+z-index:100;
+
+opacity:0;
+
+pointer-events:none;
+
+clip-path:
+
+polygon(
+0 100%,
+100% 100%,
+100% 100%,
+0 100%
+);
+
+
+transition:
+
+opacity .15s,
+
+clip-path .42s cubic-bezier(.77,0,.18,1);
+
+}
+
+
+
+body.leaving .transition{
+
+opacity:1;
+
+clip-path:
+
+polygon(
+0 0,
+100% 8%,
+100% 100%,
+0 92%
+);
+
+}
+
+
+
+body.leaving .phantom{
+
+animation:none;
+
+transform:
+
+translate(55vw,-45vh)
+rotate(360deg)
+scale(1.35);
+
+transition:
+
+transform .45s;
+
+}
+
+
+
+</style>
+
+
+</head>
+
+
+
+<body>
+
+
+<div class="transition"></div>
+
+
+
+<div class="phantom">
+
+<i class="h"></i>
+
+<i class="bd"></i>
+
+<i class="a a1"></i>
+
+<i class="a a2"></i>
+
+<i class="l l1"></i>
+
+<i class="l l2"></i>
+
+</div>
+
+
+
+
+<header class="top">
+
+<a href="index.html" data-transition>
+返回搜索
+</a>
+
+
+<a href="creator.html" data-transition>
+创作者信息
+</a>
+
+
+</header>
+
+
+
+
+<main>
+
+
+<div class="stage">
+
+
+<div class="stamp">
+PHANTOM SYSTEM
+</div>
+
+
+
+<h1>
+PHANTOM
+<br>
+
+<span>
+FEEDBACK
+</span>
+
+</h1>
+
+
+
+<p class="sub">
+
+告诉创造者你的想法，让 Phantom 不断进化。
+
+</p>
+
+
+
+
+<div class="box">
+
+
+<input
+id="name"
+placeholder="你的昵称">
+
+
+<select id="type">
+
+<option>
+功能建议
+</option>
+
+<option>
+Bug反馈
+</option>
+
+<option>
+页面设计
+</option>
+
+<option>
+其他
+</option>
+
+</select>
+
+
+
+<textarea
+id="msg"
+placeholder="写下你的反馈">
+</textarea>
+
+
+
+<button onclick="send()">
+
+提交反馈
+
+</button>
+
+
+
+</div>
+
+
+
+
+<div class="feedback-list" id="list">
+
+<h2>
+最新反馈
+</h2>
+
+</div>
+
+
+
+</div>
+
+
+</main>
+
+
+
+
+<script>
+
+
+const list=
+document.getElementById("list");
+
+
+
+function send(){
+
+
+let name=
+document.getElementById("name").value
+||
+"匿名用户";
+
+
+let msg=
+document.getElementById("msg").value;
+
+
+
+if(!msg){
+
+alert("请输入反馈内容");
+
+return;
+
+}
+
+
+
+let data=
+
+JSON.parse(
+localStorage.getItem(
+"phantom-feedback"
+)
+||
+"[]"
+);
+
+
+
+data.unshift({
+
+name,
+
+msg,
+
+time:
+new Date().toLocaleDateString(),
+
+status:
+"🟡 等待查看"
+
+});
+
+
+
+localStorage.setItem(
+"phantom-feedback",
+JSON.stringify(data)
+);
+
+
+
+document.getElementById("msg").value="";
+
+
+show();
+
+
+alert(
+"感谢你的反馈！"
+);
+
+
+
+}
+
+
+
+function show(){
+
+
+let data=
+
+JSON.parse(
+localStorage.getItem(
+"phantom-feedback"
+)
+||
+"[]"
+);
+
+
+
+list.innerHTML=
+"<h2>最新反馈</h2>";
+
+
+
+data.forEach(x=>{
+
+
+list.innerHTML+=`
+
+<div class="card">
+
+<h3>
+👤 ${x.name}
+</h3>
+
+<p>
+${x.msg}
+</p>
+
+
+<div class="status">
+
+${x.status}
+
+</div>
+
+
+</div>
+
+`;
+
+});
+
+
+}
+
+
+show();
+
+
+
+
+
+document
+.querySelectorAll("[data-transition]")
+.forEach(a=>{
+
+
+a.onclick=e=>{
+
+e.preventDefault();
+
+
+document.body.classList.add(
+"leaving"
+);
+
+
+setTimeout(()=>{
+
+location.href=a.href;
+
+},430);
+
+
+};
+
+
+});
+
+
+
+</script>
+
+
+
+</body>
+
+</html>
