@@ -7,6 +7,7 @@
 <title>CREATOR — PHANTOM SEARCH</title>
 
 <style>
+
 :root{
   --red:#ef1023;
   --black:#070707;
@@ -21,34 +22,40 @@
 html,
 body{
   margin:0;
-  width:100%;
   min-height:100%;
 }
 
 body{
   min-height:100vh;
   overflow-x:hidden;
-  color:var(--white);
   background:var(--black);
-  font-family:Impact,"Arial Black","Microsoft YaHei",sans-serif;
+  color:var(--white);
+
+  font-family:
+    Impact,
+    "Arial Black",
+    "Microsoft YaHei",
+    sans-serif;
 }
 
-/* =========================================
-   BACKGROUND IMAGE
-========================================= */
+
+/* =================================================
+   BACKGROUND
+================================================= */
 
 .background{
   position:fixed;
   inset:0;
+
   z-index:0;
 
   background-image:
     linear-gradient(
       90deg,
-      rgba(7,7,7,.05) 0%,
-      rgba(7,7,7,.05) 40%,
-      rgba(7,7,7,.88) 68%,
-      rgba(7,7,7,.97) 100%
+      rgba(7,7,7,.02) 0%,
+      rgba(7,7,7,.04) 45%,
+      rgba(7,7,7,.60) 70%,
+      rgba(7,7,7,.90) 100%
     ),
     url("assets/creator-bg.png");
 
@@ -56,74 +63,73 @@ body{
   background-position:center center;
   background-repeat:no-repeat;
 
-  transform:scale(1.03);
-  transition:transform .8s cubic-bezier(.2,.8,.2,1);
+  transform:scale(1.025);
+
+  transition:
+    transform .8s cubic-bezier(.2,.8,.2,1);
 }
 
-body.mouse-active .background{
-  transform:scale(1.06);
-}
 
 /* 漫画网点 */
 
 .background::after{
   content:"";
+
   position:absolute;
   inset:0;
+
+  pointer-events:none;
 
   background:
     radial-gradient(
       circle,
-      rgba(255,255,255,.22) 0 1px,
+      rgba(255,255,255,.18) 0 1px,
       transparent 1.5px
     );
 
-  background-size:8px 8px;
-  opacity:.13;
+  background-size:9px 9px;
+
+  opacity:.11;
+
   mix-blend-mode:screen;
-  pointer-events:none;
 }
 
-/* =========================================
-   DIAGONAL GRAPHICS
-========================================= */
 
-.graphic{
+/* =================================================
+   DARK OVERLAY
+================================================= */
+
+.overlay{
   position:fixed;
+  inset:0;
+
   z-index:1;
+
   pointer-events:none;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 42%,
+      rgba(0,0,0,.10) 52%,
+      rgba(0,0,0,.72) 74%,
+      rgba(0,0,0,.88) 100%
+    );
 }
 
-.graphic.one{
-  width:55vw;
-  height:8px;
-  left:-8vw;
-  top:17vh;
-  background:var(--red);
-  transform:rotate(-8deg);
-  box-shadow:0 18px 0 var(--yellow);
-  opacity:.9;
-}
 
-.graphic.two{
-  width:38vw;
-  height:5px;
-  right:-5vw;
-  bottom:17vh;
-  background:var(--yellow);
-  transform:rotate(-8deg);
-  opacity:.8;
-}
-
-/* =========================================
-   NAV
-========================================= */
+/* =================================================
+   NAVIGATION
+================================================= */
 
 .top{
   position:fixed;
+
   top:25px;
   right:4vw;
-  z-index:20;
+
+  z-index:30;
 
   display:flex;
   gap:13px;
@@ -132,7 +138,7 @@ body.mouse-active .background{
 .top a{
   display:block;
 
-  padding:9px 16px;
+  padding:10px 17px;
 
   color:var(--black);
   background:var(--white);
@@ -158,80 +164,113 @@ body.mouse-active .background{
 }
 
 .top a:hover{
-  transform:skew(-7deg) translate(-3px,-3px);
+  transform:
+    skew(-7deg)
+    translate(-3px,-3px);
+
   background:var(--red);
   color:var(--white);
 }
 
-/* =========================================
+
+/* =================================================
    MAIN
-========================================= */
+================================================= */
 
 main{
   position:relative;
+
   z-index:5;
 
   min-height:100vh;
 
   display:flex;
+  justify-content:flex-end;
   align-items:center;
 
   padding:
     100px
-    clamp(24px,5vw,80px)
-    80px;
+    clamp(35px,6vw,100px)
+    70px;
 }
 
-/* =========================================
-   CONTENT
-========================================= */
+
+/* =================================================
+   RIGHT CONTENT
+================================================= */
 
 .content{
-  width:min(560px,48vw);
-  margin-left:auto;
-  margin-right:4vw;
+  width:
+    clamp(
+      510px,
+      42vw,
+      720px
+    );
+
+  margin-right:
+    clamp(
+      10px,
+      2vw,
+      45px
+    );
 
   position:relative;
 }
 
-/* small label */
+
+/* =================================================
+   LABEL
+================================================= */
 
 .tag{
   display:inline-block;
 
-  padding:8px 14px;
+  padding:9px 16px;
+
+  background:var(--yellow);
 
   color:var(--black);
-  background:var(--yellow);
 
   border:4px solid var(--black);
 
-  box-shadow:6px 6px 0 var(--black);
+  box-shadow:
+    6px 6px 0 var(--black);
 
   transform:rotate(-2deg);
 
-  font-size:14px;
-  letter-spacing:.05em;
+  font-size:15px;
+
+  letter-spacing:.04em;
 }
 
-/* title */
+
+/* =================================================
+   TITLE
+================================================= */
 
 h1{
-  margin:28px 0 18px;
+  margin:
+    30px 0
+    20px;
 
   font-size:
-    clamp(62px,8vw,112px);
+    clamp(
+      70px,
+      8vw,
+      125px
+    );
 
-  line-height:.78;
+  line-height:.76;
 
-  letter-spacing:-.06em;
+  letter-spacing:-.065em;
 
   color:var(--white);
 
   text-shadow:
-    8px 8px 0 var(--black);
+    9px 9px 0 var(--black);
 
-  -webkit-text-stroke:3px var(--black);
+  -webkit-text-stroke:
+    3px var(--black);
 
   transform:rotate(-3deg);
 }
@@ -239,10 +278,15 @@ h1{
 h1 span{
   display:inline-block;
 
-  color:var(--red);
-  background:var(--white);
+  margin-top:8px;
 
-  padding:0 .08em;
+  padding:
+    2px 14px
+    3px 10px;
+
+  color:var(--red);
+
+  background:var(--white);
 
   clip-path:
     polygon(
@@ -253,76 +297,138 @@ h1 span{
     );
 }
 
-/* =========================================
-   INTRO BOX
-========================================= */
+
+/* =================================================
+   INTRO
+================================================= */
 
 .intro{
-  margin-top:25px;
+  position:relative;
 
-  max-width:560px;
+  margin-top:12px;
 
-  background:rgba(7,7,7,.91);
+  padding:
+    20px
+    24px
+    22px;
 
-  border-left:8px solid var(--red);
+  background:
+    rgba(7,7,7,.92);
 
-  padding:22px 25px;
+  border-left:
+    8px solid var(--red);
 
-  box-shadow:10px 10px 0 rgba(0,0,0,.8);
+  box-shadow:
+    10px 10px 0 rgba(0,0,0,.75);
 
   transform:rotate(-1deg);
 
-  backdrop-filter:blur(3px);
+  backdrop-filter:
+    blur(4px);
 }
 
-.intro h2{
-  margin:0 0 12px;
 
-  font-size:31px;
+/* 黄色小角标 */
+
+.intro::before{
+  content:"PROFILE";
+
+  position:absolute;
+
+  right:-3px;
+  top:-18px;
+
+  padding:
+    5px 12px;
+
+  background:var(--red);
+
+  color:var(--white);
+
+  border:
+    3px solid var(--black);
+
+  font-size:11px;
+
+  transform:rotate(3deg);
+}
+
+
+.intro h2{
+  margin:
+    0 0
+    10px;
 
   color:var(--yellow);
 
-  letter-spacing:-.02em;
+  font-size:
+    clamp(
+      27px,
+      2.4vw,
+      38px
+    );
+
+  letter-spacing:-.03em;
 }
+
 
 .intro p{
   margin:0;
+
+  color:var(--white);
 
   font-family:
     "Microsoft YaHei",
     "PingFang SC",
     sans-serif;
 
-  font-size:16px;
-  line-height:1.85;
+  font-size:
+    clamp(
+      14px,
+      1.05vw,
+      17px
+    );
+
+  line-height:1.8;
 
   font-weight:700;
 }
 
-/* =========================================
-   INFO CARDS
-========================================= */
+
+/* =================================================
+   INFORMATION CARDS
+================================================= */
 
 .info{
   display:grid;
 
   grid-template-columns:
-    repeat(2,minmax(0,1fr));
+    repeat(2,1fr);
 
-  gap:12px;
+  gap:14px;
 
-  margin-top:20px;
+  margin-top:23px;
 }
 
+
 .info-card{
-  padding:14px 16px;
+  position:relative;
+
+  min-height:74px;
+
+  padding:
+    13px
+    16px;
 
   background:var(--white);
+
   color:var(--black);
 
-  border:4px solid var(--black);
+  border:
+    4px solid var(--black);
 
-  box-shadow:5px 5px 0 var(--black);
+  box-shadow:
+    6px 6px 0 var(--black);
 
   transform:rotate(-1deg);
 
@@ -332,26 +438,39 @@ h1 span{
 }
 
 .info-card:nth-child(2){
-  transform:rotate(1.5deg);
+  transform:rotate(1deg);
 }
+
+.info-card:nth-child(3){
+  transform:rotate(1deg);
+}
+
+.info-card:nth-child(4){
+  transform:rotate(-1deg);
+}
+
 
 .info-card:hover{
-  transform:
-    translateY(-5px)
-    rotate(-2deg);
-
   background:var(--yellow);
+
+  transform:
+    translateY(-6px)
+    rotate(-2deg);
 }
+
 
 .info-card strong{
   display:block;
 
-  margin-bottom:6px;
+  margin-bottom:7px;
 
-  font-size:15px;
+  font-size:16px;
 }
 
+
 .info-card span{
+  display:block;
+
   font-family:
     "Microsoft YaHei",
     "PingFang SC",
@@ -359,36 +478,70 @@ h1 span{
 
   font-size:13px;
 
+  line-height:1.45;
+
   font-weight:700;
 }
 
-/* =========================================
+
+/* =================================================
    PROJECT
-========================================= */
+================================================= */
 
 .project{
-  margin-top:20px;
+  position:relative;
 
-  padding:14px 18px;
+  margin-top:22px;
 
-  color:var(--white);
+  padding:
+    17px
+    20px;
 
   background:var(--red);
 
-  border:4px solid var(--black);
+  color:var(--white);
 
-  box-shadow:6px 6px 0 var(--black);
+  border:
+    4px solid var(--black);
+
+  box-shadow:
+    7px 7px 0 var(--black);
 
   transform:rotate(1deg);
 }
 
-.project strong{
+
+.project::after{
+  content:"↗";
+
+  position:absolute;
+
+  right:17px;
+  top:8px;
+
   color:var(--yellow);
-  font-size:17px;
+
+  font-size:28px;
+
+  transform:rotate(-10deg);
 }
 
+
+.project strong{
+  display:block;
+
+  margin-bottom:7px;
+
+  color:var(--yellow);
+
+  font-size:20px;
+}
+
+
 .project p{
-  margin:7px 0 0;
+  margin:0;
+
+  max-width:90%;
 
   font-family:
     "Microsoft YaHei",
@@ -396,20 +549,25 @@ h1 span{
     sans-serif;
 
   font-size:13px;
-  line-height:1.6;
+
+  line-height:1.65;
+
   font-weight:700;
 }
 
-/* =========================================
-   FOOTER
-========================================= */
+
+/* =================================================
+   SIGNATURE
+================================================= */
 
 .signature{
-  margin-top:26px;
-
   display:inline-block;
 
-  padding:8px 12px;
+  margin-top:25px;
+
+  padding:
+    7px
+    12px;
 
   background:var(--black);
 
@@ -424,9 +582,66 @@ h1 span{
   color:var(--yellow);
 }
 
-/* =========================================
-   MOUSE SPOT
-========================================= */
+
+/* =================================================
+   TAROT AREA
+   Decorative interaction target
+================================================= */
+
+.tarot-zone{
+  position:fixed;
+
+  left:0;
+  top:0;
+
+  width:55vw;
+  height:100vh;
+
+  z-index:8;
+
+  pointer-events:none;
+}
+
+
+/*
+  我们不重新绘制塔罗牌。
+  这里通过鼠标位置制造一个
+  金色光晕，让原图里的塔罗牌
+  看起来具有互动效果。
+*/
+
+.tarot-light{
+  position:absolute;
+
+  width:95px;
+  height:95px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,230,0,.65) 0%,
+      rgba(255,230,0,.22) 30%,
+      transparent 70%
+    );
+
+  filter:
+    blur(5px);
+
+  opacity:0;
+
+  transform:
+    translate(-50%,-50%);
+
+  transition:
+    opacity .25s ease;
+}
+
+
+/* =================================================
+   CUSTOM CURSOR
+================================================= */
 
 .cursor{
   position:fixed;
@@ -434,17 +649,19 @@ h1 span{
   left:0;
   top:0;
 
-  width:18px;
-  height:18px;
+  width:17px;
+  height:17px;
 
   border-radius:50%;
 
   background:var(--yellow);
 
-  border:4px solid var(--black);
+  border:
+    4px solid var(--black);
 
   box-shadow:
-    0 0 0 5px rgba(239,16,35,.35);
+    0 0 0 5px
+    rgba(239,16,35,.35);
 
   pointer-events:none;
 
@@ -455,17 +672,22 @@ h1 span{
 
   transition:
     width .15s ease,
-    height .15s ease;
+    height .15s ease,
+    background .15s ease;
 }
+
 
 .cursor.active{
-  width:28px;
-  height:28px;
+  width:30px;
+  height:30px;
+
+  background:var(--red);
 }
 
-/* =========================================
-   CLICK FLASH
-========================================= */
+
+/* =================================================
+   CLICK EFFECT
+================================================= */
 
 .click-flash{
   position:fixed;
@@ -473,7 +695,8 @@ h1 span{
   width:12px;
   height:12px;
 
-  border:4px solid var(--yellow);
+  border:
+    4px solid var(--yellow);
 
   border-radius:50%;
 
@@ -481,17 +704,22 @@ h1 span{
 
   z-index:101;
 
-  transform:translate(-50%,-50%);
+  transform:
+    translate(-50%,-50%);
 
   animation:
-    clickFlash .45s
+    clickFlash
+    .45s
     cubic-bezier(.2,.8,.2,1)
     forwards;
 }
 
+
 @keyframes clickFlash{
+
   from{
     opacity:1;
+
     transform:
       translate(-50%,-50%)
       scale(1);
@@ -499,18 +727,22 @@ h1 span{
 
   to{
     opacity:0;
+
     transform:
       translate(-50%,-50%)
       scale(6);
   }
+
 }
 
-/* =========================================
+
+/* =================================================
    PAGE TRANSITION
-========================================= */
+================================================= */
 
 .transition{
   position:fixed;
+
   inset:0;
 
   z-index:200;
@@ -535,7 +767,9 @@ h1 span{
     cubic-bezier(.77,0,.18,1);
 }
 
+
 body.leaving .transition{
+
   opacity:1;
 
   clip-path:
@@ -545,93 +779,118 @@ body.leaving .transition{
       100% 100%,
       0 93%
     );
+
 }
 
-/* =========================================
-   MOBILE
-========================================= */
 
-@media(max-width:900px){
+/* =================================================
+   MOBILE
+================================================= */
+
+@media(max-width:1050px){
+
+  .content{
+    width:
+      min(
+        600px,
+        55vw
+      );
+  }
+
+}
+
+
+@media(max-width:800px){
 
   .background{
     background-position:
-      27% center;
+      28% center;
   }
 
-  .content{
-    width:min(600px,92vw);
-
-    margin-left:auto;
-    margin-right:auto;
+  .overlay{
+    background:
+      linear-gradient(
+        90deg,
+        rgba(0,0,0,.15),
+        rgba(0,0,0,.82)
+      );
   }
 
   main{
+    justify-content:center;
+
     align-items:flex-end;
 
     padding:
-      120px 22px
-      50px;
+      100px
+      20px
+      40px;
   }
 
-  .intro{
-    background:rgba(7,7,7,.94);
+  .content{
+    width:
+      min(
+        650px,
+        94vw
+      );
+
+    margin:0;
+  }
+
+  .tarot-zone{
+    display:none;
   }
 
 }
 
-@media(max-width:650px){
+
+@media(max-width:600px){
 
   .top{
-    top:15px;
-    right:15px;
+    top:14px;
+    right:14px;
+
+    gap:8px;
   }
 
   .top a{
-    padding:8px 11px;
+    padding:
+      8px 11px;
+
     font-size:11px;
-  }
-
-  .graphic{
-    display:none;
-  }
-
-  .background{
-    background-position:
-      25% center;
   }
 
   main{
     padding:
-      95px 15px
-      35px;
-  }
-
-  .content{
-    width:100%;
+      90px
+      14px
+      30px;
   }
 
   h1{
     font-size:
-      clamp(58px,17vw,86px);
+      clamp(
+        56px,
+        17vw,
+        82px
+      );
   }
 
   .intro{
-    padding:18px;
-
-    border-left-width:6px;
-  }
-
-  .intro h2{
-    font-size:25px;
+    padding:
+      17px;
   }
 
   .intro p{
     font-size:14px;
-    line-height:1.75;
   }
 
   .info{
     grid-template-columns:1fr;
+  }
+
+  .project{
+    transform:none;
   }
 
   .cursor{
@@ -639,6 +898,7 @@ body.leaving .transition{
   }
 
 }
+
 
 @media(prefers-reduced-motion:reduce){
 
@@ -650,297 +910,423 @@ body.leaving .transition{
   }
 
 }
+
 </style>
 </head>
 
+
 <body>
 
-<!-- 背景图片 -->
+
+<!-- =============================================
+     BACKGROUND
+============================================= -->
+
 <div class="background"></div>
 
-<!-- 装饰线 -->
-<div class="graphic one"></div>
-<div class="graphic two"></div>
+<div class="overlay"></div>
 
-<!-- 页面转场 -->
+
+<!-- =============================================
+     TAROT LIGHT
+============================================= -->
+
+<div class="tarot-zone">
+  <div class="tarot-light"></div>
+</div>
+
+
+<!-- =============================================
+     PAGE TRANSITION
+============================================= -->
+
 <div class="transition"></div>
 
-<!-- 导航 -->
+
+<!-- =============================================
+     NAVIGATION
+============================================= -->
+
 <header class="top">
 
-  <a href="index.html" data-transition>
+  <a
+    href="index.html"
+    data-transition
+  >
     返回搜索
   </a>
 
-  <a href="feedback.html" data-transition>
+  <a
+    href="feedback.html"
+    data-transition
+  >
     反馈
   </a>
 
 </header>
 
 
+<!-- =============================================
+     MAIN CONTENT
+============================================= -->
+
 <main>
 
-  <section class="content">
-
-    <div class="tag">
-      PHANTOM CREATOR / PROFILE 01
-    </div>
+<section class="content">
 
 
-    <h1>
-      CREATOR<br>
-      <span>陈植轩</span>
-    </h1>
+  <div class="tag">
+    PHANTOM CREATOR / PROFILE 01
+  </div>
 
 
-    <div class="intro">
+  <h1>
 
-      <h2>
-        我是陈植轩
-      </h2>
+    CREATOR
 
-      <p>
-        欢迎来到我的创作者档案。
-        PHANTOM SEARCH 是我正在制作的个人搜索引擎实验项目。
-        我希望通过网页设计、视觉语言与交互动画，
-        让一个普通的工具拥有属于自己的性格。
-      </p>
+    <br>
 
-    </div>
+    <span>陈植轩</span>
+
+  </h1>
 
 
-    <div class="info">
+  <div class="intro">
 
-      <div class="info-card">
+    <h2>
+      我是陈植轩
+    </h2>
 
-        <strong>
-          DESIGN
-        </strong>
+    <p>
+      欢迎来到我的创作者档案。
+      PHANTOM SEARCH 是我正在制作的个人搜索引擎实验项目。
+      我希望通过网页设计、视觉语言与交互动画，
+      让一个普通的工具拥有属于自己的性格。
+    </p>
 
-        <span>
-          WEB DESIGN / UI DESIGN
-        </span>
-
-      </div>
-
-
-      <div class="info-card">
-
-        <strong>
-          CODE
-        </strong>
-
-        <span>
-          HTML / CSS / JAVASCRIPT
-        </span>
-
-      </div>
+  </div>
 
 
-      <div class="info-card">
-
-        <strong>
-          VISUAL
-        </strong>
-
-        <span>
-          VISUAL DESIGN / CREATIVE CODING
-        </span>
-
-      </div>
+  <div class="info">
 
 
-      <div class="info-card">
-
-        <strong>
-          PROJECT
-        </strong>
-
-        <span>
-          PHANTOM SEARCH
-        </span>
-
-      </div>
-
-    </div>
-
-
-    <div class="project">
+    <div class="info-card">
 
       <strong>
-        PHANTOM SEARCH
+        DESIGN
       </strong>
 
-      <p>
-        一个具有怪盗团视觉气质的个人搜索入口。
-        搜索只是开始，真正重要的是寻找属于自己的答案。
-      </p>
+      <span>
+        WEB DESIGN / UI DESIGN
+      </span>
 
     </div>
 
 
-    <div class="signature">
-      CREATED BY <span>陈植轩</span>
+    <div class="info-card">
+
+      <strong>
+        CODE
+      </strong>
+
+      <span>
+        HTML / CSS / JAVASCRIPT
+      </span>
+
     </div>
 
-  </section>
+
+    <div class="info-card">
+
+      <strong>
+        VISUAL
+      </strong>
+
+      <span>
+        VISUAL DESIGN / CREATIVE CODING
+      </span>
+
+    </div>
+
+
+    <div class="info-card">
+
+      <strong>
+        PROJECT
+      </strong>
+
+      <span>
+        PHANTOM SEARCH
+      </span>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="project">
+
+    <strong>
+      PHANTOM SEARCH
+    </strong>
+
+    <p>
+      一个具有怪盗团视觉气质的个人搜索入口。
+      搜索只是开始，真正重要的是寻找属于自己的答案。
+    </p>
+
+  </div>
+
+
+  <div class="signature">
+
+    CREATED BY
+    <span>陈植轩</span>
+
+  </div>
+
+
+</section>
 
 </main>
 
 
-<!-- 自定义鼠标 -->
+<!-- =============================================
+     CUSTOM CURSOR
+============================================= -->
+
 <div class="cursor"></div>
 
 
 <script>
 
-/* =========================================
+
+/* =================================================
    PAGE TRANSITION
-========================================= */
+================================================= */
 
 document
   .querySelectorAll("[data-transition]")
   .forEach(link => {
 
-    link.addEventListener("click", function(e){
+    link.addEventListener(
+      "click",
+      function(e){
 
-      e.preventDefault();
+        e.preventDefault();
 
-      document.body.classList.add("leaving");
+        document.body.classList.add(
+          "leaving"
+        );
 
-      const target = this.href;
+        const target =
+          this.href;
 
-      setTimeout(() => {
+        setTimeout(
+          () => {
+            window.location.href =
+              target;
+          },
+          500
+        );
 
-        window.location.href = target;
-
-      }, 500);
-
-    });
+      }
+    );
 
   });
 
 
-/* =========================================
-   MOUSE EFFECT
-========================================= */
+
+/* =================================================
+   CURSOR
+================================================= */
 
 const cursor =
   document.querySelector(".cursor");
 
-const background =
-  document.querySelector(".background");
 
-let mouseX = 0;
-let mouseY = 0;
+document.addEventListener(
+  "mousemove",
+  e => {
 
-document.addEventListener("mousemove", e => {
-
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-
-  if(cursor){
+    if(!cursor) return;
 
     cursor.style.left =
-      mouseX + "px";
+      e.clientX + "px";
 
     cursor.style.top =
-      mouseY + "px";
+      e.clientY + "px";
 
   }
-
-  document.body.classList.add(
-    "mouse-active"
-  );
-
-});
+);
 
 
-/* =========================================
-   BACKGROUND PARALLAX
-========================================= */
 
-document.addEventListener("mousemove", e => {
-
-  if(!background) return;
-
-  const x =
-    (e.clientX / window.innerWidth - .5);
-
-  const y =
-    (e.clientY / window.innerHeight - .5);
-
-  background.style.transform =
-    `scale(1.06)
-     translate(${x * -8}px,${y * -5}px)`;
-
-});
-
-
-/* =========================================
+/* =================================================
    HOVER CURSOR
-========================================= */
+================================================= */
 
 document
-  .querySelectorAll("a,.info-card,.tag")
+  .querySelectorAll(
+    "a,.info-card,.tag"
+  )
   .forEach(el => {
 
-    el.addEventListener("mouseenter", () => {
+    el.addEventListener(
+      "mouseenter",
+      () => {
 
-      cursor?.classList.add("active");
+        cursor?.classList.add(
+          "active"
+        );
 
-    });
+      }
+    );
 
-    el.addEventListener("mouseleave", () => {
+    el.addEventListener(
+      "mouseleave",
+      () => {
 
-      cursor?.classList.remove("active");
+        cursor?.classList.remove(
+          "active"
+        );
 
-    });
+      }
+    );
 
   });
 
 
-/* =========================================
-   CLICK EFFECT
-========================================= */
 
-document.addEventListener("click", e => {
+/* =================================================
+   BACKGROUND PARALLAX
+================================================= */
 
-  const flash =
-    document.createElement("div");
-
-  flash.className =
-    "click-flash";
-
-  flash.style.left =
-    e.clientX + "px";
-
-  flash.style.top =
-    e.clientY + "px";
-
-  document.body.appendChild(flash);
-
-  setTimeout(() => {
-
-    flash.remove();
-
-  }, 450);
-
-});
-
-
-/* =========================================
-   MOBILE / TOUCH
-========================================= */
-
-if("ontouchstart" in window){
-
-  document.body.classList.add(
-    "touch-device"
+const background =
+  document.querySelector(
+    ".background"
   );
 
-}
+
+document.addEventListener(
+  "mousemove",
+  e => {
+
+    if(!background) return;
+
+    const x =
+      e.clientX /
+      window.innerWidth -
+      .5;
+
+    const y =
+      e.clientY /
+      window.innerHeight -
+      .5;
+
+    background.style.transform =
+      `
+      scale(1.025)
+      translate(
+        ${x * -5}px,
+        ${y * -3}px
+      )
+      `;
+
+  }
+);
+
+
+
+/* =================================================
+   TAROT LIGHT
+================================================= */
+
+const tarotZone =
+  document.querySelector(
+    ".tarot-zone"
+  );
+
+const tarotLight =
+  document.querySelector(
+    ".tarot-light"
+  );
+
+
+document.addEventListener(
+  "mousemove",
+  e => {
+
+    if(!tarotZone || !tarotLight)
+      return;
+
+    /*
+      只在左侧区域显示塔罗牌光晕
+    */
+
+    if(
+      e.clientX <
+      window.innerWidth * .55
+    ){
+
+      tarotLight.style.left =
+        e.clientX + "px";
+
+      tarotLight.style.top =
+        e.clientY + "px";
+
+      tarotLight.style.opacity =
+        ".45";
+
+    }else{
+
+      tarotLight.style.opacity =
+        "0";
+
+    }
+
+  }
+);
+
+
+
+/* =================================================
+   CLICK EFFECT
+================================================= */
+
+document.addEventListener(
+  "click",
+  e => {
+
+    const flash =
+      document.createElement(
+        "div"
+      );
+
+    flash.className =
+      "click-flash";
+
+    flash.style.left =
+      e.clientX + "px";
+
+    flash.style.top =
+      e.clientY + "px";
+
+    document.body.appendChild(
+      flash
+    );
+
+    setTimeout(
+      () => {
+        flash.remove();
+      },
+      450
+    );
+
+  }
+);
+
 
 </script>
 
