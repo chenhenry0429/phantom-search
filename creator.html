@@ -2,1813 +2,1497 @@
 <html lang="zh-CN">
 
 <head>
-
 <meta charset="utf-8">
-
-<meta name="viewport"
-      content="width=device-width,initial-scale=1">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CREATOR — PHANTOM SEARCH</title>
 
 <style>
 
-/* =========================================================
-   PHANTOM SEARCH — CREATOR
-========================================================= */
-
 :root{
-  --red:#ef1023;
-  --black:#070707;
-  --white:#fffdf2;
-  --yellow:#ffe600;
+    --red:#ef1023;
+    --black:#070707;
+    --white:#fffdf2;
+    --yellow:#ffe600;
 }
 
 *{
-  box-sizing:border-box;
+    box-sizing:border-box;
 }
 
 html,
 body{
-  margin:0;
-  padding:0;
-  width:100%;
-  min-height:100%;
+    margin:0;
+    width:100%;
+    min-height:100%;
 }
 
 body{
-  min-height:100vh;
-  overflow:hidden;
+    min-height:100vh;
+    overflow:hidden;
 
-  color:var(--white);
+    font-family:
+        Impact,
+        "Arial Black",
+        "Microsoft YaHei",
+        sans-serif;
 
-  font-family:
-    Impact,
-    "Arial Black",
-    "Microsoft YaHei",
-    sans-serif;
+    color:var(--white);
 
-  background:#070707;
+    /*
+    ==========================================
+    这里就是你的原始背景
+    不对图片进行任何修改
+    ==========================================
+    */
+    background-image:url("assets/creator-bg.png");
+    background-size:cover;
+    background-position:center center;
+    background-repeat:no-repeat;
+
+    background-color:#050505;
 }
 
 
-/* =========================================================
-   ORIGINAL BACKGROUND
-   不修改 creator-bg.png
-========================================================= */
+/* ==========================================
+   页面暗色保护层
+   只保证右侧文字清晰
+   不会覆盖左侧人物
+========================================== */
 
-.background{
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
 
-  position:fixed;
-  inset:0;
+    pointer-events:none;
 
-  z-index:0;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,0) 0%,
+            rgba(0,0,0,0) 48%,
+            rgba(0,0,0,.18) 65%,
+            rgba(0,0,0,.28) 100%
+        );
 
-  background-image:
-    url("assets/creator-bg.png");
-
-  background-size:cover;
-
-  background-position:center center;
-
-  background-repeat:no-repeat;
-
-  transform:scale(1.01);
-
-  transition:
-    transform .7s
-    cubic-bezier(.2,.8,.2,1);
+    z-index:1;
 }
 
 
-/* =========================================================
-   DARK GRADIENT
-========================================================= */
-
-.overlay{
-
-  position:fixed;
-  inset:0;
-
-  z-index:1;
-
-  pointer-events:none;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0,0,0,0) 0%,
-      rgba(0,0,0,.02) 42%,
-      rgba(0,0,0,.18) 57%,
-      rgba(0,0,0,.66) 79%,
-      rgba(0,0,0,.90) 100%
-    );
-}
-
-
-/* =========================================================
-   TOP BUTTONS
-========================================================= */
+/* ==========================================
+   顶部按钮
+========================================== */
 
 .top{
+    position:fixed;
 
-  position:fixed;
+    top:22px;
+    right:28px;
 
-  top:22px;
-  right:4.5vw;
+    display:flex;
+    gap:12px;
 
-  z-index:50;
-
-  display:flex;
-  gap:12px;
+    z-index:50;
 }
-
 
 .top a{
+    display:block;
 
-  display:block;
+    padding:9px 16px;
 
-  padding:
-    9px 16px;
+    color:var(--black);
+    background:var(--white);
 
-  color:var(--black);
+    border:3px solid var(--black);
 
-  background:var(--white);
+    box-shadow:4px 4px 0 var(--black);
 
-  border:
-    3px solid var(--black);
+    text-decoration:none;
 
-  box-shadow:
-    5px 5px 0 var(--black);
+    font-family:
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
 
-  text-decoration:none;
+    font-size:13px;
+    font-weight:900;
 
-  font-size:14px;
+    transform:skew(-6deg);
 
-  transform:
-    skew(-7deg);
-
-  transition:
-    .18s ease;
+    transition:
+        transform .15s ease,
+        background .15s ease;
 }
-
 
 .top a:first-child{
-  background:var(--yellow);
+    background:var(--yellow);
 }
-
 
 .top a:hover{
+    transform:
+        skew(-6deg)
+        translate(-2px,-2px);
 
-  transform:
-    skew(-7deg)
-    translate(-3px,-3px);
-
-  background:var(--red);
-
-  color:var(--white);
+    box-shadow:6px 6px 0 var(--black);
 }
 
 
-/* =========================================================
-   MAIN CONTENT
-========================================================= */
+/* ==========================================
+   主页面
+========================================== */
 
 main{
+    position:relative;
 
-  position:relative;
+    width:100%;
+    min-height:100vh;
 
-  z-index:10;
-
-  min-height:100vh;
-
-  display:flex;
-
-  justify-content:flex-end;
-
-  align-items:center;
-
-  padding:
-    75px
-    clamp(35px,5vw,90px)
-    40px;
+    z-index:5;
 }
 
 
-/* =========================================================
-   RIGHT CONTENT
-========================================================= */
+/* ==========================================
+   右侧内容区域
+========================================== */
 
-.content{
+.profile{
+    position:absolute;
 
-  width:
-    clamp(
-      520px,
-      39vw,
-      720px
-    );
+    /*
+    右侧内容位置
+    */
+    left:58%;
+    top:8%;
 
-  margin-right:
-    clamp(
-      5px,
-      1vw,
-      25px
-    );
+    width:39%;
+    max-width:620px;
+
+    z-index:20;
 }
 
 
-/* =========================================================
-   LABEL
-========================================================= */
+/* 小标签 */
 
 .tag{
+    display:inline-block;
 
-  display:inline-block;
+    padding:8px 14px;
 
-  padding:
-    8px 15px;
+    color:var(--black);
+    background:var(--yellow);
 
-  color:var(--black);
+    border:3px solid var(--black);
 
-  background:var(--yellow);
+    box-shadow:5px 5px 0 var(--black);
 
-  border:
-    4px solid var(--black);
+    font-size:12px;
 
-  box-shadow:
-    6px 6px 0 var(--black);
-
-  transform:
-    rotate(-2deg);
-
-  font-size:14px;
+    transform:rotate(-2deg);
 }
 
 
-/* =========================================================
-   TITLE
-========================================================= */
+/* ==========================================
+   标题
+========================================== */
 
 h1{
+    margin:30px 0 20px;
 
-  margin:
-    27px 0 24px;
+    font-size:
+        clamp(65px,7vw,105px);
 
-  font-size:
-    clamp(
-      70px,
-      7.2vw,
-      120px
-    );
+    line-height:.82;
 
-  line-height:.77;
+    letter-spacing:-.05em;
 
-  letter-spacing:-.065em;
+    color:var(--white);
 
-  color:var(--white);
+    -webkit-text-stroke:3px var(--black);
 
-  text-shadow:
-    9px 9px 0 var(--black);
+    text-shadow:
+        8px 8px 0 var(--black);
 
-  -webkit-text-stroke:
-    3px var(--black);
-
-  transform:
-    rotate(-3deg);
+    transform:rotate(-2deg);
 }
-
 
 h1 span{
+    display:inline-block;
 
-  display:inline-block;
+    color:var(--red);
 
-  padding:
-    2px 12px 3px 9px;
+    -webkit-text-stroke:3px var(--black);
 
-  color:var(--red);
+    text-shadow:
+        5px 5px 0 var(--white);
 
-  background:var(--white);
-
-  clip-path:
-    polygon(
-      2% 4%,
-      100% 0,
-      97% 93%,
-      0 100%
-    );
+    transform:translateX(5px);
 }
 
 
-/* =========================================================
-   PROFILE
-========================================================= */
+/* ==========================================
+   个人介绍
+========================================== */
 
 .intro{
+    position:relative;
 
-  position:relative;
+    padding:24px 26px 22px;
 
-  padding:
-    17px 21px 19px;
+    background:rgba(5,5,5,.92);
 
-  background:
-    rgba(5,5,5,.94);
+    border-left:7px solid var(--red);
 
-  border-left:
-    8px solid var(--red);
+    box-shadow:
+        9px 9px 0 rgba(0,0,0,.85);
 
-  box-shadow:
-    9px 9px 0 rgba(0,0,0,.75);
-
-  transform:
-    rotate(-1deg);
+    transform:rotate(-1deg);
 }
-
 
 .intro::before{
+    content:"PROFILE";
 
-  content:"PROFILE";
+    position:absolute;
 
-  position:absolute;
+    right:-2px;
+    top:-18px;
 
-  top:-17px;
-  right:0;
+    padding:5px 10px;
 
-  padding:
-    5px 10px;
+    background:var(--red);
 
-  color:var(--white);
+    color:white;
 
-  background:var(--red);
+    font-size:10px;
 
-  border:
-    3px solid var(--black);
-
-  font-size:10px;
-
-  transform:
-    rotate(3deg);
+    transform:rotate(2deg);
 }
-
 
 .intro h2{
+    margin:0 0 12px;
 
-  margin:
-    0 0 9px;
+    color:var(--yellow);
 
-  color:var(--yellow);
+    font-size:30px;
 
-  font-size:
-    clamp(
-      27px,
-      2.2vw,
-      37px
-    );
+    line-height:1;
 }
-
 
 .intro p{
+    margin:0;
 
-  margin:0;
+    font-family:
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
 
-  color:var(--white);
+    font-size:15px;
 
-  font-family:
-    "Microsoft YaHei",
-    "PingFang SC",
-    sans-serif;
+    line-height:1.8;
 
-  font-size:
-    clamp(
-      13px,
-      1vw,
-      16px
-    );
-
-  line-height:1.75;
-
-  font-weight:700;
+    font-weight:700;
 }
 
 
-/* =========================================================
-   INFO
-========================================================= */
+/* ==========================================
+   技能卡片
+========================================== */
 
-.info{
+.skills{
+    margin-top:24px;
 
-  display:grid;
+    display:grid;
 
-  grid-template-columns:
-    repeat(2,1fr);
+    grid-template-columns:1fr 1fr;
 
-  gap:13px;
+    gap:12px;
+}
 
-  margin-top:20px;
+.skill{
+    min-height:72px;
+
+    padding:13px 16px;
+
+    color:var(--black);
+
+    background:var(--white);
+
+    border:3px solid var(--black);
+
+    box-shadow:5px 5px 0 var(--black);
+
+    font-family:
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
+
+    font-weight:900;
+
+    transform:rotate(-1deg);
+
+    transition:
+        transform .18s ease;
+}
+
+.skill:nth-child(even){
+    transform:rotate(1deg);
+}
+
+.skill:hover{
+    transform:
+        translate(-3px,-3px)
+        rotate(-1deg);
+
+    background:var(--yellow);
+}
+
+.skill small{
+    display:block;
+
+    margin-bottom:7px;
+
+    font-family:Impact,"Arial Black",sans-serif;
+
+    font-size:13px;
+}
+
+.skill span{
+    font-size:12px;
 }
 
 
-.info-card{
-
-  min-height:68px;
-
-  padding:
-    11px 14px;
-
-  color:var(--black);
-
-  background:var(--white);
-
-  border:
-    4px solid var(--black);
-
-  box-shadow:
-    6px 6px 0 var(--black);
-
-  transition:
-    .18s ease;
-}
-
-
-.info-card:nth-child(1){
-  transform:rotate(-1deg);
-}
-
-.info-card:nth-child(2){
-  transform:rotate(1deg);
-}
-
-.info-card:nth-child(3){
-  transform:rotate(1deg);
-}
-
-.info-card:nth-child(4){
-  transform:rotate(-1deg);
-}
-
-
-.info-card:hover{
-
-  background:var(--yellow);
-
-  transform:
-    translateY(-4px)
-    rotate(-1deg);
-}
-
-
-.info-card strong{
-
-  display:block;
-
-  margin-bottom:6px;
-
-  font-size:15px;
-}
-
-
-.info-card span{
-
-  display:block;
-
-  font-family:
-    "Microsoft YaHei",
-    "PingFang SC",
-    sans-serif;
-
-  font-size:12px;
-
-  line-height:1.4;
-
-  font-weight:700;
-}
-
-
-/* =========================================================
-   PROJECT
-========================================================= */
+/* ==========================================
+   PHANTOM SEARCH 红色介绍块
+========================================== */
 
 .project{
+    margin-top:20px;
 
-  position:relative;
+    padding:17px 20px;
 
-  margin-top:20px;
+    background:var(--red);
 
-  padding:
-    14px 18px;
+    border:3px solid var(--black);
 
-  color:var(--white);
+    box-shadow:6px 6px 0 var(--black);
 
-  background:var(--red);
-
-  border:
-    4px solid var(--black);
-
-  box-shadow:
-    7px 7px 0 var(--black);
-
-  transform:
-    rotate(1deg);
+    transform:rotate(-1deg);
 }
 
+.project h3{
+    margin:0 0 7px;
 
-.project::after{
+    color:var(--yellow);
 
-  content:"↗";
-
-  position:absolute;
-
-  top:5px;
-  right:15px;
-
-  color:var(--yellow);
-
-  font-size:27px;
+    font-size:20px;
 }
-
-
-.project strong{
-
-  display:block;
-
-  margin-bottom:5px;
-
-  color:var(--yellow);
-
-  font-size:18px;
-}
-
 
 .project p{
+    margin:0;
 
-  margin:0;
+    font-family:
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
 
-  max-width:92%;
+    font-size:13px;
 
-  font-family:
-    "Microsoft YaHei",
-    "PingFang SC",
-    sans-serif;
+    line-height:1.7;
 
-  font-size:12px;
-
-  line-height:1.6;
-
-  font-weight:700;
+    font-weight:700;
 }
 
 
-/* =========================================================
-   SIGNATURE
-========================================================= */
+/* ==========================================
+   底部署名
+========================================== */
 
 .signature{
+    display:inline-block;
 
-  display:inline-block;
+    margin-top:22px;
 
-  margin-top:18px;
+    padding:6px 10px;
 
-  padding:
-    6px 10px;
+    background:var(--black);
 
-  background:var(--black);
+    color:var(--white);
 
-  color:var(--white);
+    font-size:10px;
 
-  font-size:11px;
-
-  transform:rotate(-3deg);
+    transform:rotate(-2deg);
 }
-
 
 .signature span{
-  color:var(--yellow);
+    color:var(--yellow);
 }
 
 
 /* =========================================================
    =========================================================
-   3D TAROT CARD
+
+                  TAROT CARD
+
    =========================================================
-
-   这里是这一次最重要的部分。
-
-   这个元素不是普通图片。
-
-   它是一张真正的“翻牌”。
-
-   front = 你的照片
-   back  = 透明，让下面 creator-bg.png
-           原本的塔罗牌露出来
-
-========================================================= */
-
-.tarot-wrap{
-
-  position:fixed;
-
-  z-index:25;
-
-  /*
-    这个位置对应你截图里的原塔罗牌
-  */
-
-  left:
-    26.5vw;
-
-  top:
-    8.0vh;
-
-  width:
-    clamp(
-      185px,
-      13.5vw,
-      275px
-    );
-
-  aspect-ratio:
-    0.60;
-
-  perspective:
-    1200px;
-
-  cursor:pointer;
-
-  /*
-    让它整体有一点漂浮感
-  */
-
-  filter:
-    drop-shadow(
-      10px 12px 0 rgba(0,0,0,.55)
-    );
-
-  transition:
-    filter .25s ease;
-}
+   ========================================================= */
 
 
-.tarot-wrap:hover{
+/*
+    卡牌场景
 
-  filter:
-    drop-shadow(
-      13px 15px 0 rgba(0,0,0,.68)
-    );
-}
+    这个位置专门对应你背景图片里
+    人物手中的塔罗牌。
 
+    如果以后还需要微调，只需要改这里：
+*/
 
-/* =========================================================
-   CARD
-========================================================= */
+.card-scene{
 
-.tarot-card{
+    position:absolute;
 
-  position:relative;
+    /*
+    ↓↓↓ 卡牌位置 ↓↓↓
 
-  width:100%;
-  height:100%;
+    当前设置：
+    左边大约 40%
+    顶部大约 8%
+    */
 
-  transform-style:
-    preserve-3d;
+    left:40.5%;
+    top:7.5%;
 
-  transform:
-    rotate(10deg);
+    width:285px;
+    height:450px;
 
-  transition:
-    transform
-    .72s
-    cubic-bezier(.2,.75,.15,1);
+    z-index:30;
+
+    perspective:1200px;
+
+    cursor:pointer;
+
+    /*
+    整张卡牌倾斜，
+    与背景中原本塔罗牌的角度接近
+    */
+
+    transform:
+        rotate(8deg);
+
 }
 
 
 /*
-   点击以后：
-
-   Y轴旋转180度
-
-   原本的 front
-   ↓
-   变成背面
-
-   原本的 back
-   ↓
-   转到正面
+    鼠标提示
 */
 
-.tarot-wrap.flipped
-.tarot-card{
+.card-scene::after{
 
-  transform:
-    rotate(10deg)
-    rotateY(180deg);
+    content:"CLICK TO FLIP";
+
+    position:absolute;
+
+    left:50%;
+    bottom:-45px;
+
+    transform:
+        translateX(-50%)
+        rotate(-8deg);
+
+    padding:7px 12px;
+
+    color:var(--black);
+
+    background:var(--yellow);
+
+    border:3px solid var(--black);
+
+    box-shadow:4px 4px 0 var(--black);
+
+    font-size:10px;
+
+    white-space:nowrap;
+
+    pointer-events:none;
 }
 
 
-/* =========================================================
-   FRONT / BACK
-========================================================= */
+/*
+    真正负责翻转的元素
+*/
 
-.tarot-face{
+.card-inner{
 
-  position:absolute;
+    position:relative;
 
-  inset:0;
+    width:100%;
+    height:100%;
 
-  width:100%;
-  height:100%;
+    transform-style:preserve-3d;
 
-  backface-visibility:
-    hidden;
+    transition:
+        transform .8s
+        cubic-bezier(.2,.8,.2,1);
 
-  -webkit-backface-visibility:
-    hidden;
-
-  transform-style:
-    preserve-3d;
-
-  border-radius:2px;
 }
 
 
-/* =========================================================
-   FRONT
-   你的照片
-========================================================= */
+/*
+    点击之后 JS 会给这里添加 flip
+*/
 
-.tarot-front{
+.card-scene.flipped .card-inner{
 
-  overflow:hidden;
+    transform:rotateY(180deg);
 
-  background:
-    #070707;
-
-  border:
-    5px solid var(--black);
-
-  /*
-    注意：
-
-    这里完全不使用 filter。
-
-    你的照片是什么样，
-    就是什么样。
-  */
-
-  box-shadow:
-    inset 0 0 0 3px var(--yellow),
-    inset 0 0 0 7px var(--black);
 }
 
 
-.tarot-front img{
+/* ==========================================
+   卡牌正面 / 背面共同设置
+========================================== */
 
-  position:absolute;
+.card-face{
 
-  left:7%;
+    position:absolute;
 
-  top:6%;
+    inset:0;
 
-  width:86%;
+    width:100%;
+    height:100%;
 
-  height:88%;
+    border:6px solid var(--black);
 
-  object-fit:cover;
+    box-shadow:
+        10px 10px 0 rgba(0,0,0,.85);
 
-  /*
-    不修改照片颜色
-  */
+    backface-visibility:hidden;
 
-  filter:none;
+    -webkit-backface-visibility:hidden;
 
-  /*
-    保持原照片比例。
-    如果以后觉得人物太靠上，
-    只需要调整 object-position。
-  */
+    overflow:hidden;
 
-  object-position:
-    center center;
-
-  display:block;
-
-  border:
-    2px solid var(--yellow);
-
-  box-shadow:
-    0 0 0 2px var(--black);
-
-  background:#111;
 }
 
 
-/* =========================================================
-   PHOTO CARD DECORATION
-========================================================= */
+/* ==========================================
+   正面：你的照片
+========================================== */
 
-.tarot-front::before{
+.card-front{
 
-  content:"CREATOR";
+    background:var(--black);
 
-  position:absolute;
+    transform:rotateY(0deg);
 
-  z-index:4;
-
-  left:8%;
-
-  bottom:3.5%;
-
-  padding:
-    3px 7px;
-
-  color:var(--black);
-
-  background:var(--yellow);
-
-  border:
-    2px solid var(--black);
-
-  font-family:
-    Impact,
-    "Arial Black",
-    sans-serif;
-
-  font-size:
-    clamp(
-      8px,
-      .65vw,
-      12px
-    );
-
-  letter-spacing:.05em;
 }
 
 
-.tarot-front::after{
+/*
+    你的照片
 
-  content:"陈植轩";
+    完全使用 creator-photo.png
+*/
 
-  position:absolute;
+.card-front img{
 
-  z-index:4;
+    display:block;
 
-  right:8%;
+    width:100%;
+    height:100%;
 
-  bottom:3.5%;
+    object-fit:cover;
 
-  color:var(--white);
+    object-position:center center;
 
-  font-family:
-    "Microsoft YaHei",
-    sans-serif;
-
-  font-weight:900;
-
-  font-size:
-    clamp(
-      8px,
-      .65vw,
-      12px
-    );
-
-  text-shadow:
-    2px 2px 0 var(--black);
 }
 
 
-/* =========================================================
-   BACK
-   =========================================================
+/*
+    黄色内框
+*/
 
-   这里故意是透明的。
+.card-front::before{
 
-   原因：
+    content:"";
 
-   creator-bg.png 下面已经有一张真正的
-   塔罗牌。
+    position:absolute;
 
-   翻过去以后，
-   我们让这张透明背面消失在原背景塔罗牌上。
+    inset:12px;
 
-   所以你看到的会是：
-   原来的那张塔罗牌。
+    border:3px solid var(--yellow);
 
-========================================================= */
+    pointer-events:none;
 
-.tarot-back{
+    z-index:3;
 
-  background:
-    transparent;
-
-  border:
-    0;
-
-  transform:
-    rotateY(180deg);
-
-  pointer-events:none;
 }
 
 
-/* =========================================================
-   FLIP HINT
-========================================================= */
+/*
+    卡牌底部文字
+*/
 
-.tarot-hint{
+.card-front::after{
 
-  position:fixed;
+    content:"CREATOR  /  陈植轩";
 
-  z-index:27;
+    position:absolute;
 
-  left:
-    27.3vw;
+    left:18px;
+    bottom:17px;
 
-  top:
-    67vh;
+    padding:6px 10px;
 
-  padding:
-    6px 10px;
+    background:var(--yellow);
 
-  color:var(--black);
+    color:var(--black);
 
-  background:var(--yellow);
+    border:3px solid var(--black);
 
-  border:
-    3px solid var(--black);
+    font-family:
+        Impact,
+        "Arial Black",
+        sans-serif;
 
-  box-shadow:
-    4px 4px 0 var(--black);
+    font-size:11px;
 
-  font-size:11px;
+    z-index:4;
 
-  transform:
-    rotate(-4deg);
-
-  opacity:.9;
-
-  transition:
-    opacity .25s ease;
 }
 
 
-.tarot-wrap.flipped
-~ .tarot-hint{
+/* ==========================================
+   背面：塔罗牌
+========================================== */
 
-  opacity:0;
+.card-back{
+
+    transform:rotateY(180deg);
+
+    background:
+        radial-gradient(
+            circle at center,
+            #ef1023 0 4px,
+            transparent 5px
+        ),
+        linear-gradient(
+            45deg,
+            transparent 45%,
+            rgba(239,16,35,.9) 46%,
+            rgba(239,16,35,.9) 54%,
+            transparent 55%
+        ),
+        linear-gradient(
+            -45deg,
+            transparent 45%,
+            rgba(239,16,35,.9) 46%,
+            rgba(239,16,35,.9) 54%,
+            transparent 55%
+        ),
+        #080808;
+
+    background-size:
+        auto,
+        55px 55px,
+        55px 55px,
+        auto;
+
+    border-color:#d9b84a;
+
 }
 
 
-/* =========================================================
-   CUSTOM CURSOR
-========================================================= */
+/*
+    塔罗牌背面的双层金框
+*/
 
-.cursor{
+.card-back::before{
 
-  position:fixed;
+    content:"";
 
-  left:0;
-  top:0;
+    position:absolute;
 
-  z-index:100;
+    inset:15px;
 
-  width:16px;
-  height:16px;
+    border:
+        3px solid #d9b84a;
 
-  border-radius:50%;
+    box-shadow:
+        inset 0 0 0 5px #080808,
+        inset 0 0 0 8px #d9b84a;
 
-  background:var(--yellow);
-
-  border:
-    3px solid var(--black);
-
-  box-shadow:
-    0 0 0 5px
-    rgba(239,16,35,.35);
-
-  pointer-events:none;
-
-  transform:
-    translate(-50%,-50%);
-
-  transition:
-    width .15s ease,
-    height .15s ease,
-    background .15s ease;
 }
 
 
-.cursor.active{
+/*
+    中间圆形图案
+*/
 
-  width:26px;
-  height:26px;
+.card-back::after{
 
-  background:var(--red);
+    content:"✦";
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    width:125px;
+    height:125px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border:
+        4px solid #d9b84a;
+
+    border-radius:50%;
+
+    color:#d9b84a;
+
+    font-size:70px;
+
+    text-shadow:
+        0 0 15px rgba(217,184,74,.5);
+
 }
 
 
-/* =========================================================
-   CLICK FLASH
-========================================================= */
+/*
+    卡牌顶部编号
+*/
 
-.click-flash{
+.tarot-number{
 
-  position:fixed;
+    position:absolute;
 
-  z-index:101;
+    left:50%;
+    top:27px;
 
-  width:10px;
-  height:10px;
+    transform:
+        translateX(-50%);
 
-  border:
-    3px solid var(--yellow);
+    z-index:5;
 
-  border-radius:50%;
+    color:#d9b84a;
 
-  pointer-events:none;
+    font-family:
+        Georgia,
+        serif;
 
-  transform:
-    translate(-50%,-50%);
+    font-size:24px;
 
-  animation:
-    clickFlash
-    .42s
-    cubic-bezier(.2,.8,.2,1)
-    forwards;
+    font-weight:bold;
 }
 
+
+/*
+    卡牌底部名称
+*/
+
+.tarot-name{
+
+    position:absolute;
+
+    left:50%;
+    bottom:26px;
+
+    transform:
+        translateX(-50%);
+
+    z-index:5;
+
+    color:#d9b84a;
+
+    font-family:
+        Impact,
+        "Arial Black",
+        sans-serif;
+
+    font-size:16px;
+
+    letter-spacing:2px;
+}
+
+
+/* ==========================================
+   鼠标跟随小圆点
+========================================== */
+
+.cursor-dot{
+
+    position:fixed;
+
+    width:14px;
+    height:14px;
+
+    border-radius:50%;
+
+    background:var(--yellow);
+
+    border:3px solid var(--black);
+
+    box-shadow:
+        0 0 0 5px rgba(239,16,35,.4);
+
+    pointer-events:none;
+
+    z-index:100;
+
+    transform:
+        translate(-50%,-50%);
+
+}
+
+
+/* ==========================================
+   点击爆点
+========================================== */
+
+.click-effect{
+
+    position:fixed;
+
+    width:12px;
+    height:12px;
+
+    border:3px solid var(--yellow);
+
+    border-radius:50%;
+
+    pointer-events:none;
+
+    z-index:101;
+
+    transform:
+        translate(-50%,-50%);
+
+    animation:
+        clickFlash .45s
+        cubic-bezier(.2,.8,.2,1)
+        forwards;
+}
 
 @keyframes clickFlash{
 
-  from{
+    0%{
+        opacity:1;
+        transform:
+            translate(-50%,-50%)
+            scale(1);
+    }
 
-    opacity:1;
+    100%{
+        opacity:0;
+        transform:
+            translate(-50%,-50%)
+            scale(5);
+    }
 
-    transform:
-      translate(-50%,-50%)
-      scale(1);
-  }
-
-  to{
-
-    opacity:0;
-
-    transform:
-      translate(-50%,-50%)
-      scale(6);
-  }
 }
 
 
-/* =========================================================
-   PAGE TRANSITION
-========================================================= */
+/* ==========================================
+   页面转场
+========================================== */
 
 .transition{
 
-  position:fixed;
+    position:fixed;
 
-  inset:0;
+    inset:0;
 
-  z-index:200;
+    background:var(--red);
 
-  background:var(--red);
+    z-index:200;
 
-  opacity:0;
+    pointer-events:none;
 
-  pointer-events:none;
+    opacity:0;
 
-  clip-path:
-    polygon(
-      0 100%,
-      100% 100%,
-      100% 100%,
-      0 100%
-    );
+    clip-path:
+        polygon(
+            0 100%,
+            100% 100%,
+            100% 100%,
+            0 100%
+        );
 
-  transition:
-    opacity .12s,
-    clip-path .5s
-    cubic-bezier(.77,0,.18,1);
+    transition:
+        opacity .15s,
+        clip-path .5s
+        cubic-bezier(.77,0,.18,1);
+
 }
-
 
 body.leaving .transition{
 
-  opacity:1;
+    opacity:1;
 
-  clip-path:
-    polygon(
-      0 0,
-      100% 7%,
-      100% 100%,
-      0 93%
-    );
+    clip-path:
+        polygon(
+            0 0,
+            100% 8%,
+            100% 100%,
+            0 92%
+        );
+
 }
 
 
 /* =========================================================
-   RESPONSIVE
+   响应式
 ========================================================= */
 
 @media(max-width:1000px){
 
-  .content{
+    .profile{
 
-    width:
-      min(
-        570px,
-        48vw
-      );
-  }
+        left:56%;
+        width:42%;
 
+    }
 
-  .tarot-wrap{
+    .card-scene{
 
-    left:
-      24vw;
+        left:38%;
 
-    width:
-      clamp(
-        175px,
-        16vw,
-        245px
-      );
-  }
+        width:250px;
+        height:395px;
 
-
-  .tarot-hint{
-
-    left:
-      24.5vw;
-  }
+    }
 
 }
 
 
 @media(max-width:800px){
 
-  body{
-    overflow:auto;
-  }
+    body{
 
+        overflow:auto;
 
-  main{
+        background-position:
+            35% center;
 
-    justify-content:center;
+    }
 
-    align-items:flex-end;
+    .top{
 
-    padding:
-      100px 20px 40px;
-  }
+        top:14px;
+        right:14px;
 
+    }
 
-  .content{
+    .top a{
 
-    width:
-      min(
-        650px,
-        94vw
-      );
+        padding:7px 10px;
 
-    margin:0;
-  }
+        font-size:11px;
 
+    }
 
-  /*
-    手机上背景会重新裁切，
-    所以关闭独立翻牌位置。
-  */
+    .profile{
 
-  .tarot-wrap,
-  .tarot-hint{
+        position:relative;
 
-    display:none;
-  }
+        left:auto;
+        top:auto;
 
+        width:auto;
 
-  .overlay{
+        margin-left:48%;
+        padding:
+            100px 20px 40px;
 
-    background:
-      linear-gradient(
-        90deg,
-        rgba(0,0,0,.18),
-        rgba(0,0,0,.90)
-      );
-  }
+    }
+
+    h1{
+
+        font-size:62px;
+
+    }
+
+    .card-scene{
+
+        left:17%;
+        top:15%;
+
+        width:210px;
+        height:335px;
+
+    }
+
+    .skills{
+
+        grid-template-columns:1fr;
+
+    }
 
 }
 
 
 @media(max-width:600px){
 
-  .top{
+    .profile{
 
-    top:13px;
-    right:12px;
+        margin-left:0;
 
-    gap:7px;
-  }
+        padding:
+            500px 20px 40px;
 
+    }
 
-  .top a{
+    .card-scene{
 
-    padding:
-      8px 10px;
+        left:50%;
 
-    font-size:11px;
-  }
+        top:80px;
 
+        width:205px;
+        height:325px;
 
-  main{
+        transform:
+            translateX(-50%)
+            rotate(7deg);
 
-    padding:
-      85px 14px 30px;
-  }
+    }
 
+    .intro{
 
-  h1{
+        padding:20px;
 
-    font-size:
-      clamp(
-        55px,
-        17vw,
-        82px
-      );
-  }
+    }
 
+    h1{
 
-  .info{
+        font-size:56px;
 
-    grid-template-columns:1fr;
-  }
-
-
-  .cursor{
-
-    display:none;
-  }
+    }
 
 }
 
 
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
+/* ==========================================
+   减少动画模式
+========================================== */
 
 @media(prefers-reduced-motion:reduce){
 
-  *,
-  *::before,
-  *::after{
+    *{
 
-    animation:none!important;
+        animation:none!important;
 
-    transition:none!important;
-  }
+        transition:none!important;
+
+    }
 
 }
 
 </style>
-
 </head>
 
 
 <body>
 
 
-<!-- =====================================================
-     ORIGINAL BACKGROUND
-===================================================== -->
-
-<div class="background"></div>
-
-<div class="overlay"></div>
-
-
-<!-- =====================================================
-     3D TAROT
-===================================================== -->
-
-<div
-  class="tarot-wrap"
-  id="tarotWrap"
-  title="点击翻转塔罗牌"
->
-
-  <div
-    class="tarot-card"
-    id="tarotCard"
-  >
-
-
-    <!-- =================================================
-         FRONT
-         用户照片
-    ================================================== -->
-
-    <div
-      class="tarot-face tarot-front"
-    >
-
-      <img
-        src="assets/creator-photo.png"
-        alt="Creator Photo"
-      >
-
-    </div>
-
-
-    <!-- =================================================
-         BACK
-         透明，让原背景中的塔罗牌露出来
-    ================================================== -->
-
-    <div
-      class="tarot-face tarot-back"
-    ></div>
-
-
-  </div>
-
-</div>
-
-
-<!-- =====================================================
-     FLIP HINT
-===================================================== -->
-
-<div
-  class="tarot-hint"
->
-  CLICK THE CARD ↻
-</div>
-
-
-<!-- =====================================================
-     PAGE TRANSITION
-===================================================== -->
+<!-- 页面转场 -->
 
 <div class="transition"></div>
 
 
-<!-- =====================================================
-     NAVIGATION
-===================================================== -->
+<!-- 顶部导航 -->
 
 <header class="top">
 
-  <a
-    href="index.html"
-    data-transition
-  >
-    返回搜索
-  </a>
+    <a href="index.html" data-transition>
+        返回搜索
+    </a>
 
-  <a
-    href="feedback.html"
-    data-transition
-  >
-    反馈
-  </a>
+    <a href="feedback.html" data-transition>
+        反馈
+    </a>
 
 </header>
 
 
-<!-- =====================================================
-     MAIN CONTENT
-===================================================== -->
-
 <main>
 
-<section class="content">
+
+<!-- =====================================================
+     可翻转塔罗牌
+====================================================== -->
+
+<div
+    class="card-scene"
+    id="tarotCard"
+    aria-label="点击翻转创作者卡牌"
+>
+
+    <div class="card-inner" id="cardInner">
 
 
-  <div class="tag">
+        <!-- ================================
+             正面：你的照片
+        ================================= -->
 
-    PHANTOM CREATOR / PROFILE 01
+        <div class="card-face card-front">
 
-  </div>
+            <img
+                src="assets/creator-photo.png"
+                alt="陈植轩"
+            >
 
-
-  <h1>
-
-    CREATOR
-
-    <br>
-
-    <span>陈植轩</span>
-
-  </h1>
+        </div>
 
 
-  <div class="intro">
+        <!-- ================================
+             背面：塔罗牌
+        ================================= -->
 
-    <h2>
-      我是陈植轩
-    </h2>
+        <div class="card-face card-back">
 
-    <p>
+            <div class="tarot-number">
+                XIII
+            </div>
 
-      欢迎来到我的创作者档案。
-      PHANTOM SEARCH 是我正在制作的个人搜索引擎实验项目。
-      我希望通过网页设计、视觉语言与交互动画，
-      让一个普通的工具拥有属于自己的性格。
+            <div class="tarot-name">
+                PHANTOM
+            </div>
 
-    </p>
-
-  </div>
-
-
-  <div class="info">
+        </div>
 
 
-    <div class="info-card">
+    </div>
 
-      <strong>
-        DESIGN
-      </strong>
+</div>
 
-      <span>
-        WEB DESIGN / UI DESIGN
-      </span>
+
+<!-- =====================================================
+     右侧 Creator 信息
+====================================================== -->
+
+<div class="profile">
+
+
+    <div class="tag">
+        PHANTOM CREATOR / PROFILE 01
+    </div>
+
+
+    <h1>
+        CREATOR
+        <br>
+        <span>陈植轩</span>
+    </h1>
+
+
+    <section class="intro">
+
+        <h2>
+            我是陈植轩
+        </h2>
+
+        <p>
+            欢迎来到我的创作者档案。
+            PHANTOM SEARCH 是我正在制作的个人搜索引擎实验项目。
+            我希望通过网页设计、视觉语言与交互动画，
+            让一个普通的工具拥有属于自己的性格。
+        </p>
+
+    </section>
+
+
+    <!-- 技能 -->
+
+    <div class="skills">
+
+        <div class="skill">
+
+            <small>
+                DESIGN
+            </small>
+
+            <span>
+                WEB DESIGN / UI DESIGN
+            </span>
+
+        </div>
+
+
+        <div class="skill">
+
+            <small>
+                CODE
+            </small>
+
+            <span>
+                HTML / CSS / JAVASCRIPT
+            </span>
+
+        </div>
+
+
+        <div class="skill">
+
+            <small>
+                VISUAL
+            </small>
+
+            <span>
+                VISUAL DESIGN / CREATIVE CODING
+            </span>
+
+        </div>
+
+
+        <div class="skill">
+
+            <small>
+                PROJECT
+            </small>
+
+            <span>
+                PHANTOM SEARCH
+            </span>
+
+        </div>
 
     </div>
 
 
-    <div class="info-card">
+    <!-- 项目 -->
 
-      <strong>
-        CODE
-      </strong>
+    <section class="project">
 
-      <span>
-        HTML / CSS / JAVASCRIPT
-      </span>
+        <h3>
+            PHANTOM SEARCH
+        </h3>
 
-    </div>
+        <p>
+            一个具有怪盗团视觉气质的个人搜索入口。
+            搜索只是开始，真正重要的是寻找属于自己的答案。
+        </p>
 
-
-    <div class="info-card">
-
-      <strong>
-        VISUAL
-      </strong>
-
-      <span>
-        VISUAL DESIGN / CREATIVE CODING
-      </span>
-
-    </div>
+    </section>
 
 
-    <div class="info-card">
+    <!-- 签名 -->
 
-      <strong>
-        PROJECT
-      </strong>
+    <div class="signature">
 
-      <span>
-        PHANTOM SEARCH
-      </span>
+        CREATED BY
+        <span>陈植轩</span>
 
     </div>
 
 
-  </div>
+</div>
 
-
-  <div class="project">
-
-    <strong>
-      PHANTOM SEARCH
-    </strong>
-
-    <p>
-
-      一个具有怪盗团视觉气质的个人搜索入口。
-      搜索只是开始，真正重要的是寻找属于自己的答案。
-
-    </p>
-
-  </div>
-
-
-  <div class="signature">
-
-    CREATED BY
-
-    <span>
-      陈植轩
-    </span>
-
-  </div>
-
-
-</section>
 
 </main>
 
 
-<!-- =====================================================
-     CURSOR
-===================================================== -->
-
-<div class="cursor"></div>
-
-
 <script>
 
-
 /* =========================================================
-   TAROT FLIP
+   塔罗牌翻转
 ========================================================= */
 
-const tarotWrap =
-  document.getElementById(
-    "tarotWrap"
-  );
-
-
 const tarotCard =
-  document.getElementById(
-    "tarotCard"
-  );
+    document.getElementById("tarotCard");
 
-
-let flipped = false;
+const cardInner =
+    document.getElementById("cardInner");
 
 
 /*
-   点击塔罗牌
-
-   正面：
-   你的照片
-
-   翻转：
-   露出原来的塔罗牌
+    点击整张卡牌
 */
 
-tarotWrap.addEventListener(
-  "click",
-  () => {
+tarotCard.addEventListener("click", function(){
 
-    flipped = !flipped;
+    tarotCard.classList.toggle("flipped");
 
-    tarotWrap.classList.toggle(
-      "flipped",
-      flipped
-    );
-
-  }
-);
+});
 
 
 /* =========================================================
-   TAROT 3D MOUSE EFFECT
+   鼠标轻微立体效果
 ========================================================= */
 
-document.addEventListener(
-  "mousemove",
-  e => {
+let mouseX = 0;
+let mouseY = 0;
 
-    if(!tarotWrap || flipped)
-      return;
+document.addEventListener("mousemove", function(e){
+
+    mouseX =
+        (e.clientX / window.innerWidth - .5);
+
+    mouseY =
+        (e.clientY / window.innerHeight - .5);
 
 
     /*
-      只有没有翻转的时候
-      才让照片有轻微倾斜。
+        如果卡牌已经翻转，
+        也依然保留轻微倾斜
     */
 
-    const x =
-      e.clientX /
-      window.innerWidth -
-      .5;
+    const extraX =
+        mouseY * -5;
 
-    const y =
-      e.clientY /
-      window.innerHeight -
-      .5;
+    const extraY =
+        mouseX * 5;
 
 
-    tarotCard.style.transform =
+    if(
+        !tarotCard.matches(":hover")
+    ){
 
-      `
-      rotate(10deg)
-      rotateY(0deg)
-      rotateX(${y * -5}deg)
-      rotateZ(${x * 2}deg)
-      translate(
-        ${x * 3}px,
-        ${y * 3}px
-      )
-      `;
+        tarotCard.style.transform =
+            `rotate(8deg)
+             rotateX(${extraX}deg)
+             rotateY(${extraY}deg)`;
 
-  }
+    }
+
+});
+
+
+/* =========================================================
+   鼠标进入卡牌
+========================================================= */
+
+tarotCard.addEventListener(
+    "mouseenter",
+    function(){
+
+        tarotCard.style.transform =
+            "rotate(8deg) scale(1.025)";
+
+    }
 );
 
 
 /* =========================================================
-   CURSOR
+   鼠标离开卡牌
+========================================================= */
+
+tarotCard.addEventListener(
+    "mouseleave",
+    function(){
+
+        tarotCard.style.transform =
+            "rotate(8deg)";
+
+    }
+);
+
+
+/* =========================================================
+   自定义鼠标圆点
 ========================================================= */
 
 const cursor =
-  document.querySelector(
-    ".cursor"
-  );
+    document.createElement("div");
+
+cursor.className =
+    "cursor-dot";
+
+document.body.appendChild(cursor);
 
 
 document.addEventListener(
-  "mousemove",
-  e => {
+    "mousemove",
+    function(e){
 
-    if(!cursor)
-      return;
+        cursor.style.left =
+            e.clientX + "px";
 
-    cursor.style.left =
-      e.clientX + "px";
+        cursor.style.top =
+            e.clientY + "px";
 
-    cursor.style.top =
-      e.clientY + "px";
-
-  }
+    }
 );
 
 
 /* =========================================================
-   CURSOR HOVER
-========================================================= */
-
-document
-  .querySelectorAll(
-    "a,.info-card,.tag,.tarot-wrap"
-  )
-  .forEach(el => {
-
-    el.addEventListener(
-      "mouseenter",
-      () => {
-
-        if(cursor){
-
-          cursor.classList.add(
-            "active"
-          );
-
-        }
-
-      }
-    );
-
-
-    el.addEventListener(
-      "mouseleave",
-      () => {
-
-        if(cursor){
-
-          cursor.classList.remove(
-            "active"
-          );
-
-        }
-
-      }
-    );
-
-  });
-
-
-/* =========================================================
-   BACKGROUND PARALLAX
-========================================================= */
-
-const background =
-  document.querySelector(
-    ".background"
-  );
-
-
-document.addEventListener(
-  "mousemove",
-  e => {
-
-    if(!background)
-      return;
-
-
-    const x =
-      e.clientX /
-      window.innerWidth -
-      .5;
-
-    const y =
-      e.clientY /
-      window.innerHeight -
-      .5;
-
-
-    background.style.transform =
-
-      `
-      scale(1.01)
-      translate(
-        ${x * -3}px,
-        ${y * -2}px
-      )
-      `;
-
-  }
-);
-
-
-/* =========================================================
-   CLICK FLASH
+   点击视觉效果
 ========================================================= */
 
 document.addEventListener(
-  "click",
-  e => {
+    "click",
+    function(e){
 
-    /*
-      点击塔罗牌时也有视觉反馈
-    */
+        const flash =
+            document.createElement("div");
 
-    const flash =
-      document.createElement(
-        "div"
-      );
+        flash.className =
+            "click-effect";
 
+        flash.style.left =
+            e.clientX + "px";
 
-    flash.className =
-      "click-flash";
+        flash.style.top =
+            e.clientY + "px";
 
-
-    flash.style.left =
-      e.clientX + "px";
-
-    flash.style.top =
-      e.clientY + "px";
-
-
-    document.body.appendChild(
-      flash
-    );
-
-
-    setTimeout(
-      () => {
-
-        flash.remove();
-
-      },
-      430
-    );
-
-  }
-);
-
-
-/* =========================================================
-   PAGE TRANSITION
-========================================================= */
-
-document
-  .querySelectorAll(
-    "[data-transition]"
-  )
-  .forEach(link => {
-
-    link.addEventListener(
-      "click",
-      function(e){
-
-        e.preventDefault();
-
-        document.body.classList.add(
-          "leaving"
-        );
-
-        const target =
-          this.href;
-
+        document.body.appendChild(flash);
 
         setTimeout(
-          () => {
+            function(){
 
-            window.location.href =
-              target;
+                flash.remove();
 
-          },
-          500
+            },
+            450
         );
 
-      }
-    );
+    }
+);
 
-  });
 
+/* =========================================================
+   页面转场
+========================================================= */
+
+document
+    .querySelectorAll("[data-transition]")
+    .forEach(function(link){
+
+        link.addEventListener(
+            "click",
+            function(e){
+
+                e.preventDefault();
+
+                const target =
+                    this.href;
+
+                document.body
+                    .classList
+                    .add("leaving");
+
+
+                setTimeout(
+                    function(){
+
+                        window.location.href =
+                            target;
+
+                    },
+                    500
+                );
+
+            }
+        );
+
+    });
 
 </script>
 
-</body>
 
+</body>
 </html>
