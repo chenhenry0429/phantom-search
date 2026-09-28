@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
+
 <head>
 
 <meta charset="utf-8">
@@ -16,7 +17,7 @@
 
 /* =========================================================
    PHANTOM SEARCH
-   CREATOR PAGE
+   CREATOR PAGE V2
 ========================================================= */
 
 :root{
@@ -38,12 +39,14 @@ body{
 }
 
 body{
-  min-height:100vh;
-  overflow-x:hidden;
 
-  background:#070707;
+  min-height:100vh;
+
+  overflow:hidden;
 
   color:var(--white);
+
+  background:#070707;
 
   font-family:
     Impact,
@@ -54,7 +57,7 @@ body{
 
 
 /* =========================================================
-   BACKGROUND IMAGE
+   BACKGROUND
 ========================================================= */
 
 .background{
@@ -74,16 +77,16 @@ body{
 
   background-repeat:no-repeat;
 
-  transform:scale(1.02);
+  transform:scale(1.015);
 
   transition:
-    transform .8s
+    transform .7s
     cubic-bezier(.2,.8,.2,1);
 }
 
 
 /* =========================================================
-   DARK GRADIENT
+   DARK OVERLAY
 ========================================================= */
 
 .overlay{
@@ -101,21 +104,21 @@ body{
     linear-gradient(
       90deg,
 
-      rgba(0,0,0,.02) 0%,
+      rgba(0,0,0,0) 0%,
 
-      rgba(0,0,0,.02) 40%,
+      rgba(0,0,0,.02) 42%,
 
-      rgba(0,0,0,.18) 52%,
+      rgba(0,0,0,.25) 58%,
 
-      rgba(0,0,0,.65) 72%,
+      rgba(0,0,0,.72) 78%,
 
-      rgba(0,0,0,.88) 100%
+      rgba(0,0,0,.92) 100%
     );
 }
 
 
 /* =========================================================
-   COMIC DOT TEXTURE
+   COMIC DOTS
 ========================================================= */
 
 .background::after{
@@ -132,36 +135,38 @@ body{
 
     radial-gradient(
       circle,
-      rgba(255,255,255,.16)
+      rgba(255,255,255,.18)
       0 1px,
       transparent 1.5px
     );
 
-  background-size:9px 9px;
+  background-size:
+    9px 9px;
 
   opacity:.10;
 
-  mix-blend-mode:screen;
+  mix-blend-mode:
+    screen;
 }
 
 
 /* =========================================================
-   NAVIGATION
+   TOP NAV
 ========================================================= */
 
 .top{
 
   position:fixed;
 
-  top:24px;
+  top:22px;
 
-  right:4vw;
+  right:5vw;
 
-  z-index:40;
+  z-index:50;
 
   display:flex;
 
-  gap:13px;
+  gap:12px;
 }
 
 
@@ -170,13 +175,13 @@ body{
   display:block;
 
   padding:
-    10px 17px;
-
-  background:
-    var(--white);
+    9px 16px;
 
   color:
     var(--black);
+
+  background:
+    var(--white);
 
   border:
     3px solid var(--black);
@@ -192,9 +197,7 @@ body{
     skew(-7deg);
 
   transition:
-    transform .18s ease,
-    background .18s ease,
-    color .18s ease;
+    .18s ease;
 }
 
 
@@ -220,14 +223,14 @@ body{
 
 
 /* =========================================================
-   MAIN
+   MAIN CONTENT
 ========================================================= */
 
 main{
 
   position:relative;
 
-  z-index:5;
+  z-index:10;
 
   min-height:100vh;
 
@@ -238,9 +241,9 @@ main{
   align-items:center;
 
   padding:
-    100px
+    85px
     clamp(35px,6vw,100px)
-    65px;
+    50px;
 }
 
 
@@ -250,26 +253,26 @@ main{
 
 .content{
 
+  position:relative;
+
   width:
     clamp(
       510px,
-      41vw,
+      40vw,
       720px
     );
 
   margin-right:
     clamp(
-      10px,
-      2vw,
-      50px
+      5px,
+      1.5vw,
+      35px
     );
-
-  position:relative;
 }
 
 
 /* =========================================================
-   YELLOW LABEL
+   LABEL
 ========================================================= */
 
 .tag{
@@ -277,13 +280,13 @@ main{
   display:inline-block;
 
   padding:
-    9px 16px;
-
-  background:
-    var(--yellow);
+    8px 15px;
 
   color:
     var(--black);
+
+  background:
+    var(--yellow);
 
   border:
     4px solid var(--black);
@@ -294,29 +297,32 @@ main{
   transform:
     rotate(-2deg);
 
-  font-size:15px;
+  font-size:
+    14px;
 
-  letter-spacing:.04em;
+  letter-spacing:
+    .04em;
 }
 
 
 /* =========================================================
-   MAIN TITLE
+   TITLE
 ========================================================= */
 
 h1{
 
   margin:
-    30px 0 22px;
+    28px 0 24px;
 
   font-size:
     clamp(
       70px,
-      7.8vw,
-      125px
+      7.4vw,
+      124px
     );
 
-  line-height:.76;
+  line-height:
+    .76;
 
   letter-spacing:
     -.065em;
@@ -339,10 +345,8 @@ h1 span{
 
   display:inline-block;
 
-  margin-top:8px;
-
   padding:
-    2px 14px 3px 10px;
+    2px 12px 3px 9px;
 
   color:
     var(--red);
@@ -361,32 +365,30 @@ h1 span{
 
 
 /* =========================================================
-   INTRODUCTION
+   INTRO BOX
 ========================================================= */
 
 .intro{
 
   position:relative;
 
-  margin-top:12px;
-
   padding:
-    19px 23px 21px;
+    18px 22px 20px;
 
   background:
-    rgba(7,7,7,.94);
+    rgba(5,5,5,.93);
 
   border-left:
     8px solid var(--red);
 
   box-shadow:
-    10px 10px 0 rgba(0,0,0,.78);
+    9px 9px 0 rgba(0,0,0,.75);
 
   transform:
     rotate(-1deg);
 
   backdrop-filter:
-    blur(4px);
+    blur(3px);
 }
 
 
@@ -396,23 +398,24 @@ h1 span{
 
   position:absolute;
 
+  top:-18px;
+
   right:-2px;
 
-  top:-19px;
-
   padding:
-    5px 12px;
-
-  background:
-    var(--red);
+    5px 11px;
 
   color:
     var(--white);
 
+  background:
+    var(--red);
+
   border:
     3px solid var(--black);
 
-  font-size:11px;
+  font-size:
+    10px;
 
   transform:
     rotate(3deg);
@@ -422,7 +425,7 @@ h1 span{
 .intro h2{
 
   margin:
-    0 0 10px;
+    0 0 9px;
 
   color:
     var(--yellow);
@@ -430,12 +433,9 @@ h1 span{
   font-size:
     clamp(
       27px,
-      2.3vw,
+      2.2vw,
       38px
     );
-
-  letter-spacing:
-    -.03em;
 }
 
 
@@ -453,13 +453,13 @@ h1 span{
 
   font-size:
     clamp(
-      14px,
-      1.02vw,
-      17px
+      13px,
+      1vw,
+      16px
     );
 
   line-height:
-    1.8;
+    1.75;
 
   font-weight:
     700;
@@ -467,7 +467,7 @@ h1 span{
 
 
 /* =========================================================
-   INFORMATION CARDS
+   INFO CARDS
 ========================================================= */
 
 .info{
@@ -477,26 +477,24 @@ h1 span{
   grid-template-columns:
     repeat(2,1fr);
 
-  gap:14px;
+  gap:13px;
 
-  margin-top:23px;
+  margin-top:20px;
 }
 
 
 .info-card{
 
-  position:relative;
-
-  min-height:74px;
+  min-height:70px;
 
   padding:
-    13px 16px;
-
-  background:
-    var(--white);
+    12px 15px;
 
   color:
     var(--black);
+
+  background:
+    var(--white);
 
   border:
     4px solid var(--black);
@@ -508,8 +506,7 @@ h1 span{
     rotate(-1deg);
 
   transition:
-    transform .2s ease,
-    background .2s ease;
+    .18s ease;
 }
 
 
@@ -532,7 +529,7 @@ h1 span{
     var(--yellow);
 
   transform:
-    translateY(-6px)
+    translateY(-4px)
     rotate(-2deg);
 }
 
@@ -541,9 +538,10 @@ h1 span{
 
   display:block;
 
-  margin-bottom:7px;
+  margin-bottom:6px;
 
-  font-size:16px;
+  font-size:
+    15px;
 }
 
 
@@ -556,7 +554,8 @@ h1 span{
     "PingFang SC",
     sans-serif;
 
-  font-size:13px;
+  font-size:
+    12px;
 
   line-height:
     1.45;
@@ -567,23 +566,23 @@ h1 span{
 
 
 /* =========================================================
-   PROJECT CARD
+   PROJECT
 ========================================================= */
 
 .project{
 
   position:relative;
 
-  margin-top:22px;
+  margin-top:20px;
 
   padding:
-    17px 20px;
-
-  background:
-    var(--red);
+    15px 19px;
 
   color:
     var(--white);
+
+  background:
+    var(--red);
 
   border:
     4px solid var(--black);
@@ -602,14 +601,15 @@ h1 span{
 
   position:absolute;
 
-  right:17px;
+  right:16px;
 
-  top:7px;
+  top:6px;
 
   color:
     var(--yellow);
 
-  font-size:28px;
+  font-size:
+    27px;
 
   transform:
     rotate(-10deg);
@@ -620,12 +620,13 @@ h1 span{
 
   display:block;
 
-  margin-bottom:7px;
+  margin-bottom:5px;
 
   color:
     var(--yellow);
 
-  font-size:20px;
+  font-size:
+    19px;
 }
 
 
@@ -633,17 +634,19 @@ h1 span{
 
   margin:0;
 
-  max-width:90%;
+  max-width:
+    92%;
 
   font-family:
     "Microsoft YaHei",
     "PingFang SC",
     sans-serif;
 
-  font-size:13px;
+  font-size:
+    12px;
 
   line-height:
-    1.65;
+    1.6;
 
   font-weight:
     700;
@@ -658,18 +661,19 @@ h1 span{
 
   display:inline-block;
 
-  margin-top:25px;
+  margin-top:20px;
 
   padding:
-    7px 12px;
-
-  background:
-    var(--black);
+    6px 11px;
 
   color:
     var(--white);
 
-  font-size:12px;
+  background:
+    var(--black);
+
+  font-size:
+    11px;
 
   transform:
     rotate(-3deg);
@@ -684,78 +688,103 @@ h1 span{
 
 
 /* =========================================================
+   =========================================================
    TAROT PHOTO
-   ================================================
-
-   这里就是你上传的个人照片。
-
-   注意：
-   不是把照片作为整个网页背景，
-   而是只把它覆盖到原背景里的塔罗牌区域。
+   =========================================================
 ========================================================= */
+
+/*
+   这里是最重要的部分。
+
+   我们不再把照片当成普通矩形图片。
+
+   它现在会：
+
+   ① 缩小
+   ② 倾斜
+   ③ 黑白化
+   ④ 加红色调
+   ⑤ 加暗角
+   ⑥ 加金色边框
+   ⑦ 保留塔罗牌本身的视觉
+*/
+
 
 .tarot-photo{
 
   position:fixed;
 
-  z-index:7;
+  z-index:8;
 
   pointer-events:none;
 
   /*
-    当前背景图 1920×1080
-    下方数值按照你刚才截图中的
-    塔罗牌位置进行定位。
+    根据你刚才截图重新调整。
+
+    比上一版：
+    - 更靠右
+    - 更靠下
+    - 更窄
+    - 更短
   */
 
   left:
-    28.15vw;
+    29.15vw;
 
   top:
-    13.8vh;
+    14.9vh;
 
   width:
-    8.55vw;
+    7.35vw;
 
   height:
-    25.5vw;
-
-  max-width:
-    165px;
-
-  max-height:
-    310px;
+    23.7vw;
 
   min-width:
-    105px;
+    100px;
+
+  max-width:
+    142px;
 
   min-height:
-    205px;
+    190px;
+
+  max-height:
+    275px;
 
   overflow:hidden;
 
+  background:
+    #090909;
+
   /*
-    与背景中的塔罗牌角度一致
+    与原塔罗牌基本一致的倾斜角度
   */
 
   transform:
     rotate(10deg);
 
+  /*
+    金色内框
+  */
+
   border:
-    3px solid
-    rgba(255,230,0,.82);
+    2px solid
+    rgba(255,230,0,.9);
 
   box-shadow:
-    0 0 18px
-    rgba(255,230,0,.25);
 
-  background:
-    #070707;
+    0 0 0 2px
+    rgba(0,0,0,.9),
+
+    0 0 14px
+    rgba(255,230,0,.22);
 
   transition:
-    transform .25s
+    transform .22s
     cubic-bezier(.2,.8,.2,1),
-    box-shadow .25s ease;
+
+    box-shadow .22s ease;
 }
 
 
@@ -764,6 +793,10 @@ h1 span{
 ========================================================= */
 
 .tarot-photo img{
+
+  position:absolute;
+
+  inset:0;
 
   width:100%;
 
@@ -774,29 +807,37 @@ h1 span{
   object-fit:cover;
 
   /*
-    你的原照片是竖向照片。
-    这里重点保留脸部。
+    让人物脸部位于塔罗牌上半部分
   */
 
   object-position:
-    center 17%;
+    center 15%;
+
+  /*
+    PHANTOM 色彩处理：
+
+    原来的蓝色会明显降低，
+    黑白和红色会成为主色。
+  */
 
   filter:
-    contrast(1.12)
-    saturate(.78)
-    brightness(.94);
+
+    grayscale(.82)
+
+    contrast(1.28)
+
+    brightness(.78)
+
+    saturate(.55);
 
   transform:
-    scale(1.02);
+    scale(1.035);
 
-  transition:
-    transform .35s ease,
-    filter .35s ease;
 }
 
 
 /* =========================================================
-   PHOTO DARK EDGE
+   RED PHANTOM COLOR
 ========================================================= */
 
 .tarot-photo::after{
@@ -809,63 +850,120 @@ h1 span{
 
   pointer-events:none;
 
+  /*
+    红色覆盖层
+  */
+
   background:
 
     linear-gradient(
-      180deg,
-      rgba(0,0,0,.08) 0%,
-      transparent 38%,
-      rgba(0,0,0,.48) 100%
+      145deg,
+      rgba(239,16,35,.58),
+      rgba(239,16,35,.18) 42%,
+      rgba(0,0,0,.55) 100%
     ),
 
     linear-gradient(
-      90deg,
-      rgba(0,0,0,.20),
-      transparent 25%,
-      transparent 75%,
-      rgba(0,0,0,.22)
+      180deg,
+      rgba(0,0,0,.05),
+      transparent 45%,
+      rgba(0,0,0,.58)
     );
+
+  mix-blend-mode:
+    multiply;
+
+  opacity:
+    .88;
 }
 
 
 /* =========================================================
-   PHOTO FRAME DECORATION
+   GOLD INNER FRAME
 ========================================================= */
 
 .tarot-photo::before{
 
-  content:"CREATOR";
+  content:"";
 
   position:absolute;
 
-  left:5px;
-
-  bottom:5px;
+  inset:5px;
 
   z-index:3;
 
-  padding:
-    3px 6px;
-
-  background:
-    rgba(7,7,7,.88);
-
-  color:
-    var(--yellow);
-
-  font-size:8px;
-
-  letter-spacing:
-    .08em;
-
   border:
     1px solid
-    var(--yellow);
+    rgba(255,230,0,.85);
+
+  box-shadow:
+    inset 0 0 0 1px
+    rgba(255,255,255,.18);
+
+  pointer-events:none;
 }
 
 
 /* =========================================================
-   CURSOR
+   TAROT LABEL
+========================================================= */
+
+.tarot-photo{
+
+  --label:"CREATOR";
+}
+
+
+.tarot-photo:hover{
+
+  box-shadow:
+
+    0 0 0 2px
+    rgba(0,0,0,.95),
+
+    0 0 22px
+    rgba(255,230,0,.4);
+}
+
+
+/* =========================================================
+   SMALL GOLD MARK
+========================================================= */
+
+.tarot-mark{
+
+  position:fixed;
+
+  z-index:9;
+
+  pointer-events:none;
+
+  left:
+    31.8vw;
+
+  top:
+    38vh;
+
+  width:8px;
+
+  height:8px;
+
+  border-radius:50%;
+
+  background:
+    var(--yellow);
+
+  border:
+    2px solid var(--black);
+
+  box-shadow:
+    0 0 0 4px
+    rgba(239,16,35,.35);
+}
+
+
+/* =========================================================
+   CUSTOM CURSOR
 ========================================================= */
 
 .cursor{
@@ -876,9 +974,11 @@ h1 span{
 
   top:0;
 
-  width:17px;
+  z-index:100;
 
-  height:17px;
+  width:16px;
+
+  height:16px;
 
   border-radius:50%;
 
@@ -886,16 +986,13 @@ h1 span{
     var(--yellow);
 
   border:
-    4px solid
-    var(--black);
+    3px solid var(--black);
 
   box-shadow:
     0 0 0 5px
     rgba(239,16,35,.35);
 
   pointer-events:none;
-
-  z-index:100;
 
   transform:
     translate(-50%,-50%);
@@ -909,9 +1006,9 @@ h1 span{
 
 .cursor.active{
 
-  width:29px;
+  width:27px;
 
-  height:29px;
+  height:27px;
 
   background:
     var(--red);
@@ -926,26 +1023,26 @@ h1 span{
 
   position:fixed;
 
-  width:12px;
+  z-index:101;
 
-  height:12px;
+  width:10px;
+
+  height:10px;
 
   border:
-    4px solid
+    3px solid
     var(--yellow);
 
   border-radius:50%;
 
   pointer-events:none;
 
-  z-index:101;
-
   transform:
     translate(-50%,-50%);
 
   animation:
     clickFlash
-    .45s
+    .42s
     cubic-bezier(.2,.8,.2,1)
     forwards;
 }
@@ -989,9 +1086,9 @@ h1 span{
   background:
     var(--red);
 
-  pointer-events:none;
-
   opacity:0;
+
+  pointer-events:none;
 
   clip-path:
     polygon(
@@ -1032,8 +1129,8 @@ body.leaving .transition{
 
     width:
       min(
-        600px,
-        54vw
+        590px,
+        52vw
       );
   }
 
@@ -1042,10 +1139,16 @@ body.leaving .transition{
 
 @media(max-width:800px){
 
+  body{
+
+    overflow:auto;
+  }
+
+
   .background{
 
     background-position:
-      28% center;
+      27% center;
   }
 
 
@@ -1055,8 +1158,8 @@ body.leaving .transition{
 
       linear-gradient(
         90deg,
-        rgba(0,0,0,.18),
-        rgba(0,0,0,.84)
+        rgba(0,0,0,.15),
+        rgba(0,0,0,.88)
       );
   }
 
@@ -1066,6 +1169,8 @@ body.leaving .transition{
     justify-content:center;
 
     align-items:flex-end;
+
+    min-height:100vh;
 
     padding:
       100px 20px 40px;
@@ -1085,11 +1190,12 @@ body.leaving .transition{
 
 
   /*
-    手机端暂时隐藏照片叠加，
-    避免因为背景裁切导致位置不准确。
+    手机端不叠加照片，
+    避免背景裁切后位置变化。
   */
 
-  .tarot-photo{
+  .tarot-photo,
+  .tarot-mark{
 
     display:none;
   }
@@ -1101,27 +1207,28 @@ body.leaving .transition{
 
   .top{
 
-    top:14px;
+    top:13px;
 
-    right:14px;
+    right:12px;
 
-    gap:8px;
+    gap:7px;
   }
 
 
   .top a{
 
     padding:
-      8px 11px;
+      8px 10px;
 
-    font-size:11px;
+    font-size:
+      11px;
   }
 
 
   main{
 
     padding:
-      90px 14px 30px;
+      85px 14px 30px;
   }
 
 
@@ -1129,23 +1236,10 @@ body.leaving .transition{
 
     font-size:
       clamp(
-        56px,
+        55px,
         17vw,
         82px
       );
-  }
-
-
-  .intro{
-
-    padding:
-      17px;
-  }
-
-
-  .intro p{
-
-    font-size:14px;
   }
 
 
@@ -1153,12 +1247,6 @@ body.leaving .transition{
 
     grid-template-columns:
       1fr;
-  }
-
-
-  .project{
-
-    transform:none;
   }
 
 
@@ -1205,18 +1293,24 @@ body.leaving .transition{
 
 
 <!-- =====================================================
-     YOUR PHOTO
-     这张照片会叠加在背景中的塔罗牌上
+     TAROT PHOTO
 ===================================================== -->
 
 <div class="tarot-photo">
 
   <img
     src="assets/creator-photo.png"
-    alt="Creator Photo"
+    alt="Creator"
   >
 
 </div>
+
+
+<!-- =====================================================
+     SMALL GOLD LIGHT
+===================================================== -->
+
+<div class="tarot-mark"></div>
 
 
 <!-- =====================================================
@@ -1239,7 +1333,6 @@ body.leaving .transition{
     返回搜索
   </a>
 
-
   <a
     href="feedback.html"
     data-transition
@@ -1251,7 +1344,7 @@ body.leaving .transition{
 
 
 <!-- =====================================================
-     MAIN CONTENT
+     MAIN
 ===================================================== -->
 
 <main>
@@ -1304,7 +1397,7 @@ body.leaving .transition{
   </div>
 
 
-  <!-- INFORMATION -->
+  <!-- INFO -->
 
   <div class="info">
 
@@ -1402,7 +1495,7 @@ body.leaving .transition{
 
 
 <!-- =====================================================
-     CUSTOM CURSOR
+     CURSOR
 ===================================================== -->
 
 <div class="cursor"></div>
@@ -1450,7 +1543,7 @@ document
 
 
 /* =========================================================
-   CUSTOM CURSOR
+   CURSOR
 ========================================================= */
 
 const cursor =
@@ -1535,6 +1628,7 @@ document.addEventListener(
 
     if(!background) return;
 
+
     const x =
       e.clientX /
       window.innerWidth -
@@ -1550,10 +1644,10 @@ document.addEventListener(
     background.style.transform =
 
       `
-      scale(1.02)
+      scale(1.015)
       translate(
-        ${x * -5}px,
-        ${y * -3}px
+        ${x * -4}px,
+        ${y * -2.5}px
       )
       `;
 
@@ -1563,10 +1657,10 @@ document.addEventListener(
 
 
 /* =========================================================
-   TAROT PHOTO INTERACTION
+   TAROT PHOTO MOVEMENT
 ========================================================= */
 
-const tarotPhoto =
+const tarot =
   document.querySelector(
     ".tarot-photo"
   );
@@ -1576,49 +1670,43 @@ document.addEventListener(
   "mousemove",
   e => {
 
-    if(!tarotPhoto) return;
+    if(!tarot) return;
 
 
     /*
-      只有鼠标进入左侧人物区域时
-      塔罗牌照片才产生轻微变化。
+      只产生非常轻微的变化。
+
+      不让照片脱离塔罗牌，
+      只让它有一点“活着”的感觉。
     */
+
+    const x =
+      e.clientX /
+      window.innerWidth -
+      .5;
+
+
+    const y =
+      e.clientY /
+      window.innerHeight -
+      .5;
+
 
     if(
       e.clientX <
       window.innerWidth * .55
     ){
 
-      const x =
-        e.clientX /
-        window.innerWidth -
-        .5;
-
-
-      const y =
-        e.clientY /
-        window.innerHeight -
-        .5;
-
-
-      tarotPhoto.style.transform =
+      tarot.style.transform =
 
         `
         rotate(
-          ${10 + x * 2.5}deg
+          ${10 + x * 1.8}deg
         )
         translate(
-          ${x * 3}px,
-          ${y * 3}px
+          ${x * 2}px,
+          ${y * 2}px
         )
-        `;
-
-      tarotPhoto.style.boxShadow =
-
-        `
-        0 0
-        ${18 + Math.abs(x) * 18}px
-        rgba(255,230,0,.42)
         `;
 
     }
@@ -1629,7 +1717,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   CLICK EFFECT
+   CLICK FLASH
 ========================================================= */
 
 document.addEventListener(
@@ -1665,7 +1753,7 @@ document.addEventListener(
         flash.remove();
 
       },
-      450
+      430
     );
 
   }
@@ -1675,4 +1763,5 @@ document.addEventListener(
 
 
 </body>
+
 </html>
