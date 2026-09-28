@@ -1,12 +1,23 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
 
 <title>CREATOR — PHANTOM SEARCH</title>
 
+
 <style>
+
+/* =========================================================
+   PHANTOM SEARCH
+   CREATOR PAGE
+========================================================= */
 
 :root{
   --red:#ef1023;
@@ -22,13 +33,16 @@
 html,
 body{
   margin:0;
+  padding:0;
   min-height:100%;
 }
 
 body{
   min-height:100vh;
   overflow-x:hidden;
-  background:var(--black);
+
+  background:#070707;
+
   color:var(--white);
 
   font-family:
@@ -39,68 +53,43 @@ body{
 }
 
 
-/* =================================================
-   BACKGROUND
-================================================= */
+/* =========================================================
+   BACKGROUND IMAGE
+========================================================= */
 
 .background{
+
   position:fixed;
+
   inset:0;
 
   z-index:0;
 
   background-image:
-    linear-gradient(
-      90deg,
-      rgba(7,7,7,.02) 0%,
-      rgba(7,7,7,.04) 45%,
-      rgba(7,7,7,.60) 70%,
-      rgba(7,7,7,.90) 100%
-    ),
     url("assets/creator-bg.png");
 
   background-size:cover;
+
   background-position:center center;
+
   background-repeat:no-repeat;
 
-  transform:scale(1.025);
+  transform:scale(1.02);
 
   transition:
-    transform .8s cubic-bezier(.2,.8,.2,1);
+    transform .8s
+    cubic-bezier(.2,.8,.2,1);
 }
 
 
-/* 漫画网点 */
-
-.background::after{
-  content:"";
-
-  position:absolute;
-  inset:0;
-
-  pointer-events:none;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,255,255,.18) 0 1px,
-      transparent 1.5px
-    );
-
-  background-size:9px 9px;
-
-  opacity:.11;
-
-  mix-blend-mode:screen;
-}
-
-
-/* =================================================
-   DARK OVERLAY
-================================================= */
+/* =========================================================
+   DARK GRADIENT
+========================================================= */
 
 .overlay{
+
   position:fixed;
+
   inset:0;
 
   z-index:1;
@@ -108,50 +97,99 @@ body{
   pointer-events:none;
 
   background:
+
     linear-gradient(
       90deg,
-      transparent 0%,
-      transparent 42%,
-      rgba(0,0,0,.10) 52%,
-      rgba(0,0,0,.72) 74%,
+
+      rgba(0,0,0,.02) 0%,
+
+      rgba(0,0,0,.02) 40%,
+
+      rgba(0,0,0,.18) 52%,
+
+      rgba(0,0,0,.65) 72%,
+
       rgba(0,0,0,.88) 100%
     );
 }
 
 
-/* =================================================
+/* =========================================================
+   COMIC DOT TEXTURE
+========================================================= */
+
+.background::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  pointer-events:none;
+
+  background:
+
+    radial-gradient(
+      circle,
+      rgba(255,255,255,.16)
+      0 1px,
+      transparent 1.5px
+    );
+
+  background-size:9px 9px;
+
+  opacity:.10;
+
+  mix-blend-mode:screen;
+}
+
+
+/* =========================================================
    NAVIGATION
-================================================= */
+========================================================= */
 
 .top{
+
   position:fixed;
 
-  top:25px;
+  top:24px;
+
   right:4vw;
 
-  z-index:30;
+  z-index:40;
 
   display:flex;
+
   gap:13px;
 }
 
+
 .top a{
+
   display:block;
 
-  padding:10px 17px;
+  padding:
+    10px 17px;
 
-  color:var(--black);
-  background:var(--white);
+  background:
+    var(--white);
 
-  border:3px solid var(--black);
+  color:
+    var(--black);
 
-  box-shadow:5px 5px 0 var(--black);
+  border:
+    3px solid var(--black);
+
+  box-shadow:
+    5px 5px 0 var(--black);
 
   text-decoration:none;
 
   font-size:14px;
 
-  transform:skew(-7deg);
+  transform:
+    skew(-7deg);
 
   transition:
     transform .18s ease,
@@ -159,25 +197,34 @@ body{
     color .18s ease;
 }
 
+
 .top a:first-child{
-  background:var(--yellow);
+
+  background:
+    var(--yellow);
 }
 
+
 .top a:hover{
+
   transform:
     skew(-7deg)
     translate(-3px,-3px);
 
-  background:var(--red);
-  color:var(--white);
+  background:
+    var(--red);
+
+  color:
+    var(--white);
 }
 
 
-/* =================================================
+/* =========================================================
    MAIN
-================================================= */
+========================================================= */
 
 main{
+
   position:relative;
 
   z-index:5;
@@ -185,25 +232,28 @@ main{
   min-height:100vh;
 
   display:flex;
+
   justify-content:flex-end;
+
   align-items:center;
 
   padding:
     100px
     clamp(35px,6vw,100px)
-    70px;
+    65px;
 }
 
 
-/* =================================================
+/* =========================================================
    RIGHT CONTENT
-================================================= */
+========================================================= */
 
 .content{
+
   width:
     clamp(
       510px,
-      42vw,
+      41vw,
       720px
     );
 
@@ -211,32 +261,38 @@ main{
     clamp(
       10px,
       2vw,
-      45px
+      50px
     );
 
   position:relative;
 }
 
 
-/* =================================================
-   LABEL
-================================================= */
+/* =========================================================
+   YELLOW LABEL
+========================================================= */
 
 .tag{
+
   display:inline-block;
 
-  padding:9px 16px;
+  padding:
+    9px 16px;
 
-  background:var(--yellow);
+  background:
+    var(--yellow);
 
-  color:var(--black);
+  color:
+    var(--black);
 
-  border:4px solid var(--black);
+  border:
+    4px solid var(--black);
 
   box-shadow:
     6px 6px 0 var(--black);
 
-  transform:rotate(-2deg);
+  transform:
+    rotate(-2deg);
 
   font-size:15px;
 
@@ -244,27 +300,29 @@ main{
 }
 
 
-/* =================================================
-   TITLE
-================================================= */
+/* =========================================================
+   MAIN TITLE
+========================================================= */
 
 h1{
+
   margin:
-    30px 0
-    20px;
+    30px 0 22px;
 
   font-size:
     clamp(
       70px,
-      8vw,
+      7.8vw,
       125px
     );
 
   line-height:.76;
 
-  letter-spacing:-.065em;
+  letter-spacing:
+    -.065em;
 
-  color:var(--white);
+  color:
+    var(--white);
 
   text-shadow:
     9px 9px 0 var(--black);
@@ -272,21 +330,25 @@ h1{
   -webkit-text-stroke:
     3px var(--black);
 
-  transform:rotate(-3deg);
+  transform:
+    rotate(-3deg);
 }
 
+
 h1 span{
+
   display:inline-block;
 
   margin-top:8px;
 
   padding:
-    2px 14px
-    3px 10px;
+    2px 14px 3px 10px;
 
-  color:var(--red);
+  color:
+    var(--red);
 
-  background:var(--white);
+  background:
+    var(--white);
 
   clip-path:
     polygon(
@@ -298,84 +360,91 @@ h1 span{
 }
 
 
-/* =================================================
-   INTRO
-================================================= */
+/* =========================================================
+   INTRODUCTION
+========================================================= */
 
 .intro{
+
   position:relative;
 
   margin-top:12px;
 
   padding:
-    20px
-    24px
-    22px;
+    19px 23px 21px;
 
   background:
-    rgba(7,7,7,.92);
+    rgba(7,7,7,.94);
 
   border-left:
     8px solid var(--red);
 
   box-shadow:
-    10px 10px 0 rgba(0,0,0,.75);
+    10px 10px 0 rgba(0,0,0,.78);
 
-  transform:rotate(-1deg);
+  transform:
+    rotate(-1deg);
 
   backdrop-filter:
     blur(4px);
 }
 
 
-/* 黄色小角标 */
-
 .intro::before{
+
   content:"PROFILE";
 
   position:absolute;
 
-  right:-3px;
-  top:-18px;
+  right:-2px;
+
+  top:-19px;
 
   padding:
     5px 12px;
 
-  background:var(--red);
+  background:
+    var(--red);
 
-  color:var(--white);
+  color:
+    var(--white);
 
   border:
     3px solid var(--black);
 
   font-size:11px;
 
-  transform:rotate(3deg);
+  transform:
+    rotate(3deg);
 }
 
 
 .intro h2{
-  margin:
-    0 0
-    10px;
 
-  color:var(--yellow);
+  margin:
+    0 0 10px;
+
+  color:
+    var(--yellow);
 
   font-size:
     clamp(
       27px,
-      2.4vw,
+      2.3vw,
       38px
     );
 
-  letter-spacing:-.03em;
+  letter-spacing:
+    -.03em;
 }
 
 
 .intro p{
+
   margin:0;
 
-  color:var(--white);
+  color:
+    var(--white);
 
   font-family:
     "Microsoft YaHei",
@@ -385,21 +454,24 @@ h1 span{
   font-size:
     clamp(
       14px,
-      1.05vw,
+      1.02vw,
       17px
     );
 
-  line-height:1.8;
+  line-height:
+    1.8;
 
-  font-weight:700;
+  font-weight:
+    700;
 }
 
 
-/* =================================================
+/* =========================================================
    INFORMATION CARDS
-================================================= */
+========================================================= */
 
 .info{
+
   display:grid;
 
   grid-template-columns:
@@ -412,17 +484,19 @@ h1 span{
 
 
 .info-card{
+
   position:relative;
 
   min-height:74px;
 
   padding:
-    13px
-    16px;
+    13px 16px;
 
-  background:var(--white);
+  background:
+    var(--white);
 
-  color:var(--black);
+  color:
+    var(--black);
 
   border:
     4px solid var(--black);
@@ -430,12 +504,14 @@ h1 span{
   box-shadow:
     6px 6px 0 var(--black);
 
-  transform:rotate(-1deg);
+  transform:
+    rotate(-1deg);
 
   transition:
     transform .2s ease,
     background .2s ease;
 }
+
 
 .info-card:nth-child(2){
   transform:rotate(1deg);
@@ -451,7 +527,9 @@ h1 span{
 
 
 .info-card:hover{
-  background:var(--yellow);
+
+  background:
+    var(--yellow);
 
   transform:
     translateY(-6px)
@@ -460,6 +538,7 @@ h1 span{
 
 
 .info-card strong{
+
   display:block;
 
   margin-bottom:7px;
@@ -469,6 +548,7 @@ h1 span{
 
 
 .info-card span{
+
   display:block;
 
   font-family:
@@ -478,28 +558,32 @@ h1 span{
 
   font-size:13px;
 
-  line-height:1.45;
+  line-height:
+    1.45;
 
-  font-weight:700;
+  font-weight:
+    700;
 }
 
 
-/* =================================================
-   PROJECT
-================================================= */
+/* =========================================================
+   PROJECT CARD
+========================================================= */
 
 .project{
+
   position:relative;
 
   margin-top:22px;
 
   padding:
-    17px
-    20px;
+    17px 20px;
 
-  background:var(--red);
+  background:
+    var(--red);
 
-  color:var(--white);
+  color:
+    var(--white);
 
   border:
     4px solid var(--black);
@@ -507,38 +591,46 @@ h1 span{
   box-shadow:
     7px 7px 0 var(--black);
 
-  transform:rotate(1deg);
+  transform:
+    rotate(1deg);
 }
 
 
 .project::after{
+
   content:"↗";
 
   position:absolute;
 
   right:17px;
-  top:8px;
 
-  color:var(--yellow);
+  top:7px;
+
+  color:
+    var(--yellow);
 
   font-size:28px;
 
-  transform:rotate(-10deg);
+  transform:
+    rotate(-10deg);
 }
 
 
 .project strong{
+
   display:block;
 
   margin-bottom:7px;
 
-  color:var(--yellow);
+  color:
+    var(--yellow);
 
   font-size:20px;
 }
 
 
 .project p{
+
   margin:0;
 
   max-width:90%;
@@ -550,114 +642,252 @@ h1 span{
 
   font-size:13px;
 
-  line-height:1.65;
+  line-height:
+    1.65;
 
-  font-weight:700;
+  font-weight:
+    700;
 }
 
 
-/* =================================================
+/* =========================================================
    SIGNATURE
-================================================= */
+========================================================= */
 
 .signature{
+
   display:inline-block;
 
   margin-top:25px;
 
   padding:
-    7px
-    12px;
+    7px 12px;
 
-  background:var(--black);
+  background:
+    var(--black);
 
-  color:var(--white);
+  color:
+    var(--white);
 
   font-size:12px;
 
-  transform:rotate(-3deg);
+  transform:
+    rotate(-3deg);
 }
+
 
 .signature span{
-  color:var(--yellow);
+
+  color:
+    var(--yellow);
 }
 
 
-/* =================================================
-   TAROT AREA
-   Decorative interaction target
-================================================= */
+/* =========================================================
+   TAROT PHOTO
+   ================================================
 
-.tarot-zone{
+   这里就是你上传的个人照片。
+
+   注意：
+   不是把照片作为整个网页背景，
+   而是只把它覆盖到原背景里的塔罗牌区域。
+========================================================= */
+
+.tarot-photo{
+
   position:fixed;
 
-  left:0;
-  top:0;
-
-  width:55vw;
-  height:100vh;
-
-  z-index:8;
+  z-index:7;
 
   pointer-events:none;
-}
 
+  /*
+    当前背景图 1920×1080
+    下方数值按照你刚才截图中的
+    塔罗牌位置进行定位。
+  */
 
-/*
-  我们不重新绘制塔罗牌。
-  这里通过鼠标位置制造一个
-  金色光晕，让原图里的塔罗牌
-  看起来具有互动效果。
-*/
+  left:
+    28.15vw;
 
-.tarot-light{
-  position:absolute;
+  top:
+    13.8vh;
 
-  width:95px;
-  height:95px;
+  width:
+    8.55vw;
 
-  border-radius:50%;
+  height:
+    25.5vw;
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,230,0,.65) 0%,
-      rgba(255,230,0,.22) 30%,
-      transparent 70%
-    );
+  max-width:
+    165px;
 
-  filter:
-    blur(5px);
+  max-height:
+    310px;
 
-  opacity:0;
+  min-width:
+    105px;
+
+  min-height:
+    205px;
+
+  overflow:hidden;
+
+  /*
+    与背景中的塔罗牌角度一致
+  */
 
   transform:
-    translate(-50%,-50%);
+    rotate(10deg);
+
+  border:
+    3px solid
+    rgba(255,230,0,.82);
+
+  box-shadow:
+    0 0 18px
+    rgba(255,230,0,.25);
+
+  background:
+    #070707;
 
   transition:
-    opacity .25s ease;
+    transform .25s
+    cubic-bezier(.2,.8,.2,1),
+    box-shadow .25s ease;
 }
 
 
-/* =================================================
-   CUSTOM CURSOR
-================================================= */
+/* =========================================================
+   PHOTO
+========================================================= */
+
+.tarot-photo img{
+
+  width:100%;
+
+  height:100%;
+
+  display:block;
+
+  object-fit:cover;
+
+  /*
+    你的原照片是竖向照片。
+    这里重点保留脸部。
+  */
+
+  object-position:
+    center 17%;
+
+  filter:
+    contrast(1.12)
+    saturate(.78)
+    brightness(.94);
+
+  transform:
+    scale(1.02);
+
+  transition:
+    transform .35s ease,
+    filter .35s ease;
+}
+
+
+/* =========================================================
+   PHOTO DARK EDGE
+========================================================= */
+
+.tarot-photo::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  pointer-events:none;
+
+  background:
+
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.08) 0%,
+      transparent 38%,
+      rgba(0,0,0,.48) 100%
+    ),
+
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.20),
+      transparent 25%,
+      transparent 75%,
+      rgba(0,0,0,.22)
+    );
+}
+
+
+/* =========================================================
+   PHOTO FRAME DECORATION
+========================================================= */
+
+.tarot-photo::before{
+
+  content:"CREATOR";
+
+  position:absolute;
+
+  left:5px;
+
+  bottom:5px;
+
+  z-index:3;
+
+  padding:
+    3px 6px;
+
+  background:
+    rgba(7,7,7,.88);
+
+  color:
+    var(--yellow);
+
+  font-size:8px;
+
+  letter-spacing:
+    .08em;
+
+  border:
+    1px solid
+    var(--yellow);
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
 
 .cursor{
+
   position:fixed;
 
   left:0;
+
   top:0;
 
   width:17px;
+
   height:17px;
 
   border-radius:50%;
 
-  background:var(--yellow);
+  background:
+    var(--yellow);
 
   border:
-    4px solid var(--black);
+    4px solid
+    var(--black);
 
   box-shadow:
     0 0 0 5px
@@ -678,25 +908,31 @@ h1 span{
 
 
 .cursor.active{
-  width:30px;
-  height:30px;
 
-  background:var(--red);
+  width:29px;
+
+  height:29px;
+
+  background:
+    var(--red);
 }
 
 
-/* =================================================
+/* =========================================================
    CLICK EFFECT
-================================================= */
+========================================================= */
 
 .click-flash{
+
   position:fixed;
 
   width:12px;
+
   height:12px;
 
   border:
-    4px solid var(--yellow);
+    4px solid
+    var(--yellow);
 
   border-radius:50%;
 
@@ -718,6 +954,7 @@ h1 span{
 @keyframes clickFlash{
 
   from{
+
     opacity:1;
 
     transform:
@@ -726,6 +963,7 @@ h1 span{
   }
 
   to{
+
     opacity:0;
 
     transform:
@@ -736,18 +974,20 @@ h1 span{
 }
 
 
-/* =================================================
+/* =========================================================
    PAGE TRANSITION
-================================================= */
+========================================================= */
 
 .transition{
+
   position:fixed;
 
   inset:0;
 
   z-index:200;
 
-  background:var(--red);
+  background:
+    var(--red);
 
   pointer-events:none;
 
@@ -779,21 +1019,21 @@ body.leaving .transition{
       100% 100%,
       0 93%
     );
-
 }
 
 
-/* =================================================
-   MOBILE
-================================================= */
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
-@media(max-width:1050px){
+@media(max-width:1100px){
 
   .content{
+
     width:
       min(
         600px,
-        55vw
+        54vw
       );
   }
 
@@ -803,31 +1043,37 @@ body.leaving .transition{
 @media(max-width:800px){
 
   .background{
+
     background-position:
       28% center;
   }
 
+
   .overlay{
+
     background:
+
       linear-gradient(
         90deg,
-        rgba(0,0,0,.15),
-        rgba(0,0,0,.82)
+        rgba(0,0,0,.18),
+        rgba(0,0,0,.84)
       );
   }
 
+
   main{
+
     justify-content:center;
 
     align-items:flex-end;
 
     padding:
-      100px
-      20px
-      40px;
+      100px 20px 40px;
   }
 
+
   .content{
+
     width:
       min(
         650px,
@@ -837,7 +1083,14 @@ body.leaving .transition{
     margin:0;
   }
 
-  .tarot-zone{
+
+  /*
+    手机端暂时隐藏照片叠加，
+    避免因为背景裁切导致位置不准确。
+  */
+
+  .tarot-photo{
+
     display:none;
   }
 
@@ -847,27 +1100,33 @@ body.leaving .transition{
 @media(max-width:600px){
 
   .top{
+
     top:14px;
+
     right:14px;
 
     gap:8px;
   }
 
+
   .top a{
+
     padding:
       8px 11px;
 
     font-size:11px;
   }
 
+
   main{
+
     padding:
-      90px
-      14px
-      30px;
+      90px 14px 30px;
   }
 
+
   h1{
+
     font-size:
       clamp(
         56px,
@@ -876,76 +1135,100 @@ body.leaving .transition{
       );
   }
 
+
   .intro{
+
     padding:
       17px;
   }
 
+
   .intro p{
+
     font-size:14px;
   }
 
+
   .info{
-    grid-template-columns:1fr;
+
+    grid-template-columns:
+      1fr;
   }
 
+
   .project{
+
     transform:none;
   }
 
+
   .cursor{
+
     display:none;
   }
 
 }
 
 
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
 @media(prefers-reduced-motion:reduce){
 
   *,
   *::before,
   *::after{
+
     animation:none!important;
+
     transition:none!important;
   }
 
 }
 
 </style>
+
 </head>
 
 
 <body>
 
 
-<!-- =============================================
+<!-- =====================================================
      BACKGROUND
-============================================= -->
+===================================================== -->
 
 <div class="background"></div>
 
 <div class="overlay"></div>
 
 
-<!-- =============================================
-     TAROT LIGHT
-============================================= -->
+<!-- =====================================================
+     YOUR PHOTO
+     这张照片会叠加在背景中的塔罗牌上
+===================================================== -->
 
-<div class="tarot-zone">
-  <div class="tarot-light"></div>
+<div class="tarot-photo">
+
+  <img
+    src="assets/creator-photo.png"
+    alt="Creator Photo"
+  >
+
 </div>
 
 
-<!-- =============================================
+<!-- =====================================================
      PAGE TRANSITION
-============================================= -->
+===================================================== -->
 
 <div class="transition"></div>
 
 
-<!-- =============================================
+<!-- =====================================================
      NAVIGATION
-============================================= -->
+===================================================== -->
 
 <header class="top">
 
@@ -955,6 +1238,7 @@ body.leaving .transition{
   >
     返回搜索
   </a>
+
 
   <a
     href="feedback.html"
@@ -966,19 +1250,25 @@ body.leaving .transition{
 </header>
 
 
-<!-- =============================================
+<!-- =====================================================
      MAIN CONTENT
-============================================= -->
+===================================================== -->
 
 <main>
 
 <section class="content">
 
 
+  <!-- LABEL -->
+
   <div class="tag">
+
     PHANTOM CREATOR / PROFILE 01
+
   </div>
 
+
+  <!-- TITLE -->
 
   <h1>
 
@@ -991,21 +1281,30 @@ body.leaving .transition{
   </h1>
 
 
+  <!-- INTRO -->
+
   <div class="intro">
 
     <h2>
+
       我是陈植轩
+
     </h2>
 
+
     <p>
+
       欢迎来到我的创作者档案。
       PHANTOM SEARCH 是我正在制作的个人搜索引擎实验项目。
       我希望通过网页设计、视觉语言与交互动画，
       让一个普通的工具拥有属于自己的性格。
+
     </p>
 
   </div>
 
+
+  <!-- INFORMATION -->
 
   <div class="info">
 
@@ -1065,24 +1364,34 @@ body.leaving .transition{
   </div>
 
 
+  <!-- PROJECT -->
+
   <div class="project">
 
     <strong>
       PHANTOM SEARCH
     </strong>
 
+
     <p>
+
       一个具有怪盗团视觉气质的个人搜索入口。
       搜索只是开始，真正重要的是寻找属于自己的答案。
+
     </p>
 
   </div>
 
 
+  <!-- SIGNATURE -->
+
   <div class="signature">
 
     CREATED BY
-    <span>陈植轩</span>
+
+    <span>
+      陈植轩
+    </span>
 
   </div>
 
@@ -1092,9 +1401,9 @@ body.leaving .transition{
 </main>
 
 
-<!-- =============================================
+<!-- =====================================================
      CUSTOM CURSOR
-============================================= -->
+===================================================== -->
 
 <div class="cursor"></div>
 
@@ -1102,9 +1411,9 @@ body.leaving .transition{
 <script>
 
 
-/* =================================================
+/* =========================================================
    PAGE TRANSITION
-================================================= */
+========================================================= */
 
 document
   .querySelectorAll("[data-transition]")
@@ -1125,8 +1434,10 @@ document
 
         setTimeout(
           () => {
+
             window.location.href =
               target;
+
           },
           500
         );
@@ -1138,9 +1449,9 @@ document
 
 
 
-/* =================================================
-   CURSOR
-================================================= */
+/* =========================================================
+   CUSTOM CURSOR
+========================================================= */
 
 const cursor =
   document.querySelector(".cursor");
@@ -1163,9 +1474,9 @@ document.addEventListener(
 
 
 
-/* =================================================
-   HOVER CURSOR
-================================================= */
+/* =========================================================
+   CURSOR HOVER
+========================================================= */
 
 document
   .querySelectorAll(
@@ -1177,20 +1488,29 @@ document
       "mouseenter",
       () => {
 
-        cursor?.classList.add(
-          "active"
-        );
+        if(cursor){
+
+          cursor.classList.add(
+            "active"
+          );
+
+        }
 
       }
     );
+
 
     el.addEventListener(
       "mouseleave",
       () => {
 
-        cursor?.classList.remove(
-          "active"
-        );
+        if(cursor){
+
+          cursor.classList.remove(
+            "active"
+          );
+
+        }
 
       }
     );
@@ -1199,9 +1519,9 @@ document
 
 
 
-/* =================================================
+/* =========================================================
    BACKGROUND PARALLAX
-================================================= */
+========================================================= */
 
 const background =
   document.querySelector(
@@ -1220,14 +1540,17 @@ document.addEventListener(
       window.innerWidth -
       .5;
 
+
     const y =
       e.clientY /
       window.innerHeight -
       .5;
 
+
     background.style.transform =
+
       `
-      scale(1.025)
+      scale(1.02)
       translate(
         ${x * -5}px,
         ${y * -3}px
@@ -1239,18 +1562,13 @@ document.addEventListener(
 
 
 
-/* =================================================
-   TAROT LIGHT
-================================================= */
+/* =========================================================
+   TAROT PHOTO INTERACTION
+========================================================= */
 
-const tarotZone =
+const tarotPhoto =
   document.querySelector(
-    ".tarot-zone"
-  );
-
-const tarotLight =
-  document.querySelector(
-    ".tarot-light"
+    ".tarot-photo"
   );
 
 
@@ -1258,11 +1576,12 @@ document.addEventListener(
   "mousemove",
   e => {
 
-    if(!tarotZone || !tarotLight)
-      return;
+    if(!tarotPhoto) return;
+
 
     /*
-      只在左侧区域显示塔罗牌光晕
+      只有鼠标进入左侧人物区域时
+      塔罗牌照片才产生轻微变化。
     */
 
     if(
@@ -1270,19 +1589,37 @@ document.addEventListener(
       window.innerWidth * .55
     ){
 
-      tarotLight.style.left =
-        e.clientX + "px";
+      const x =
+        e.clientX /
+        window.innerWidth -
+        .5;
 
-      tarotLight.style.top =
-        e.clientY + "px";
 
-      tarotLight.style.opacity =
-        ".45";
+      const y =
+        e.clientY /
+        window.innerHeight -
+        .5;
 
-    }else{
 
-      tarotLight.style.opacity =
-        "0";
+      tarotPhoto.style.transform =
+
+        `
+        rotate(
+          ${10 + x * 2.5}deg
+        )
+        translate(
+          ${x * 3}px,
+          ${y * 3}px
+        )
+        `;
+
+      tarotPhoto.style.boxShadow =
+
+        `
+        0 0
+        ${18 + Math.abs(x) * 18}px
+        rgba(255,230,0,.42)
+        `;
 
     }
 
@@ -1291,9 +1628,9 @@ document.addEventListener(
 
 
 
-/* =================================================
+/* =========================================================
    CLICK EFFECT
-================================================= */
+========================================================= */
 
 document.addEventListener(
   "click",
@@ -1304,22 +1641,29 @@ document.addEventListener(
         "div"
       );
 
+
     flash.className =
       "click-flash";
+
 
     flash.style.left =
       e.clientX + "px";
 
+
     flash.style.top =
       e.clientY + "px";
+
 
     document.body.appendChild(
       flash
     );
 
+
     setTimeout(
       () => {
+
         flash.remove();
+
       },
       450
     );
@@ -1327,8 +1671,8 @@ document.addEventListener(
   }
 );
 
-
 </script>
+
 
 </body>
 </html>
