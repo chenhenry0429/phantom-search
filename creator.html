@@ -50,7 +50,6 @@ body{
     background-repeat:no-repeat;
 }
 
-/* 右侧稍微压暗，方便文字阅读 */
 .creator-bg::after{
     content:"";
     position:absolute;
@@ -123,15 +122,6 @@ body{
 .card-stage{
     position:fixed;
 
-    /*
-       ★ 卡牌总位置
-       新背景中手掌大约位于画面左侧 38% 左右。
-
-       如果以后想微调位置：
-       left 控制左右
-       top  控制上下
-    */
-
     left:38.2%;
     top:47%;
 
@@ -146,7 +136,7 @@ body{
 }
 
 /* =========================================================
-   能量核心
+   卡牌中心能量
 ========================================================= */
 
 .energy-core{
@@ -179,8 +169,10 @@ body{
 }
 
 @keyframes corePulse{
+
     0%,100%{
         opacity:.45;
+
         transform:
             translate(-50%,-50%)
             scale(.8);
@@ -188,6 +180,7 @@ body{
 
     50%{
         opacity:1;
+
         transform:
             translate(-50%,-50%)
             scale(1.18);
@@ -195,7 +188,7 @@ body{
 }
 
 /* =========================================================
-   波状光圈
+   波状能量光圈
 ========================================================= */
 
 .energy-ring{
@@ -228,7 +221,6 @@ body{
 
 .energy-ring.r2{
     animation-delay:1s;
-
     border-color:rgba(239,16,35,.8);
 }
 
@@ -237,6 +229,7 @@ body{
 }
 
 @keyframes ringWave{
+
     0%{
         opacity:.8;
 
@@ -261,7 +254,7 @@ body{
 }
 
 /* =========================================================
-   卡牌浮动容器
+   卡牌悬浮
 ========================================================= */
 
 .card-float{
@@ -275,12 +268,17 @@ body{
 }
 
 @keyframes cardFloat{
+
     0%,100%{
-        transform:translateY(0) rotateZ(-2deg);
+        transform:
+            translateY(0)
+            rotateZ(-2deg);
     }
 
     50%{
-        transform:translateY(-11px) rotateZ(-.5deg);
+        transform:
+            translateY(-11px)
+            rotateZ(-.5deg);
     }
 }
 
@@ -302,7 +300,7 @@ body{
 }
 
 /* =========================================================
-   真正的卡牌
+   真正翻转的卡牌
 ========================================================= */
 
 .tarot-card{
@@ -319,13 +317,12 @@ body{
     will-change:transform;
 }
 
-/* 点击翻转 */
 .card-stage.flipped .tarot-card{
     transform:rotateY(180deg);
 }
 
 /* =========================================================
-   正反两面
+   卡牌正反面通用
 ========================================================= */
 
 .card-face{
@@ -375,7 +372,13 @@ body{
     display:block;
 
     object-fit:cover;
-    object-position:center center;
+
+    /*
+       修改点：
+       原来是 center center
+       现在让照片中的人物稍微往上移动
+    */
+    object-position:center 38%;
 }
 
 .creator-photo::after{
@@ -416,7 +419,7 @@ body{
 }
 
 /* =========================================================
-   卡片光泽
+   卡牌表面扫光
 ========================================================= */
 
 .card-shine{
@@ -442,7 +445,8 @@ body{
 
     pointer-events:none;
 
-    transition:left .75s cubic-bezier(.2,.8,.2,1);
+    transition:
+        left .75s cubic-bezier(.2,.8,.2,1);
 }
 
 .card-stage:hover .card-shine{
@@ -450,7 +454,7 @@ body{
 }
 
 /* =========================================================
-   背面 —— 塔罗
+   背面 —— 塔罗牌
 ========================================================= */
 
 .card-back{
@@ -462,11 +466,13 @@ body{
             rgba(255,215,30,.18),
             transparent 29%
         ),
+
         repeating-linear-gradient(
             45deg,
             transparent 0 10px,
             rgba(255,215,30,.055) 11px 12px
         ),
+
         linear-gradient(
             145deg,
             #050505 0%,
@@ -498,7 +504,7 @@ body{
 }
 
 /* =========================================================
-   塔罗中心
+   塔罗牌中心图案
 ========================================================= */
 
 .tarot-number{
@@ -603,10 +609,12 @@ body{
 
     pointer-events:none;
 
-    animation:tipFloat 1.7s ease-in-out infinite;
+    animation:
+        tipFloat 1.7s ease-in-out infinite;
 }
 
 @keyframes tipFloat{
+
     0%,100%{
         margin-bottom:0;
     }
@@ -617,7 +625,7 @@ body{
 }
 
 /* =========================================================
-   右侧个人信息
+   右侧 Creator 信息
 ========================================================= */
 
 .profile{
@@ -631,8 +639,6 @@ body{
     z-index:20;
 }
 
-/* 黄色身份标签 */
-
 .profile-tag{
     display:inline-block;
 
@@ -643,19 +649,23 @@ body{
 
     border:3px solid #050505;
 
-    box-shadow:5px 5px 0 #050505;
+    box-shadow:
+        5px 5px 0 #050505;
 
     transform:rotate(-2deg);
 
     font-size:12px;
 }
 
-/* 大标题 */
+/* =========================================================
+   CREATOR 标题
+========================================================= */
 
 .profile h1{
     margin:25px 0 18px;
 
-    font-size:clamp(58px,5.5vw,100px);
+    font-size:
+        clamp(58px,5.5vw,100px);
 
     line-height:.78;
 
@@ -663,7 +673,8 @@ body{
 
     color:var(--white);
 
-    -webkit-text-stroke:3px #050505;
+    -webkit-text-stroke:
+        3px #050505;
 
     text-shadow:
         7px 7px 0 #050505;
@@ -688,12 +699,15 @@ body{
 
     padding:19px 22px;
 
-    background:rgba(3,3,3,.91);
+    background:
+        rgba(3,3,3,.91);
 
-    border-left:6px solid var(--red);
+    border-left:
+        6px solid var(--red);
 
     box-shadow:
-        8px 8px 0 rgba(0,0,0,.55);
+        8px 8px 0
+        rgba(0,0,0,.55);
 
     transform:rotate(-.5deg);
 }
@@ -722,7 +736,9 @@ body{
 
     color:var(--yellow);
 
-    font-family:"Microsoft YaHei",sans-serif;
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
 
     font-size:27px;
 }
@@ -730,7 +746,9 @@ body{
 .intro p{
     margin:0;
 
-    font-family:"Microsoft YaHei",sans-serif;
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
 
     font-size:13px;
     line-height:1.75;
@@ -738,7 +756,7 @@ body{
 }
 
 /* =========================================================
-   信息卡
+   技能信息
 ========================================================= */
 
 .info-grid{
@@ -761,7 +779,8 @@ body{
 
     color:#050505;
 
-    border:3px solid #050505;
+    border:
+        3px solid #050505;
 
     box-shadow:
         4px 4px 0 #050505;
@@ -784,7 +803,9 @@ body{
 .info-box span{
     display:block;
 
-    font-family:"Microsoft YaHei",sans-serif;
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
 
     font-size:11px;
     font-weight:900;
@@ -803,7 +824,8 @@ body{
 
     background:var(--red);
 
-    border:3px solid #050505;
+    border:
+        3px solid #050505;
 
     box-shadow:
         6px 6px 0 #050505;
@@ -824,7 +846,9 @@ body{
 
     padding-right:30px;
 
-    font-family:"Microsoft YaHei",sans-serif;
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
 
     font-size:11px;
     line-height:1.6;
@@ -862,16 +886,19 @@ body{
 
     background:#050505;
 
-    border-left:3px solid var(--yellow);
+    border-left:
+        3px solid var(--yellow);
 
-    font-family:"Microsoft YaHei",sans-serif;
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
 
     font-size:9px;
     font-weight:700;
 }
 
 /* =========================================================
-   鼠标：中心准星
+   自定义鼠标
 ========================================================= */
 
 .cursor{
@@ -895,8 +922,6 @@ body{
         height .16s ease;
 }
 
-/* 外环 */
-
 .cursor::before{
     content:"";
 
@@ -909,13 +934,12 @@ body{
     border-radius:50%;
 
     box-shadow:
-        0 0 8px rgba(255,230,0,.8);
+        0 0 8px
+        rgba(255,230,0,.8);
 
     animation:
         cursorSpin 2.2s linear infinite;
 }
-
-/* 中心 */
 
 .cursor::after{
     content:"✦";
@@ -942,8 +966,6 @@ body{
     }
 }
 
-/* hover 状态 */
-
 body.interactive .cursor{
     width:48px;
     height:48px;
@@ -953,12 +975,15 @@ body.interactive .cursor::before{
     border-color:var(--red);
 
     box-shadow:
-        0 0 0 3px rgba(255,230,0,.25),
-        0 0 15px rgba(239,16,35,.8);
+        0 0 0 3px
+        rgba(255,230,0,.25),
+
+        0 0 15px
+        rgba(239,16,35,.8);
 }
 
 /* =========================================================
-   鼠标拖尾碎片
+   鼠标拖尾
 ========================================================= */
 
 .trail{
@@ -994,6 +1019,7 @@ body.interactive .cursor::before{
 }
 
 @keyframes trailFade{
+
     0%{
         opacity:.95;
 
@@ -1053,6 +1079,7 @@ body.interactive .cursor::before{
 }
 
 @keyframes flipWave{
+
     0%{
         opacity:1;
 
@@ -1071,7 +1098,7 @@ body.interactive .cursor::before{
 }
 
 /* =========================================================
-   页面切换
+   页面转场
 ========================================================= */
 
 .transition{
@@ -1096,7 +1123,8 @@ body.interactive .cursor::before{
 
     transition:
         opacity .12s,
-        clip-path .48s cubic-bezier(.77,0,.18,1);
+        clip-path .48s
+        cubic-bezier(.77,0,.18,1);
 }
 
 body.leaving .transition{
@@ -1119,6 +1147,7 @@ body.leaving .transition{
 
     .card-stage{
         left:38%;
+
         transform:
             translate(-50%,-50%)
             scale(.82);
@@ -1142,7 +1171,8 @@ body.leaving .transition{
     }
 
     .creator-bg{
-        background-position:35% center;
+        background-position:
+            35% center;
     }
 
     .creator-bg::after{
@@ -1214,7 +1244,7 @@ body.leaving .transition{
 <!-- 背景 -->
 <div class="creator-bg"></div>
 
-<!-- 页面转场 -->
+<!-- 页面切换动画 -->
 <div class="transition"></div>
 
 <!-- 顶部导航 -->
@@ -1240,7 +1270,7 @@ body.leaving .transition{
 
 
 <!-- =====================================================
-     互动卡牌
+     悬浮互动卡牌
 ===================================================== -->
 
 <section
@@ -1248,9 +1278,10 @@ body.leaving .transition{
     id="cardStage"
 >
 
-    <!-- 能量 -->
+    <!-- 能量中心 -->
     <div class="energy-core"></div>
 
+    <!-- 三层波纹 -->
     <div class="energy-ring r1"></div>
     <div class="energy-ring r2"></div>
     <div class="energy-ring r3"></div>
@@ -1273,7 +1304,10 @@ body.leaving .transition{
                 id="tarotCard"
             >
 
-                <!-- 正面 -->
+                <!-- ================================
+                     正面：你的照片
+                ================================= -->
+
                 <div class="card-face card-front">
 
                     <div class="creator-photo">
@@ -1295,7 +1329,10 @@ body.leaving .transition{
                 </div>
 
 
-                <!-- 背面 -->
+                <!-- ================================
+                     背面：塔罗牌
+                ================================= -->
+
                 <div class="card-face card-back">
 
                     <div class="tarot-number">
@@ -1327,7 +1364,7 @@ body.leaving .transition{
 
 
 <!-- =====================================================
-     Creator 信息
+     右侧 Creator 信息
 ===================================================== -->
 
 <section class="profile">
@@ -1363,23 +1400,54 @@ body.leaving .transition{
     <div class="info-grid">
 
         <div class="info-box">
-            <strong>DESIGN</strong>
-            <span>WEB DESIGN / UI DESIGN</span>
+
+            <strong>
+                DESIGN
+            </strong>
+
+            <span>
+                WEB DESIGN / UI DESIGN
+            </span>
+
         </div>
 
-        <div class="info-box">
-            <strong>CODE</strong>
-            <span>HTML / CSS / JAVASCRIPT</span>
-        </div>
 
         <div class="info-box">
-            <strong>VISUAL</strong>
-            <span>VISUAL DESIGN / CREATIVE CODING</span>
+
+            <strong>
+                CODE
+            </strong>
+
+            <span>
+                HTML / CSS / JAVASCRIPT
+            </span>
+
         </div>
 
+
         <div class="info-box">
-            <strong>PROJECT</strong>
-            <span>PHANTOM SEARCH</span>
+
+            <strong>
+                VISUAL
+            </strong>
+
+            <span>
+                VISUAL DESIGN / CREATIVE CODING
+            </span>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <strong>
+                PROJECT
+            </strong>
+
+            <span>
+                PHANTOM SEARCH
+            </span>
+
         </div>
 
     </div>
@@ -1401,9 +1469,13 @@ body.leaving .transition{
 
     <div class="contact">
 
-        <span>CREATED BY 陈植轩</span>
+        <span>
+            CREATED BY 陈植轩
+        </span>
 
-        <span>WEB / UI / CREATIVE CODING</span>
+        <span>
+            WEB / UI / CREATIVE CODING
+        </span>
 
     </div>
 
@@ -1420,7 +1492,7 @@ body.leaving .transition{
 <script>
 
 /* =========================================================
-   DOM
+   获取元素
 ========================================================= */
 
 const cardStage =
@@ -1437,7 +1509,7 @@ const cursor =
 
 
 /* =========================================================
-   1. 点击卡牌翻转
+   点击卡牌翻转
 ========================================================= */
 
 cardButton.addEventListener(
@@ -1447,6 +1519,7 @@ cardButton.addEventListener(
         cardStage
             .classList
             .toggle("flipped");
+
 
         createFlipWave(
             e.clientX,
@@ -1458,7 +1531,7 @@ cardButton.addEventListener(
 
 
 /* =========================================================
-   2. 翻牌冲击波
+   翻牌冲击波
 ========================================================= */
 
 function createFlipWave(x,y){
@@ -1466,8 +1539,10 @@ function createFlipWave(x,y){
     const wave1 =
         document.createElement("div");
 
+
     wave1.className =
         "flip-wave";
+
 
     wave1.style.left =
         x + "px";
@@ -1479,8 +1554,10 @@ function createFlipWave(x,y){
     const wave2 =
         document.createElement("div");
 
+
     wave2.className =
         "flip-wave red";
+
 
     wave2.style.left =
         x + "px";
@@ -1489,14 +1566,21 @@ function createFlipWave(x,y){
         y + "px";
 
 
-    document.body.appendChild(wave1);
-    document.body.appendChild(wave2);
+    document.body.appendChild(
+        wave1
+    );
+
+    document.body.appendChild(
+        wave2
+    );
 
 
     setTimeout(
         ()=>{
+
             wave1.remove();
             wave2.remove();
+
         },
         850
     );
@@ -1504,11 +1588,7 @@ function createFlipWave(x,y){
 
 
 /* =========================================================
-   3. 卡牌轻微 3D 鼠标响应
-
-   注意：
-   卡牌不会移动位置。
-   只产生很轻微的角度变化。
+   卡牌 3D 鼠标响应
 ========================================================= */
 
 cardButton.addEventListener(
@@ -1516,23 +1596,35 @@ cardButton.addEventListener(
     function(e){
 
         const rect =
-            cardButton.getBoundingClientRect();
+            cardButton
+                .getBoundingClientRect();
+
 
         const x =
             (
                 e.clientX -
                 rect.left
-            ) / rect.width - .5;
+            )
+            /
+            rect.width
+            -
+            .5;
+
 
         const y =
             (
                 e.clientY -
                 rect.top
-            ) / rect.height - .5;
+            )
+            /
+            rect.height
+            -
+            .5;
 
 
         const rotateX =
             y * -5;
+
 
         const rotateY =
             x * 6;
@@ -1547,14 +1639,18 @@ cardButton.addEventListener(
         if(flipped){
 
             tarotCard.style.transform =
-                `rotateX(${rotateX}deg)
-                 rotateY(${180 + rotateY}deg)`;
+                `
+                rotateX(${rotateX}deg)
+                rotateY(${180 + rotateY}deg)
+                `;
 
         }else{
 
             tarotCard.style.transform =
-                `rotateX(${rotateX}deg)
-                 rotateY(${rotateY}deg)`;
+                `
+                rotateX(${rotateX}deg)
+                rotateY(${rotateY}deg)
+                `;
 
         }
 
@@ -1562,7 +1658,7 @@ cardButton.addEventListener(
 );
 
 
-/* 离开卡牌恢复 */
+/* 鼠标离开卡牌恢复 */
 
 cardButton.addEventListener(
     "mouseleave",
@@ -1576,15 +1672,17 @@ cardButton.addEventListener(
 
         tarotCard.style.transform =
             flipped
-            ? "rotateY(180deg)"
-            : "rotateY(0deg)";
+            ?
+            "rotateY(180deg)"
+            :
+            "rotateY(0deg)";
 
     }
 );
 
 
 /* =========================================================
-   4. 鼠标准星
+   鼠标位置
 ========================================================= */
 
 let mouseX = -100;
@@ -1614,19 +1712,27 @@ document.addEventListener(
 );
 
 
-/* 鼠标稍微带一点惯性 */
+/* =========================================================
+   鼠标惯性动画
+========================================================= */
 
 function animateCursor(){
 
     cursorX +=
-        (mouseX - cursorX) * .32;
+        (mouseX - cursorX)
+        *
+        .32;
+
 
     cursorY +=
-        (mouseY - cursorY) * .32;
+        (mouseY - cursorY)
+        *
+        .32;
 
 
     cursor.style.left =
         cursorX + "px";
+
 
     cursor.style.top =
         cursorY + "px";
@@ -1637,14 +1743,12 @@ function animateCursor(){
     );
 }
 
+
 animateCursor();
 
 
 /* =========================================================
-   5. 鼠标拖尾
-
-   限制生成频率，
-   避免产生太多 DOM。
+   鼠标拖尾
 ========================================================= */
 
 let lastTrail = 0;
@@ -1672,34 +1776,44 @@ function createTrail(x,y){
 
     particle.className =
         Math.random() > .55
-        ? "trail red"
-        : "trail";
+        ?
+        "trail red"
+        :
+        "trail";
 
 
     const offsetX =
         (
             Math.random() - .5
-        ) * 12;
+        )
+        *
+        12;
+
 
     const offsetY =
         (
             Math.random() - .5
-        ) * 12;
+        )
+        *
+        12;
 
 
     particle.style.left =
         x + offsetX + "px";
+
 
     particle.style.top =
         y + offsetY + "px";
 
 
     const size =
-        5 + Math.random() * 6;
+        5 +
+        Math.random() * 6;
 
 
     particle.style.width =
         size + "px";
+
 
     particle.style.height =
         size + "px";
@@ -1712,7 +1826,9 @@ function createTrail(x,y){
 
     setTimeout(
         ()=>{
+
             particle.remove();
+
         },
         550
     );
@@ -1720,15 +1836,13 @@ function createTrail(x,y){
 
 
 /* =========================================================
-   6. Interactive hover
-
-   卡牌 / 导航按钮经过时，
-   鼠标准星会放大。
+   可交互元素 Hover
 ========================================================= */
 
 document
 .querySelectorAll(".interactive")
 .forEach(
+
     element=>{
 
         element.addEventListener(
@@ -1755,16 +1869,20 @@ document
         );
 
     }
+
 );
 
 
 /* =========================================================
-   7. 页面转场
+   页面转场
 ========================================================= */
 
 document
-.querySelectorAll("[data-transition]")
+.querySelectorAll(
+    "[data-transition]"
+)
 .forEach(
+
     link=>{
 
         link.addEventListener(
@@ -1797,16 +1915,18 @@ document
         );
 
     }
+
 );
 
 
 /* =========================================================
-   8. 禁止拖动图片
+   禁止拖动图片
 ========================================================= */
 
 document
 .querySelectorAll("img")
 .forEach(
+
     img=>{
 
         img.addEventListener(
@@ -1815,6 +1935,7 @@ document
         );
 
     }
+
 );
 
 </script>
