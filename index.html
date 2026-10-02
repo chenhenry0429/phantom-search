@@ -9,17 +9,12 @@
 
 <style>
 
-/* =========================================================
-   COLORS
-========================================================= */
-
 :root{
-    --red:#ef1023;
-    --red-dark:#8b0711;
+    --red:#ed1024;
     --black:#050505;
     --white:#fffdf2;
     --yellow:#ffe600;
-    --gold:#ffca28;
+    --gold:#ffc928;
 }
 
 *{
@@ -44,102 +39,45 @@ body{
         sans-serif;
 }
 
-
 /* =========================================================
-   ACCESSIBILITY
-========================================================= */
-
-.sr-only{
-    position:absolute;
-    width:1px;
-    height:1px;
-    padding:0;
-    margin:-1px;
-    overflow:hidden;
-    clip:rect(0,0,0,0);
-    white-space:nowrap;
-    border:0;
-}
-
-
-/* =========================================================
-   OUTER SCREEN
-========================================================= */
-
-.screen{
-    position:fixed;
-    inset:0;
-
-    display:grid;
-    place-items:center;
-
-    overflow:hidden;
-
-    background:
-        radial-gradient(
-            circle at center,
-            #181818 0,
-            #050505 55%,
-            #000 100%
-        );
-}
-
-
-/* =========================================================
-   3:2 ART STAGE
-
-   背景图本身是 1536 × 1024（3:2）
-   保持这个比例可以让所有按钮位置与背景稳定对应
+   FULL SCREEN
 ========================================================= */
 
 .stage{
-    position:relative;
-
-    width:min(100vw,150vh);
-    aspect-ratio:3 / 2;
-
+    position:fixed;
+    inset:0;
     overflow:hidden;
-
     background:#000;
-
-    box-shadow:
-        0 0 70px rgba(239,16,35,.18);
 }
 
-
 /* =========================================================
-   BACKGROUND ART
+   BACKGROUND
+
+   不再限制 3:2
+   直接铺满整个浏览器
 ========================================================= */
 
-.art{
+.background{
     position:absolute;
-    inset:-1.5%;
+    inset:-2%;
 
     background-image:
         url("assets/home-bg.png");
 
-    background-size:
-        100% 100%;
+    background-repeat:no-repeat;
+    background-position:center 51%;
+    background-size:cover;
 
-    background-position:
-        center;
-
-    background-repeat:
-        no-repeat;
-
-    transform:
-        scale(1.03);
+    transform:scale(1.025);
 
     transition:
-        transform .7s
-        cubic-bezier(.2,.75,.15,1),
-        filter .45s ease;
+        transform .6s cubic-bezier(.2,.75,.2,1),
+        filter .4s ease;
 }
 
+/* 暗角 */
 
-/* 轻微暗角 */
-
-.art::after{
+.background::after{
     content:"";
 
     position:absolute;
@@ -149,51 +87,122 @@ body{
 
     background:
         radial-gradient(
-            ellipse at center,
-            transparent 40%,
-            rgba(0,0,0,.18) 100%
+            ellipse at 55% 45%,
+            transparent 35%,
+            rgba(0,0,0,.10) 65%,
+            rgba(0,0,0,.35) 100%
         );
 }
 
+/* =========================================================
+   COVER ORIGINAL FAKE UI
+
+   原图片已经画有搜索框和按钮。
+   这里把那一部分自然遮住，
+   再放真正可以操作的 HTML。
+========================================================= */
+
+.search-mask{
+    position:absolute;
+
+    left:0;
+    top:48%;
+
+    width:61%;
+    height:27%;
+
+    z-index:5;
+
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            105deg,
+            rgba(2,2,2,.98) 0%,
+            rgba(2,2,2,.97) 80%,
+            rgba(2,2,2,.82) 92%,
+            transparent 100%
+        );
+
+    clip-path:
+        polygon(
+            0 7%,
+            96% 0,
+            100% 89%,
+            7% 100%,
+            0 88%
+        );
+}
+
+/* 红色漫画切片 */
+
+.search-mask::before{
+    content:"";
+
+    position:absolute;
+
+    left:-5%;
+    bottom:-14px;
+
+    width:62%;
+    height:9px;
+
+    background:var(--red);
+
+    transform:rotate(-2deg);
+}
 
 /* =========================================================
-   TOP NAVIGATION
+   TOP NAV MASK
+========================================================= */
+
+.nav-mask{
+    position:absolute;
+
+    right:0;
+    top:0;
+
+    width:30%;
+    height:10%;
+
+    z-index:8;
+
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            100deg,
+            transparent 0%,
+            rgba(0,0,0,.80) 18%,
+            rgba(0,0,0,.96) 35%
+        );
+
+    clip-path:
+        polygon(
+            12% 0,
+            100% 0,
+            100% 100%,
+            0 78%
+        );
+}
+
+/* =========================================================
+   NAVIGATION
 ========================================================= */
 
 .top-nav{
     position:absolute;
 
-    top:2.1%;
-    right:2.6%;
+    top:20px;
+    right:32px;
 
     z-index:30;
 
     display:flex;
     align-items:center;
 
-    gap:8px;
-
-    background:
-        rgba(0,0,0,.78);
-
-    padding:
-        .6% 1.1%;
-
-    border-bottom:
-        2px solid rgba(255,255,255,.12);
+    gap:10px;
 }
-
-
-.nav-divider{
-    width:1px;
-    height:24px;
-
-    margin:0 8px;
-
-    background:
-        rgba(255,255,255,.55);
-}
-
 
 .nav-link{
     position:relative;
@@ -204,54 +213,30 @@ body{
     gap:9px;
 
     padding:
-        7px 11px;
-
-    border:0;
+        9px 14px;
 
     color:#fff;
 
-    background:
-        transparent;
+    text-decoration:none;
 
     font-family:
         "Microsoft YaHei",
         sans-serif;
 
-    font-size:
-        clamp(12px,1vw,17px);
-
+    font-size:14px;
     font-weight:900;
-
-    text-decoration:none;
-
-    cursor:pointer;
 
     transition:
         transform .16s ease,
         color .16s ease;
 }
 
-
 .nav-link:hover{
     color:var(--yellow);
 
     transform:
-        translateY(-2px);
+        translateY(-3px);
 }
-
-
-.nav-icon{
-    display:grid;
-    place-items:center;
-
-    width:26px;
-    height:26px;
-
-    color:var(--red);
-
-    font-size:19px;
-}
-
 
 .nav-link::after{
     content:"";
@@ -261,51 +246,54 @@ body{
     left:10px;
     right:10px;
 
-    bottom:1px;
+    bottom:2px;
 
     height:3px;
 
-    background:
-        var(--red);
+    background:var(--red);
 
-    transform:
-        scaleX(0);
+    transform:scaleX(0);
 
-    transform-origin:
-        left;
+    transform-origin:left;
 
     transition:
         transform .18s ease;
 }
 
-
 .nav-link:hover::after{
-    transform:
-        scaleX(1);
+    transform:scaleX(1);
 }
 
+.nav-icon{
+    color:var(--red);
+    font-size:18px;
+}
+
+.nav-divider{
+    width:1px;
+    height:25px;
+
+    background:
+        rgba(255,255,255,.45);
+}
 
 /* =========================================================
-   SEARCH AREA
-
-   位置对应背景图片中的搜索栏
+   REAL SEARCH AREA
 ========================================================= */
 
 .search-area{
     position:absolute;
 
-    left:3.25%;
-    top:51.35%;
+    left:5.2%;
+    top:52%;
 
-    width:54.1%;
-    height:18%;
+    width:min(760px,51vw);
 
-    z-index:25;
+    z-index:20;
 }
 
-
 /* =========================================================
-   SEARCH FORM
+   SEARCH BAR
 ========================================================= */
 
 .search-form{
@@ -314,60 +302,54 @@ body{
     display:flex;
 
     width:100%;
-    height:45%;
+    height:62px;
 
-    min-height:48px;
+    background:#fff;
 
-    background:
-        #fff;
-
-    border:
-        clamp(3px,.28vw,5px)
-        solid
-        #050505;
+    border:4px solid #050505;
 
     box-shadow:
-        0 0 0
-        clamp(2px,.14vw,3px)
-        #fff;
+        0 0 0 2px #fff,
+        8px 8px 0 rgba(0,0,0,.85);
 
     clip-path:
         polygon(
             1% 5%,
-            99% 0,
-            96.8% 94%,
+            100% 0,
+            96% 95%,
             0 100%
         );
 
-    transition:
-        filter .2s ease,
-        transform .2s ease;
-}
+    transform:rotate(-.4deg);
 
+    transition:
+        transform .18s ease,
+        filter .18s ease;
+}
 
 .search-form:focus-within{
+    transform:
+        rotate(-.4deg)
+        translateY(-3px);
+
     filter:
         drop-shadow(
-            0 0 10px
-            rgba(255,230,0,.72)
+            0 0 9px
+            rgba(255,230,0,.6)
         );
-
-    transform:
-        translateY(-2px);
 }
 
-
-/* 扫描光 */
+/* 输入扫描光 */
 
 .search-form::after{
     content:"";
 
     position:absolute;
 
-    left:-40%;
+    left:-35%;
     top:0;
 
-    width:24%;
+    width:22%;
     height:100%;
 
     pointer-events:none;
@@ -376,28 +358,25 @@ body{
         linear-gradient(
             90deg,
             transparent,
-            rgba(255,230,0,.2),
+            rgba(255,230,0,.15),
             rgba(255,255,255,.75),
             transparent
         );
 
-    transform:
-        skewX(-20deg);
+    transform:skewX(-20deg);
 
     opacity:0;
 }
 
-
 .search-form:focus-within::after{
     animation:
-        inputScan .75s ease-out;
+        searchScan .8s ease-out;
 }
 
-
-@keyframes inputScan{
+@keyframes searchScan{
 
     0%{
-        left:-40%;
+        left:-35%;
         opacity:0;
     }
 
@@ -412,16 +391,11 @@ body{
 
 }
 
-
 /* =========================================================
-   SEARCH INPUT
+   INPUT
 ========================================================= */
 
 .search-input{
-    position:relative;
-
-    z-index:2;
-
     flex:1;
 
     min-width:0;
@@ -430,27 +404,22 @@ body{
     outline:0;
 
     padding:
-        0 4.5%;
-
-    color:#222;
+        0 25px;
 
     background:#fff;
+    color:#191919;
 
     font-family:
         "Microsoft YaHei",
         sans-serif;
 
-    font-size:
-        clamp(13px,1.2vw,20px);
-
+    font-size:16px;
     font-weight:700;
 }
-
 
 .search-input::placeholder{
     color:#999;
 }
-
 
 /* =========================================================
    SEARCH BUTTON
@@ -459,119 +428,104 @@ body{
 .search-button{
     position:relative;
 
-    z-index:3;
-
-    width:14%;
-
-    min-width:70px;
+    width:100px;
 
     border:0;
 
-    color:#fff;
-
-    background:
-        var(--red);
+    background:var(--red);
+    color:white;
 
     cursor:pointer;
 
     clip-path:
         polygon(
-            18% 0,
+            20% 0,
             100% 0,
             100% 100%,
             0 100%
         );
 
     transition:
-        background .16s ease,
-        color .16s ease;
+        background .15s ease,
+        color .15s ease;
 }
-
 
 .search-button:hover{
     color:#050505;
-    background:
-        var(--yellow);
+    background:var(--yellow);
 }
-
 
 .search-icon{
     position:absolute;
 
-    left:54%;
-    top:50%;
+    left:56%;
+    top:47%;
 
-    width:28%;
-    aspect-ratio:1;
+    width:24px;
+    height:24px;
 
     border:
-        clamp(2px,.22vw,4px)
-        solid
+        4px solid
         currentColor;
 
     border-radius:50%;
 
     transform:
-        translate(-50%,-55%);
+        translate(-50%,-50%);
 }
-
 
 .search-icon::after{
     content:"";
 
     position:absolute;
 
-    width:45%;
-    height:12%;
+    width:12px;
+    height:4px;
 
-    right:-31%;
-    bottom:-14%;
-
-    border-radius:3px;
+    right:-9px;
+    bottom:-5px;
 
     background:
         currentColor;
+
+    border-radius:4px;
 
     transform:
         rotate(45deg);
 }
 
-
 /* =========================================================
-   SEARCH ENGINE ROW
+   ENGINE SELECTOR
 ========================================================= */
 
-.engine-row{
+.engine-section{
     display:flex;
 
     align-items:center;
 
-    gap:2%;
+    margin-top:22px;
 
-    height:47%;
+    gap:16px;
 
-    padding-top:2.5%;
+    transform:
+        rotate(-.5deg);
 }
 
-
-.engine-label{
-    color:#fff;
+.engine-title{
+    flex:none;
 
     font-family:
         "Microsoft YaHei",
         sans-serif;
 
-    font-size:
-        clamp(11px,.95vw,16px);
-
+    font-size:14px;
     font-weight:900;
 
     white-space:nowrap;
 
     text-shadow:
-        2px 2px 0 #000;
+        2px 2px #000;
 }
-
 
 .engine-buttons{
     flex:1;
@@ -581,57 +535,44 @@ body{
     grid-template-columns:
         repeat(4,1fr);
 
-    gap:2%;
+    gap:10px;
 }
 
-
-.engine-button{
+.engine{
     position:relative;
 
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    gap:8px;
-
-    height:
-        clamp(38px,4.1vw,58px);
+    height:48px;
 
     border:
         2px solid
-        rgba(255,255,255,.82);
+        rgba(255,255,255,.8);
 
-    color:#fff;
+    color:white;
 
     background:
-        rgba(3,3,3,.88);
+        rgba(7,7,7,.95);
 
     box-shadow:
-        4px 4px 0
-        rgba(0,0,0,.8);
+        4px 4px 0 #000;
 
     font-family:
         Arial,
         "Microsoft YaHei",
         sans-serif;
 
-    font-size:
-        clamp(10px,.85vw,15px);
-
-    font-weight:700;
+    font-size:12px;
+    font-weight:800;
 
     cursor:pointer;
 
     transition:
-        transform .16s ease,
-        border-color .16s ease,
-        color .16s ease,
-        background .16s ease;
+        transform .14s ease,
+        background .14s ease,
+        color .14s ease,
+        border-color .14s ease;
 }
 
-
-.engine-button:hover{
+.engine:hover{
     border-color:
         var(--yellow);
 
@@ -639,8 +580,7 @@ body{
         translateY(-3px);
 }
 
-
-.engine-button.active{
+.engine.active{
     color:#050505;
 
     background:
@@ -654,72 +594,40 @@ body{
         var(--red);
 }
 
+/* =========================================================
+   SEARCH TIP
+========================================================= */
 
-.engine-symbol{
-    display:grid;
+.search-note{
+    margin:
+        17px 0 0 13px;
 
-    place-items:center;
-
-    width:
-        clamp(22px,2vw,31px);
-
-    height:
-        clamp(22px,2vw,31px);
+    color:
+        rgba(255,255,255,.65);
 
     font-family:
-        Impact,
-        Arial,
+        "Microsoft YaHei",
         sans-serif;
 
-    font-size:
-        clamp(14px,1.5vw,23px);
+    font-size:11px;
 }
-
-
-.bing{
-    color:#00b7ff;
-}
-
-
-.google{
-    color:#4285f4;
-}
-
-
-.youtube{
-    color:#ff1f2d;
-}
-
-
-.wikipedia{
-    color:#fff;
-}
-
-
-/* active 时图标变黑 */
-
-.engine-button.active
-.engine-symbol{
-    color:#050505;
-}
-
 
 /* =========================================================
    HAND ENERGY
 
-   放在人物前方手掌附近
+   人物右手附近的小型动画
 ========================================================= */
 
 .hand-energy{
     position:absolute;
 
-    left:84.1%;
-    top:53.7%;
+    left:83.5%;
+    top:60%;
 
-    width:8%;
-    aspect-ratio:1;
+    width:85px;
+    height:85px;
 
-    z-index:18;
+    z-index:12;
 
     pointer-events:none;
 
@@ -727,43 +635,37 @@ body{
         translate(-50%,-50%);
 }
 
-
-.energy-ring{
+.ring{
     position:absolute;
 
     inset:0;
 
     border:
         2px solid
-        rgba(255,202,40,.75);
+        rgba(255,211,36,.55);
 
     border-radius:50%;
 
-    opacity:.35;
-
     animation:
-        ringIdle 3s
-        ease-in-out
-        infinite;
+        ringPulse 2.8s
+        ease-in-out infinite;
 }
 
-
-.energy-ring:nth-child(2){
-    inset:20%;
+.ring:nth-child(2){
+    inset:18px;
 
     animation-delay:
-        -.7s;
+        -.6s;
 }
 
-
-.energy-core{
+.energy-dot{
     position:absolute;
 
     left:50%;
     top:50%;
 
-    width:8px;
-    height:8px;
+    width:7px;
+    height:7px;
 
     border-radius:50%;
 
@@ -771,52 +673,178 @@ body{
         var(--yellow);
 
     box-shadow:
-        0 0 14px var(--yellow),
-        0 0 24px var(--red);
+        0 0 12px
+        var(--yellow),
+        0 0 22px
+        var(--red);
 
     transform:
         translate(-50%,-50%);
 }
 
-
-@keyframes ringIdle{
+@keyframes ringPulse{
 
     0%,
     100%{
-        opacity:.18;
+        opacity:.15;
+
         transform:
-            scale(.7)
-            rotate(0deg);
+            scale(.6)
+            rotate(0);
     }
 
     50%{
-        opacity:.55;
+        opacity:.6;
+
         transform:
             scale(1.15)
-            rotate(100deg);
+            rotate(80deg);
     }
 
 }
 
-
 /* =========================================================
-   PAGE TRANSITION FX
+   CURSOR
 ========================================================= */
 
-.transition-fx{
+.cursor{
+    position:fixed;
+
+    left:-50px;
+    top:-50px;
+
+    width:28px;
+    height:28px;
+
+    z-index:9999;
+
+    pointer-events:none;
+
+    transform:
+        translate(-50%,-50%);
+}
+
+.cursor::before{
+    content:"";
+
+    position:absolute;
+
+    inset:2px;
+
+    border:
+        2px solid
+        var(--yellow);
+
+    border-radius:50%;
+
+    box-shadow:
+        0 0 8px
+        var(--yellow);
+}
+
+.cursor::after{
+    content:"✦";
+
+    position:absolute;
+
+    inset:0;
+
+    display:grid;
+    place-items:center;
+
+    color:var(--red);
+
+    font-size:15px;
+}
+
+.trail{
+    position:fixed;
+
+    width:6px;
+    height:6px;
+
+    z-index:9998;
+
+    pointer-events:none;
+
+    background:
+        var(--yellow);
+
+    transform:
+        translate(-50%,-50%)
+        rotate(45deg);
+
+    animation:
+        trailFade .5s
+        forwards;
+}
+
+@keyframes trailFade{
+
+    to{
+        opacity:0;
+
+        transform:
+            translate(-50%,-50%)
+            rotate(150deg)
+            scale(.1);
+    }
+
+}
+
+/* =========================================================
+   TRANSITION
+
+   重点修复：
+   默认状态完全隐藏！
+========================================================= */
+
+.transition{
     position:fixed;
 
     inset:0;
 
-    z-index:500;
+    z-index:5000;
+
+    overflow:hidden;
 
     pointer-events:none;
 
-    overflow:hidden;
+    visibility:hidden;
 }
 
+/* 默认完全在屏幕外 */
 
-.transition-flash{
+.red-slice{
+    position:absolute;
+
+    inset:-20%;
+
+    background:
+        var(--red);
+
+    transform:
+        translateX(-120%)
+        rotate(-7deg);
+
+    opacity:0;
+}
+
+.black-slice{
+    position:absolute;
+
+    inset:-20%;
+
+    background:#000;
+
+    transform:
+        translateX(120%)
+        rotate(6deg);
+
+    opacity:0;
+}
+
+.white-flash{
     position:absolute;
 
     inset:0;
@@ -826,85 +854,67 @@ body{
     opacity:0;
 }
 
-
-.transition-red{
-    position:absolute;
-
-    left:-130%;
-    top:-20%;
-
-    width:160%;
-    height:150%;
-
-    background:
-        var(--red);
-
-    transform:
-        rotate(-8deg);
-}
-
-
-.transition-black{
-    position:absolute;
-
-    right:-140%;
-    top:-25%;
-
-    width:165%;
-    height:160%;
-
-    background:#000;
-
-    transform:
-        rotate(7deg);
-}
-
-
 /* =========================================================
-   CREATOR TRANSITION
+   CREATOR
 ========================================================= */
 
-body.to-creator
-.art{
+body.creator-leave
+.transition{
+    visibility:visible;
+}
+
+body.creator-leave
+.background{
     transform:
         scale(1.09)
         translate(-2%,1%);
-
-    filter:
-        contrast(1.08)
-        saturate(1.12);
 }
 
-
-body.to-creator
+body.creator-leave
 .hand-energy{
     animation:
-        creatorEnergy
-        .48s
-        ease-out
+        creatorPower
+        .48s ease-out forwards;
+}
+
+body.creator-leave
+.red-slice{
+    animation:
+        redCreator
+        .45s .27s
+        cubic-bezier(.75,0,.2,1)
         forwards;
 }
 
+body.creator-leave
+.black-slice{
+    animation:
+        blackCreator
+        .42s .39s
+        cubic-bezier(.75,0,.2,1)
+        forwards;
+}
 
-@keyframes creatorEnergy{
+body.creator-leave
+.white-flash{
+    animation:
+        flash
+        .23s .25s
+        forwards;
+}
 
-    0%{
-        transform:
-            translate(-50%,-50%)
-            scale(.8);
-    }
+@keyframes creatorPower{
 
-    55%{
+    50%{
         filter:
             drop-shadow(
-                0 0 25px
+                0 0 30px
                 var(--yellow)
             );
 
         transform:
             translate(-50%,-50%)
-            scale(2.5)
-            rotate(80deg);
+            scale(3);
     }
 
     100%{
@@ -912,103 +922,92 @@ body.to-creator
 
         transform:
             translate(-50%,-50%)
-            scale(4);
+            scale(5);
     }
 
 }
 
-
-body.to-creator
-.transition-flash{
-    animation:
-        pageFlash
-        .25s
-        .31s
-        ease-out
-        forwards;
-}
-
-
-body.to-creator
-.transition-red{
-    animation:
-        creatorRed
-        .45s
-        .32s
-        cubic-bezier(.7,0,.2,1)
-        forwards;
-}
-
-
-body.to-creator
-.transition-black{
-    animation:
-        creatorBlack
-        .45s
-        .43s
-        cubic-bezier(.7,0,.2,1)
-        forwards;
-}
-
-
-@keyframes creatorRed{
+@keyframes redCreator{
 
     to{
-        left:-10%;
-    }
-
-}
-
-
-@keyframes creatorBlack{
-
-    to{
-        right:-8%;
-    }
-
-}
-
-
-/* =========================================================
-   FEEDBACK TRANSITION
-========================================================= */
-
-body.to-feedback
-.art{
-    transform:
-        scale(1.12)
-        translate(-3%,1.5%);
-
-    filter:
-        contrast(1.14)
-        saturate(1.18);
-}
-
-
-body.to-feedback
-.hand-energy{
-    animation:
-        feedbackBurst
-        .42s
-        ease-out
-        forwards;
-}
-
-
-@keyframes feedbackBurst{
-
-    0%{
-        transform:
-            translate(-50%,-50%)
-            scale(.6);
-    }
-
-    50%{
         opacity:1;
 
+        transform:
+            translateX(-28%)
+            rotate(-7deg);
+    }
+
+}
+
+@keyframes blackCreator{
+
+    to{
+        opacity:1;
+
+        transform:
+            translateX(23%)
+            rotate(6deg);
+    }
+
+}
+
+/* =========================================================
+   FEEDBACK
+========================================================= */
+
+body.feedback-leave
+.transition{
+    visibility:visible;
+}
+
+body.feedback-leave
+.background{
+    transform:
+        scale(1.12)
+        translate(-3%,1%);
+}
+
+body.feedback-leave
+.hand-energy{
+    animation:
+        feedbackPower
+        .38s
+        ease-out
+        forwards;
+}
+
+body.feedback-leave
+.red-slice{
+    animation:
+        redFeedback
+        .40s .18s
+        cubic-bezier(.75,0,.2,1)
+        forwards;
+}
+
+body.feedback-leave
+.black-slice{
+    animation:
+        blackFeedback
+        .38s .30s
+        cubic-bezier(.75,0,.2,1)
+        forwards;
+}
+
+body.feedback-leave
+.white-flash{
+    animation:
+        flash
+        .2s .17s
+        forwards;
+}
+
+@keyframes feedbackPower{
+
+    45%{
         filter:
             drop-shadow(
-                0 0 30px
+                0 0 35px
                 var(--red)
             );
 
@@ -1027,369 +1026,155 @@ body.to-feedback
 
 }
 
-
-body.to-feedback
-.transition-flash{
-    animation:
-        pageFlash
-        .22s
-        .2s
-        ease-out
-        forwards;
-}
-
-
-body.to-feedback
-.transition-red{
-    animation:
-        feedbackRed
-        .42s
-        .21s
-        cubic-bezier(.7,0,.2,1)
-        forwards;
-}
-
-
-body.to-feedback
-.transition-black{
-    animation:
-        feedbackBlack
-        .38s
-        .33s
-        cubic-bezier(.7,0,.2,1)
-        forwards;
-}
-
-
-@keyframes feedbackRed{
-
-    from{
-        left:110%;
-    }
-
-    to{
-        left:-10%;
-    }
-
-}
-
-
-@keyframes feedbackBlack{
-
-    from{
-        right:120%;
-    }
-
-    to{
-        right:-5%;
-    }
-
-}
-
-
-@keyframes pageFlash{
+@keyframes redFeedback{
 
     0%{
-        opacity:0;
+        opacity:1;
+
+        transform:
+            translateX(120%)
+            rotate(-7deg);
     }
 
-    40%{
-        opacity:.85;
+    100%{
+        opacity:1;
+
+        transform:
+            translateX(-25%)
+            rotate(-7deg);
     }
 
+}
+
+@keyframes blackFeedback{
+
+    0%{
+        opacity:1;
+
+        transform:
+            translateX(-120%)
+            rotate(6deg);
+    }
+
+    100%{
+        opacity:1;
+
+        transform:
+            translateX(22%)
+            rotate(6deg);
+    }
+
+}
+
+@keyframes flash{
+
+    0%,
     100%{
         opacity:0;
     }
 
-}
-
-
-/* =========================================================
-   CURSOR
-========================================================= */
-
-.custom-cursor{
-    position:fixed;
-
-    left:-100px;
-    top:-100px;
-
-    width:30px;
-    height:30px;
-
-    z-index:9999;
-
-    pointer-events:none;
-
-    transform:
-        translate(-50%,-50%);
-}
-
-
-.custom-cursor::before{
-    content:"";
-
-    position:absolute;
-
-    inset:2px;
-
-    border:
-        2px solid
-        var(--yellow);
-
-    border-radius:50%;
-
-    box-shadow:
-        0 0 9px
-        rgba(255,230,0,.8);
-}
-
-
-.custom-cursor::after{
-    content:"✦";
-
-    position:absolute;
-
-    left:50%;
-    top:50%;
-
-    color:
-        var(--red);
-
-    font-size:15px;
-
-    transform:
-        translate(-50%,-53%);
-}
-
-
-.cursor-dot{
-    position:fixed;
-
-    width:7px;
-    height:7px;
-
-    z-index:9998;
-
-    pointer-events:none;
-
-    background:
-        var(--yellow);
-
-    transform:
-        translate(-50%,-50%)
-        rotate(45deg);
-
-    animation:
-        dotFade .45s
-        linear
-        forwards;
-}
-
-
-@keyframes dotFade{
-
-    to{
-        opacity:0;
-        transform:
-            translate(-50%,-50%)
-            rotate(160deg)
-            scale(.1);
+    45%{
+        opacity:.88;
     }
 
 }
 
-
 /* =========================================================
-   WIDE-SCREEN DECORATIVE SIDES
+   RESPONSIVE
 ========================================================= */
 
-.side-decoration{
-    position:fixed;
+@media(max-width:1050px){
 
-    top:0;
-    bottom:0;
+    .search-area{
+        width:57vw;
+    }
 
-    width:14vw;
+    .search-mask{
+        width:66%;
+    }
 
-    pointer-events:none;
-
-    opacity:.5;
-
-    background:
-        repeating-linear-gradient(
-            -17deg,
-            transparent 0 60px,
-            rgba(239,16,35,.18) 61px 64px,
-            transparent 65px 110px
-        );
 }
-
-
-.side-left{
-    left:0;
-}
-
-
-.side-right{
-    right:0;
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
 
 @media(max-width:760px){
 
     body{
-        overflow:auto;
+        overflow:hidden;
     }
 
-
-    .screen{
-        display:block;
-
-        min-height:100vh;
-
-        background:#050505;
-    }
-
-
-    .stage{
-        width:100vw;
-        height:100vh;
-
-        aspect-ratio:auto;
-    }
-
-
-    .art{
-        inset:0;
-
-        background-size:
-            cover;
-
+    .background{
         background-position:
-            67% center;
+            66% center;
 
         filter:
             brightness(.72);
-
-        transform:none;
     }
 
+    .search-mask{
+        left:0;
+        top:auto;
+        bottom:0;
 
-    .top-nav{
-        top:14px;
-        right:10px;
+        width:100%;
+        height:38%;
 
-        padding:3px 5px;
+        background:
+            rgba(0,0,0,.86);
 
-        gap:1px;
+        clip-path:
+            polygon(
+                0 10%,
+                100% 0,
+                100% 100%,
+                0 100%
+            );
     }
-
-
-    .nav-divider{
-        margin:0 2px;
-    }
-
-
-    .nav-link{
-        padding:7px 8px;
-
-        font-size:11px;
-    }
-
-
-    .nav-icon{
-        width:18px;
-        height:18px;
-
-        font-size:14px;
-    }
-
 
     .search-area{
         left:5%;
         top:auto;
-        bottom:7%;
+        bottom:5%;
 
         width:90%;
-        height:auto;
-
-        padding:
-            13px;
-
-        background:
-            rgba(0,0,0,.83);
-
-        border-left:
-            5px solid
-            var(--red);
-
-        clip-path:
-            polygon(
-                0 3%,
-                98% 0,
-                100% 95%,
-                2% 100%
-            );
     }
-
 
     .search-form{
-        height:56px;
+        height:55px;
     }
 
-
-    .engine-row{
-        height:auto;
-
-        padding-top:
-            13px;
+    .engine-section{
+        display:block;
     }
 
-
-    .engine-label{
+    .engine-title{
         display:none;
     }
-
 
     .engine-buttons{
-        gap:6px;
+        margin-top:13px;
     }
 
-
-    .engine-button{
-        height:44px;
-
-        padding:
-            0 4px;
-
+    .engine{
         font-size:10px;
+        height:42px;
     }
 
-
-    .engine-button span:last-child{
-        display:none;
+    .top-nav{
+        top:10px;
+        right:8px;
     }
 
+    .nav-mask{
+        width:60%;
+    }
 
     .hand-energy{
         display:none;
     }
 
-
-    .side-decoration{
-        display:none;
-    }
-
 }
 
-
 /* =========================================================
-   TOUCH DEVICES
+   POINTER
 ========================================================= */
 
 @media(pointer:fine){
@@ -1403,15 +1188,13 @@ body.to-feedback
 
 }
 
-
 @media(pointer:coarse){
 
-    .custom-cursor{
+    .cursor{
         display:none;
     }
 
 }
-
 
 /* =========================================================
    REDUCED MOTION
@@ -1422,8 +1205,8 @@ body.to-feedback
     *,
     *::before,
     *::after{
-        animation:none !important;
-        transition:none !important;
+        animation:none!important;
+        transition:none!important;
     }
 
 }
@@ -1435,223 +1218,163 @@ body.to-feedback
 
 <body>
 
-<div class="side-decoration side-left"></div>
-<div class="side-decoration side-right"></div>
+<div class="stage">
+
+    <!-- BACKGROUND -->
+
+    <div
+        class="background"
+        id="background">
+    </div>
 
 
-<div class="screen">
+    <!-- MASK ORIGINAL UI -->
 
-    <div class="stage"
-         id="stage">
+    <div class="search-mask"></div>
 
-
-        <!-- =============================================
-             FINAL HOMEPAGE ART
-        ============================================== -->
-
-        <div class="art"
-             id="art">
-        </div>
+    <div class="nav-mask"></div>
 
 
-        <!-- =============================================
-             SEO / ACCESSIBILITY TITLE
-        ============================================== -->
+    <!-- =============================================
+         NAV
+    ============================================== -->
 
-        <h1 class="sr-only">
-            PHANTOM SEARCH
-        </h1>
+    <nav class="top-nav">
 
-
-        <!-- =============================================
-             TOP NAVIGATION
-        ============================================== -->
-
-        <nav class="top-nav">
-
-            <a
-                href="feedback.html"
-                class="nav-link"
-                id="feedbackLink"
-                aria-label="前往反馈页面"
-            >
-
-                <span class="nav-icon">
-                    ✉
-                </span>
-
-                <span>
-                    反馈
-                </span>
-
-            </a>
-
-
-            <span class="nav-divider"></span>
-
-
-            <a
-                href="creator.html"
-                class="nav-link"
-                id="creatorLink"
-                aria-label="前往创作者信息页面"
-            >
-
-                <span class="nav-icon">
-                    ♟
-                </span>
-
-                <span>
-                    创作者信息
-                </span>
-
-            </a>
-
-        </nav>
-
-
-        <!-- =============================================
-             REAL SEARCH UI
-        ============================================== -->
-
-        <section
-            class="search-area"
-            aria-label="搜索区域"
+        <a
+            href="feedback.html"
+            class="nav-link"
+            id="feedbackLink"
         >
 
-            <form
-                class="search-form"
-                id="searchForm"
+            <span class="nav-icon">
+                ✉
+            </span>
+
+            <span>
+                反馈
+            </span>
+
+        </a>
+
+
+        <div class="nav-divider"></div>
+
+
+        <a
+            href="creator.html"
+            class="nav-link"
+            id="creatorLink"
+        >
+
+            <span class="nav-icon">
+                ♟
+            </span>
+
+            <span>
+                创作者信息
+            </span>
+
+        </a>
+
+    </nav>
+
+
+    <!-- =============================================
+         REAL SEARCH
+    ============================================== -->
+
+    <main class="search-area">
+
+        <form
+            class="search-form"
+            id="searchForm"
+        >
+
+            <input
+                class="search-input"
+                id="searchInput"
+                type="text"
+                autocomplete="off"
+                placeholder="搜索任何内容..."
             >
 
-                <input
-                    class="search-input"
-                    id="searchInput"
-                    type="text"
-                    autocomplete="off"
-                    spellcheck="false"
-                    placeholder="搜索任何内容..."
-                    aria-label="搜索内容"
-                >
 
+            <button
+                class="search-button"
+                type="submit"
+                aria-label="搜索"
+            >
+
+                <span class="search-icon"></span>
+
+            </button>
+
+        </form>
+
+
+        <!-- ENGINE -->
+
+        <div class="engine-section">
+
+            <div class="engine-title">
+                快捷搜索：
+            </div>
+
+
+            <div class="engine-buttons">
 
                 <button
-                    class="search-button"
-                    type="submit"
-                    aria-label="搜索"
-                >
-
-                    <span
-                        class="search-icon"
-                        aria-hidden="true">
-                    </span>
-
+                    class="engine active"
+                    type="button"
+                    data-engine="bing">
+                    Bing
                 </button>
 
-            </form>
+                <button
+                    class="engine"
+                    type="button"
+                    data-engine="google">
+                    Google
+                </button>
 
+                <button
+                    class="engine"
+                    type="button"
+                    data-engine="youtube">
+                    YouTube
+                </button>
 
-            <!-- SEARCH ENGINES -->
-
-            <div class="engine-row">
-
-                <span class="engine-label">
-                    快捷搜索：
-                </span>
-
-
-                <div class="engine-buttons">
-
-
-                    <button
-                        type="button"
-                        class="engine-button active"
-                        data-engine="bing"
-                    >
-
-                        <span class="engine-symbol bing">
-                            B
-                        </span>
-
-                        <span>
-                            Bing
-                        </span>
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="engine-button"
-                        data-engine="google"
-                    >
-
-                        <span class="engine-symbol google">
-                            G
-                        </span>
-
-                        <span>
-                            Google
-                        </span>
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="engine-button"
-                        data-engine="youtube"
-                    >
-
-                        <span class="engine-symbol youtube">
-                            ▶
-                        </span>
-
-                        <span>
-                            YouTube
-                        </span>
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="engine-button"
-                        data-engine="wikipedia"
-                    >
-
-                        <span class="engine-symbol wikipedia">
-                            W
-                        </span>
-
-                        <span>
-                            Wikipedia
-                        </span>
-
-                    </button>
-
-
-                </div>
+                <button
+                    class="engine"
+                    type="button"
+                    data-engine="wikipedia">
+                    Wikipedia
+                </button>
 
             </div>
 
-        </section>
-
-
-        <!-- =============================================
-             HAND ENERGY
-        ============================================== -->
-
-        <div
-            class="hand-energy"
-            aria-hidden="true"
-        >
-
-            <div class="energy-ring"></div>
-            <div class="energy-ring"></div>
-            <div class="energy-core"></div>
-
         </div>
+
+
+        <div class="search-note">
+            默认使用 Bing；点击按钮可以切换搜索引擎，也可以直接输入网址访问。
+        </div>
+
+    </main>
+
+
+    <!-- =============================================
+         HAND ENERGY
+    ============================================== -->
+
+    <div class="hand-energy">
+
+        <div class="ring"></div>
+
+        <div class="ring"></div>
+
+        <div class="energy-dot"></div>
 
     </div>
 
@@ -1659,36 +1382,32 @@ body.to-feedback
 
 
 <!-- =============================================
-     PAGE TRANSITION
+     TRANSITION
 ============================================== -->
 
-<div
-    class="transition-fx"
-    aria-hidden="true"
->
+<div class="transition">
 
-    <div class="transition-flash"></div>
-    <div class="transition-red"></div>
-    <div class="transition-black"></div>
+    <div class="white-flash"></div>
+
+    <div class="red-slice"></div>
+
+    <div class="black-slice"></div>
 
 </div>
 
 
-<!-- =============================================
-     CUSTOM CURSOR
-============================================== -->
+<!-- CURSOR -->
 
 <div
-    class="custom-cursor"
-    id="customCursor"
-    aria-hidden="true"
-></div>
+    class="cursor"
+    id="cursor">
+</div>
 
 
 <script>
 
 /* =========================================================
-   SEARCH ENGINE
+   SEARCH
 ========================================================= */
 
 const searchForm =
@@ -1701,9 +1420,9 @@ const searchInput =
         "searchInput"
     );
 
-const engineButtons =
+const engines =
     document.querySelectorAll(
-        ".engine-button"
+        ".engine"
     );
 
 
@@ -1711,7 +1430,7 @@ let currentEngine =
     "bing";
 
 
-const engines = {
+const searchURLs = {
 
     bing:
         "https://www.bing.com/search?q=",
@@ -1728,25 +1447,17 @@ const engines = {
 };
 
 
-
-/* =========================================================
-   CHANGE ENGINE
-========================================================= */
-
-engineButtons.forEach(button => {
+engines.forEach(button=>{
 
     button.addEventListener(
         "click",
         function(){
 
-            engineButtons.forEach(
-                item => {
-
-                    item.classList.remove(
+            engines.forEach(
+                b =>
+                    b.classList.remove(
                         "active"
-                    );
-
-                }
+                    )
             );
 
 
@@ -1759,23 +1470,7 @@ engineButtons.forEach(button => {
                 this.dataset.engine;
 
 
-            /*
-               如果输入框已经有内容，
-               点击搜索引擎按钮直接执行搜索。
-            */
-
-            if(
-                searchInput.value
-                .trim()
-            ){
-
-                performSearch();
-
-            }else{
-
-                searchInput.focus();
-
-            }
+            searchInput.focus();
 
         }
     );
@@ -1783,29 +1478,19 @@ engineButtons.forEach(button => {
 });
 
 
-
-/* =========================================================
-   SEARCH FORM
-========================================================= */
-
 searchForm.addEventListener(
     "submit",
     function(event){
 
         event.preventDefault();
 
-        performSearch();
+        search();
 
     }
 );
 
 
-
-/* =========================================================
-   SEARCH FUNCTION
-========================================================= */
-
-function performSearch(){
+function search(){
 
     const value =
         searchInput.value.trim();
@@ -1820,17 +1505,13 @@ function performSearch(){
     }
 
 
-    /*
-       完整 URL：
-       https://example.com
-    */
+    /* 完整 URL */
 
     if(
-        /^https?:\/\//i
-        .test(value)
+        /^https?:\/\//i.test(value)
     ){
 
-        window.location.href =
+        location.href =
             value;
 
         return;
@@ -1838,12 +1519,7 @@ function performSearch(){
     }
 
 
-    /*
-       类似：
-       github.com
-       openai.com
-       wikipedia.org/wiki/...
-    */
+    /* example.com */
 
     if(
         !/\s/.test(value)
@@ -1852,7 +1528,7 @@ function performSearch(){
         .test(value)
     ){
 
-        window.location.href =
+        location.href =
             "https://" + value;
 
         return;
@@ -1860,45 +1536,33 @@ function performSearch(){
     }
 
 
-    /*
-       普通关键词搜索
-    */
-
-    const target =
-        engines[currentEngine]
+    location.href =
+        searchURLs[currentEngine]
         +
         encodeURIComponent(value);
-
-
-    window.location.href =
-        target;
 
 }
 
 
-
 /* =========================================================
-   NAVIGATION TRANSITIONS
+   PAGE TRANSITION
 ========================================================= */
 
-const creatorLink =
-    document.getElementById(
-        "creatorLink"
-    );
-
-const feedbackLink =
-    document.getElementById(
-        "feedbackLink"
-    );
+let leaving =
+    false;
 
 
-creatorLink.addEventListener(
+document
+.getElementById(
+    "creatorLink"
+)
+.addEventListener(
     "click",
     function(event){
 
         event.preventDefault();
 
-        goToPage(
+        leave(
             this.href,
             "creator"
         );
@@ -1907,13 +1571,17 @@ creatorLink.addEventListener(
 );
 
 
-feedbackLink.addEventListener(
+document
+.getElementById(
+    "feedbackLink"
+)
+.addEventListener(
     "click",
     function(event){
 
         event.preventDefault();
 
-        goToPage(
+        leave(
             this.href,
             "feedback"
         );
@@ -1922,179 +1590,97 @@ feedbackLink.addEventListener(
 );
 
 
-
-/* =========================================================
-   PAGE TRANSITION FUNCTION
-========================================================= */
-
-let changingPage =
-    false;
-
-
-function goToPage(
-    target,
+function leave(
+    url,
     type
 ){
 
-    if(changingPage){
+    if(leaving){
         return;
     }
 
-
-    changingPage =
-        true;
+    leaving = true;
 
 
-    if(
-        type ===
-        "creator"
-    ){
+    document.body
+        .classList
+        .add(
+            type === "creator"
+            ?
+            "creator-leave"
+            :
+            "feedback-leave"
+        );
 
-        document.body
-            .classList
-            .add(
-                "to-creator"
-            );
-
-    }else{
-
-        document.body
-            .classList
-            .add(
-                "to-feedback"
-            );
-
-    }
-
-
-    /*
-       当前版本：
-       使用网页动态过渡。
-
-       以后如果我们制作出真正连续人物动画，
-       就可以在这里接入动画，
-       整个首页其他代码都不用推翻。
-    */
 
     setTimeout(
         function(){
 
-            window.location.href =
-                target;
+            location.href =
+                url;
 
         },
-        720
+        700
     );
 
 }
 
 
-
 /* =========================================================
-   BACKGROUND PARALLAX
+   PARALLAX
 ========================================================= */
 
-const art =
+const background =
     document.getElementById(
-        "art"
-    );
-
-const stage =
-    document.getElementById(
-        "stage"
+        "background"
     );
 
 
-let pointerX =
-    0;
-
-let pointerY =
-    0;
-
-
-stage.addEventListener(
+document.addEventListener(
     "mousemove",
     function(event){
 
-        if(
-            changingPage
-        ){
+        if(leaving){
             return;
         }
 
 
-        const rect =
-            stage.getBoundingClientRect();
-
-
         const x =
-            (
-                event.clientX
-                -
-                rect.left
-            )
+            event.clientX
             /
-            rect.width
+            window.innerWidth
             -
             .5;
 
 
         const y =
-            (
-                event.clientY
-                -
-                rect.top
-            )
+            event.clientY
             /
-            rect.height
+            window.innerHeight
             -
             .5;
 
 
-        pointerX =
-            x * -5;
-
-        pointerY =
-            y * -3;
-
-
-        art.style.transform =
-            `scale(1.035)
-             translate(
-                 ${pointerX}px,
-                 ${pointerY}px
-             )`;
+        background.style.transform =
+            `
+            scale(1.035)
+            translate(
+                ${x * -5}px,
+                ${y * -3}px
+            )
+            `;
 
     }
 );
-
-
-stage.addEventListener(
-    "mouseleave",
-    function(){
-
-        if(
-            changingPage
-        ){
-            return;
-        }
-
-
-        art.style.transform =
-            "scale(1.03)";
-
-    }
-);
-
 
 
 /* =========================================================
-   CUSTOM CURSOR
+   CURSOR
 ========================================================= */
 
 const cursor =
     document.getElementById(
-        "customCursor"
+        "cursor"
     );
 
 
@@ -2114,7 +1700,6 @@ let lastTrail =
     0;
 
 
-
 document.addEventListener(
     "mousemove",
     function(event){
@@ -2126,7 +1711,7 @@ document.addEventListener(
             event.clientY;
 
 
-        createCursorTrail(
+        makeTrail(
             mouseX,
             mouseY
         );
@@ -2135,8 +1720,7 @@ document.addEventListener(
 );
 
 
-
-function animateCursor(){
+function cursorLoop(){
 
     cursorX +=
         (
@@ -2145,7 +1729,7 @@ function animateCursor(){
             cursorX
         )
         *
-        .28;
+        .3;
 
 
     cursorY +=
@@ -2155,7 +1739,7 @@ function animateCursor(){
             cursorY
         )
         *
-        .28;
+        .3;
 
 
     cursor.style.left =
@@ -2166,27 +1750,22 @@ function animateCursor(){
 
 
     requestAnimationFrame(
-        animateCursor
+        cursorLoop
     );
 
 }
 
 
-animateCursor();
+cursorLoop();
 
 
-
-/* =========================================================
-   CURSOR TRAIL
-========================================================= */
-
-function createCursorTrail(
+function makeTrail(
     x,
     y
 ){
 
     if(
-        !window.matchMedia(
+        !matchMedia(
             "(pointer:fine)"
         ).matches
     ){
@@ -2220,7 +1799,7 @@ function createCursorTrail(
 
 
     particle.className =
-        "cursor-dot";
+        "trail";
 
 
     particle.style.left =
@@ -2261,12 +1840,9 @@ function createCursorTrail(
 
 
     setTimeout(
-        function(){
-
-            particle.remove();
-
-        },
-        470
+        () =>
+            particle.remove(),
+        520
     );
 
 }
