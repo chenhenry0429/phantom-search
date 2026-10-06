@@ -30,7 +30,7 @@ body{
 
 body{
     overflow:hidden;
-    background:#000;
+    background:#050505;
     color:#fff;
 
     font-family:
@@ -46,14 +46,22 @@ body{
 
 .creator-bg{
     position:fixed;
-    inset:-2%;
 
-    background:
-        url("assets/creator-bg.png?v=8")
-        center / cover
+    inset:0;
+
+    z-index:0;
+
+    background-image:
+        url("assets/creator-bg.png");
+
+    background-position:
+        center center;
+
+    background-size:
+        cover;
+
+    background-repeat:
         no-repeat;
-
-    transform:scale(1.025);
 }
 
 .creator-bg::after{
@@ -66,43 +74,66 @@ body{
 
     background:
         radial-gradient(
-            ellipse at center,
-            transparent 43%,
-            rgba(0,0,0,.22) 100%
+            ellipse at 48% 50%,
+            transparent 40%,
+            rgba(0,0,0,.18) 100%
         );
 }
 
 /* =========================================================
-   ENTRY
+   MAIN CONTENT
+
+   重要：
+   默认直接显示。
+   不再依赖 opacity:0 → animation。
 ========================================================= */
 
 .page-content{
-    opacity:0;
+    position:relative;
 
-    transform:
-        translateX(25px);
+    z-index:10;
 
-    animation:
-        pageEnter
-        .6s .1s
-        cubic-bezier(.2,.8,.2,1)
-        forwards;
+    width:100%;
+    height:100%;
 }
 
-@keyframes pageEnter{
+/* 如果是从首页进入，只做很轻的视觉动画 */
 
-    to{
-        opacity:1;
-        transform:none;
+body.from-home .creator-bg{
+    animation:
+        backgroundEnter
+        .55s ease-out;
+}
+
+@keyframes backgroundEnter{
+
+    0%{
+        transform:
+            scale(1.06);
+
+        filter:
+            brightness(.8);
+    }
+
+    100%{
+        transform:
+            scale(1);
+
+        filter:none;
     }
 
 }
 
+/* =========================================================
+   ENTRY LIGHT
+========================================================= */
+
 .entry-flash{
     position:fixed;
+
     inset:0;
 
-    z-index:500;
+    z-index:200;
 
     pointer-events:none;
 
@@ -111,21 +142,22 @@ body{
     background:
         radial-gradient(
             circle at 38% 47%,
-            rgba(255,230,0,.45),
-            transparent 16%
+            rgba(255,225,45,.65),
+            rgba(255,50,30,.12) 13%,
+            transparent 25%
         );
 }
 
 body.from-home .entry-flash{
     animation:
         entryFlash
-        .65s ease-out;
+        .55s ease-out;
 }
 
 @keyframes entryFlash{
 
     0%{
-        opacity:.75;
+        opacity:.85;
     }
 
     100%{
@@ -135,7 +167,7 @@ body.from-home .entry-flash{
 }
 
 /* =========================================================
-   TOP NAV
+   NAV
 ========================================================= */
 
 .top-nav{
@@ -147,13 +179,16 @@ body.from-home .entry-flash{
     z-index:100;
 
     display:flex;
+
     gap:10px;
 }
 
 .top-nav a{
-    padding:9px 15px;
+    padding:
+        9px 15px;
 
     color:#050505;
+
     background:#fff;
 
     border:
@@ -176,7 +211,9 @@ body.from-home .entry-flash{
     transform:
         skew(-7deg);
 
-    transition:.15s ease;
+    transition:
+        transform .15s ease,
+        background .15s ease;
 }
 
 .top-nav a:first-child{
@@ -185,6 +222,9 @@ body.from-home .entry-flash{
 }
 
 .top-nav a:hover{
+    background:
+        var(--yellow);
+
     transform:
         skew(-7deg)
         translate(-3px,-3px);
@@ -216,6 +256,7 @@ body.from-home .entry-flash{
         6px 12px;
 
     color:#050505;
+
     background:
         var(--yellow);
 
@@ -242,6 +283,8 @@ body.from-home .entry-flash{
     margin:
         18px 0 8px;
 
+    color:#fff;
+
     font-size:
         clamp(
             58px,
@@ -251,13 +294,15 @@ body.from-home .entry-flash{
 
     line-height:.8;
 
-    color:#fff;
+    letter-spacing:
+        -.04em;
 
     -webkit-text-stroke:
         3px #050505;
 
     text-shadow:
-        8px 8px #050505;
+        8px 8px
+        #050505;
 
     transform:
         rotate(-2deg);
@@ -278,6 +323,7 @@ body.from-home .entry-flash{
         7px 13px;
 
     color:#050505;
+
     background:#fff;
 
     border:
@@ -306,9 +352,11 @@ body.from-home .entry-flash{
 }
 
 .creator-desc{
-    max-width:500px;
+    max-width:
+        500px;
 
-    margin-top:13px;
+    margin-top:
+        13px;
 
     padding:
         16px 19px;
@@ -327,6 +375,7 @@ body.from-home .entry-flash{
         sans-serif;
 
     font-size:13px;
+
     line-height:1.8;
 }
 
@@ -346,6 +395,7 @@ body.from-home .entry-flash{
         9px 11px;
 
     color:#050505;
+
     background:
         var(--white);
 
@@ -372,6 +422,10 @@ body.from-home .entry-flash{
 
 /* =========================================================
    CARD POSITION
+
+   保持你之前确认的：
+   left 38.2%
+   top 47%
 ========================================================= */
 
 .card-stage{
@@ -430,7 +484,7 @@ body.from-home .entry-flash{
 
     50%{
         transform:
-            translateY(-12px);
+            translateY(-10px);
     }
 
 }
@@ -440,8 +494,8 @@ body.from-home .entry-flash{
 ========================================================= */
 
 .card{
-    --tilt-x:0deg;
-    --tilt-y:0deg;
+    --tiltX:0deg;
+    --tiltY:0deg;
 
     position:relative;
 
@@ -455,10 +509,10 @@ body.from-home .entry-flash{
 
     transform:
         rotateX(
-            var(--tilt-x)
+            var(--tiltX)
         )
         rotateY(
-            var(--tilt-y)
+            var(--tiltY)
         );
 
     transition:
@@ -470,23 +524,22 @@ body.from-home .entry-flash{
 .card.flipped{
     transform:
         rotateX(
-            var(--tilt-x)
+            var(--tiltX)
         )
         rotateY(
             calc(
-                180deg
-                +
-                var(--tilt-y)
+                180deg + var(--tiltY)
             )
         );
 }
 
 /* =========================================================
-   CARD FACE
+   CARD FACES
 ========================================================= */
 
 .card-face{
     position:absolute;
+
     inset:0;
 
     overflow:hidden;
@@ -499,9 +552,13 @@ body.from-home .entry-flash{
         4px solid
         #050505;
 
-    background:#080808;
+    background:
+        #080808;
 
     backface-visibility:
+        hidden;
+
+    -webkit-backface-visibility:
         hidden;
 }
 
@@ -510,8 +567,6 @@ body.from-home .entry-flash{
 ========================================================= */
 
 .card-front{
-    padding:8px;
-
     background:
         linear-gradient(
             145deg,
@@ -522,7 +577,8 @@ body.from-home .entry-flash{
 
 /* =========================================================
    CREATOR PHOTO
-   已调整：整体向下移动
+
+   本次照片进一步向下调整。
 ========================================================= */
 
 .creator-photo{
@@ -532,14 +588,15 @@ body.from-home .entry-flash{
 
     overflow:hidden;
 
-    background:#111;
+    background:
+        #111;
 }
 
 .creator-photo img{
     position:absolute;
 
-    left:0;
-    top:0;
+    left:50%;
+    top:52%;
 
     width:108%;
     height:108%;
@@ -549,15 +606,17 @@ body.from-home .entry-flash{
     object-fit:cover;
 
     object-position:
-        center 34%;
+        center 32%;
 
     transform:
-        translate(-4%,1%)
-        rotate(1.6deg);
+        translate(-50%,-50%)
+        rotate(1.2deg);
 
     transform-origin:
         center center;
 }
+
+/* 暗角 */
 
 .creator-photo::after{
     content:"";
@@ -570,13 +629,13 @@ body.from-home .entry-flash{
     background:
         linear-gradient(
             to top,
-            rgba(0,0,0,.72),
-            transparent 43%
+            rgba(0,0,0,.76),
+            transparent 42%
         );
 }
 
 /* =========================================================
-   CARD LABEL
+   LABEL
 ========================================================= */
 
 .card-label{
@@ -598,7 +657,8 @@ body.from-home .entry-flash{
         );
 
     text-shadow:
-        3px 3px #000;
+        3px 3px
+        #000;
 }
 
 .card-label span{
@@ -625,6 +685,7 @@ body.from-home .entry-flash{
         rotateY(180deg);
 
     display:grid;
+
     place-items:center;
 
     background:
@@ -639,16 +700,20 @@ body.from-home .entry-flash{
     position:relative;
 
     display:grid;
+
     place-items:center;
 
     width:68%;
-    aspect-ratio:1;
+
+    aspect-ratio:
+        1;
 
     border:
         3px solid
         var(--gold);
 
-    border-radius:50%;
+    border-radius:
+        50%;
 
     color:
         var(--gold);
@@ -676,7 +741,8 @@ body.from-home .entry-flash{
         1px solid
         rgba(255,201,40,.7);
 
-    border-radius:50%;
+    border-radius:
+        50%;
 }
 
 .tarot-symbol::after{
@@ -695,7 +761,7 @@ body.from-home .entry-flash{
 }
 
 /* =========================================================
-   CLICK HINT
+   CARD HINT
 ========================================================= */
 
 .card-hint{
@@ -704,7 +770,8 @@ body.from-home .entry-flash{
     left:50%;
     bottom:-42px;
 
-    white-space:nowrap;
+    white-space:
+        nowrap;
 
     transform:
         translateX(-50%)
@@ -754,7 +821,8 @@ body.from-home .entry-flash{
         2px solid
         rgba(255,211,40,.5);
 
-    border-radius:50%;
+    border-radius:
+        50%;
 
     transform:
         translate(-50%,-50%);
@@ -771,7 +839,8 @@ body.from-home .entry-flash{
 
     position:absolute;
 
-    border-radius:50%;
+    border-radius:
+        50%;
 }
 
 .card-energy::before{
@@ -895,11 +964,12 @@ body.from-home .entry-flash{
 }
 
 /* =========================================================
-   EXIT
+   PAGE EXIT
 ========================================================= */
 
 .exit{
     position:fixed;
+
     inset:0;
 
     z-index:5000;
@@ -913,6 +983,7 @@ body.from-home .entry-flash{
     content:"";
 
     position:absolute;
+
     inset:-20%;
 
     background:
@@ -927,9 +998,11 @@ body.from-home .entry-flash{
     content:"";
 
     position:absolute;
+
     inset:-20%;
 
-    background:#000;
+    background:
+        #000;
 
     transform:
         translateX(130%)
@@ -937,22 +1010,23 @@ body.from-home .entry-flash{
 }
 
 body.leaving .exit{
-    visibility:visible;
+    visibility:
+        visible;
 }
 
 body.leaving .exit::before{
     animation:
-        leaveRed
+        exitRed
         .42s forwards;
 }
 
 body.leaving .exit::after{
     animation:
-        leaveBlack
+        exitBlack
         .42s .1s forwards;
 }
 
-@keyframes leaveRed{
+@keyframes exitRed{
 
     to{
         transform:
@@ -962,7 +1036,7 @@ body.leaving .exit::after{
 
 }
 
-@keyframes leaveBlack{
+@keyframes exitBlack{
 
     to{
         transform:
@@ -1004,7 +1078,8 @@ body.leaving .exit::after{
         2px solid
         var(--yellow);
 
-    border-radius:50%;
+    border-radius:
+        50%;
 
     box-shadow:
         0 0 8px
@@ -1015,15 +1090,18 @@ body.leaving .exit::after{
     content:"✦";
 
     position:absolute;
+
     inset:0;
 
     display:grid;
+
     place-items:center;
 
     color:
         var(--red);
 
-    font-size:14px;
+    font-size:
+        14px;
 }
 
 .trail{
@@ -1038,18 +1116,6 @@ body.leaving .exit::after{
 
     background:
         var(--yellow);
-
-    clip-path:
-        polygon(
-            50% 0,
-            65% 35%,
-            100% 50%,
-            65% 65%,
-            50% 100%,
-            35% 65%,
-            0 50%,
-            35% 35%
-        );
 
     animation:
         trailFade
@@ -1124,6 +1190,10 @@ body.leaving .exit::after{
 
 }
 
+/* =========================================================
+   POINTER
+========================================================= */
+
 @media(pointer:fine){
 
     body,
@@ -1149,10 +1219,17 @@ body.leaving .exit::after{
 <body>
 
 
+<!-- BACKGROUND -->
+
 <div class="creator-bg"></div>
+
+
+<!-- ENTRY FX -->
 
 <div class="entry-flash"></div>
 
+
+<!-- PAGE -->
 
 <div class="page-content">
 
@@ -1176,7 +1253,9 @@ body.leaving .exit::after{
     </nav>
 
 
-    <!-- FLOATING CARD -->
+    <!-- =================================================
+         FLOATING CARD
+    ================================================== -->
 
     <div class="card-stage">
 
@@ -1185,9 +1264,7 @@ body.leaving .exit::after{
 
 
         <div class="spark one"></div>
-
         <div class="spark two"></div>
-
         <div class="spark three"></div>
 
 
@@ -1209,7 +1286,7 @@ body.leaving .exit::after{
                     <div class="creator-photo">
 
                         <img
-                            src="assets/creator-photo.png?v=8"
+                            src="assets/creator-photo.png"
                             alt="创作者照片">
 
                     </div>
@@ -1234,7 +1311,6 @@ body.leaving .exit::after{
                     class="card-face
                            card-back">
 
-
                     <div class="tarot-symbol">
                         ✦
                     </div>
@@ -1255,7 +1331,9 @@ body.leaving .exit::after{
     </div>
 
 
-    <!-- CREATOR INFORMATION -->
+    <!-- =================================================
+         CREATOR INFO
+    ================================================== -->
 
     <section class="creator-info">
 
@@ -1314,8 +1392,12 @@ body.leaving .exit::after{
 </div>
 
 
+<!-- EXIT -->
+
 <div class="exit"></div>
 
+
+<!-- CURSOR -->
 
 <div
     class="cursor"
@@ -1343,7 +1425,6 @@ if(
             "from-home"
         );
 
-
     sessionStorage.removeItem(
         "phantomTransition"
     );
@@ -1355,17 +1436,17 @@ if(
    CARD FLIP
 ========================================================= */
 
-const card =
+const creatorCard =
     document.getElementById(
         "creatorCard"
     );
 
 
-card.addEventListener(
+creatorCard.addEventListener(
     "click",
     function(){
 
-        card.classList.toggle(
+        creatorCard.classList.toggle(
             "flipped"
         );
 
@@ -1416,17 +1497,17 @@ cardStage.addEventListener(
             .5;
 
 
-        card.style.setProperty(
-            "--tilt-y",
-            (x * 11)
+        creatorCard.style.setProperty(
+            "--tiltY",
+            (x * 10)
             +
             "deg"
         );
 
 
-        card.style.setProperty(
-            "--tilt-x",
-            (y * -9)
+        creatorCard.style.setProperty(
+            "--tiltX",
+            (y * -8)
             +
             "deg"
         );
@@ -1439,14 +1520,13 @@ cardStage.addEventListener(
     "mouseleave",
     function(){
 
-        card.style.setProperty(
-            "--tilt-x",
+        creatorCard.style.setProperty(
+            "--tiltX",
             "0deg"
         );
 
-
-        card.style.setProperty(
-            "--tilt-y",
+        creatorCard.style.setProperty(
+            "--tiltY",
             "0deg"
         );
 
@@ -1514,7 +1594,7 @@ document
 
 
 /* =========================================================
-   CURSOR
+   CUSTOM CURSOR
 ========================================================= */
 
 const cursor =
@@ -1523,13 +1603,13 @@ const cursor =
     );
 
 
-let mouseX = -100;
-let mouseY = -100;
+let mouseX=-100;
+let mouseY=-100;
 
-let cursorX = -100;
-let cursorY = -100;
+let cursorX=-100;
+let cursorY=-100;
 
-let lastTrail = 0;
+let lastTrail=0;
 
 
 document.addEventListener(
@@ -1543,79 +1623,89 @@ document.addEventListener(
             event.clientY;
 
 
+        if(
+            !matchMedia(
+                "(pointer:fine)"
+            ).matches
+        ){
+            return;
+        }
+
+
         const now =
             performance.now();
 
 
         if(
-            now - lastTrail > 46
-            &&
-            matchMedia(
-                "(pointer:fine)"
-            ).matches
+            now
+            -
+            lastTrail
+            <
+            48
         ){
-
-            lastTrail =
-                now;
-
-
-            const particle =
-                document.createElement(
-                    "span"
-                );
-
-
-            particle.className =
-                Math.random() > .6
-                ?
-                "trail red"
-                :
-                "trail";
-
-
-            particle.style.left =
-                mouseX
-                +
-                (
-                    Math.random()
-                    -
-                    .5
-                )
-                *
-                8
-                +
-                "px";
-
-
-            particle.style.top =
-                mouseY
-                +
-                (
-                    Math.random()
-                    -
-                    .5
-                )
-                *
-                8
-                +
-                "px";
-
-
-            document.body.appendChild(
-                particle
-            );
-
-
-            setTimeout(
-                function(){
-
-                    particle.remove();
-
-                },
-                520
-            );
-
+            return;
         }
+
+
+        lastTrail =
+            now;
+
+
+        const particle =
+            document.createElement(
+                "span"
+            );
+
+
+        particle.className =
+            Math.random() > .6
+            ?
+            "trail red"
+            :
+            "trail";
+
+
+        particle.style.left =
+            mouseX
+            +
+            (
+                Math.random()
+                -
+                .5
+            )
+            *
+            8
+            +
+            "px";
+
+
+        particle.style.top =
+            mouseY
+            +
+            (
+                Math.random()
+                -
+                .5
+            )
+            *
+            8
+            +
+            "px";
+
+
+        document.body.appendChild(
+            particle
+        );
+
+
+        setTimeout(
+            function(){
+
+                particle.remove();
+
+            },
+            520
+        );
 
     }
 );
@@ -1665,6 +1755,7 @@ function cursorLoop(){
 cursorLoop();
 
 </script>
+
 
 </body>
 </html>
