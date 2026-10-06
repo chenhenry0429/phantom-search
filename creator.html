@@ -1,27 +1,24 @@
 <!doctype html>
 <html lang="zh-CN">
+
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>CREATOR | PHANTOM SEARCH</title>
 
 <style>
 :root{
     --red:#ef1023;
-    --deep-red:#8d0711;
     --black:#050505;
     --white:#fffdf2;
     --yellow:#ffe600;
     --gold:#ffc928;
 }
 
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
-html,
-body{
+html,body{
     margin:0;
     width:100%;
     height:100%;
@@ -29,95 +26,338 @@ body{
 
 body{
     overflow:hidden;
-    background:#050505;
-    color:var(--white);
-    font-family:Impact,"Arial Black","Microsoft YaHei",sans-serif;
-    cursor:none;
+    background:#000;
+    color:#fff;
+
+    font-family:
+        Impact,
+        "Arial Black",
+        "Microsoft YaHei",
+        sans-serif;
 }
 
-/* =========================================================
-   背景
-========================================================= */
+/* =====================================================
+   BACKGROUND
+===================================================== */
 
 .creator-bg{
     position:fixed;
-    inset:0;
-    z-index:0;
+    inset:-2%;
 
-    background-image:url("assets/creator-bg.png");
-    background-size:cover;
-    background-position:center center;
-    background-repeat:no-repeat;
+    background:
+        url("assets/creator-bg.png?v=6")
+        center / cover
+        no-repeat;
+
+    transform:scale(1.025);
+
+    transition:
+        transform .5s ease;
 }
 
 .creator-bg::after{
     content:"";
+
     position:absolute;
     inset:0;
 
-    background:
-        linear-gradient(
-            90deg,
-            transparent 0%,
-            transparent 48%,
-            rgba(0,0,0,.15) 61%,
-            rgba(0,0,0,.58) 100%
-        );
-
     pointer-events:none;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            transparent 42%,
+            rgba(0,0,0,.23) 100%
+        );
 }
 
-/* =========================================================
-   顶部导航
-========================================================= */
+/* =====================================================
+   ENTRY
+===================================================== */
+
+.page-content{
+    opacity:0;
+
+    transform:
+        translateX(30px);
+
+    animation:
+        pageEnter
+        .62s .12s
+        cubic-bezier(.2,.8,.2,1)
+        forwards;
+}
+
+@keyframes pageEnter{
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.entry-flash{
+    position:fixed;
+    inset:0;
+
+    z-index:500;
+
+    pointer-events:none;
+
+    background:
+        radial-gradient(
+            circle at 38% 47%,
+            rgba(255,230,0,.52),
+            transparent 14%
+        );
+
+    opacity:0;
+}
+
+body.from-home .entry-flash{
+    animation:
+        entryFlash
+        .65s ease-out;
+}
+
+@keyframes entryFlash{
+    0%{
+        opacity:.85;
+    }
+
+    100%{
+        opacity:0;
+    }
+}
+
+/* =====================================================
+   NAV
+===================================================== */
 
 .top-nav{
     position:fixed;
-    top:24px;
-    right:3vw;
-    z-index:100;
+
+    top:22px;
+    right:30px;
+
+    z-index:80;
 
     display:flex;
-    gap:12px;
+    gap:9px;
 }
 
 .top-nav a{
-    text-decoration:none;
+    padding:9px 15px;
+
     color:#050505;
-    background:#fffdf2;
+    background:#fff;
 
     border:3px solid #050505;
 
-    padding:9px 16px;
+    box-shadow:
+        5px 5px 0
+        #050505;
 
-    font-family:"Microsoft YaHei",sans-serif;
+    text-decoration:none;
+
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
+
     font-size:13px;
     font-weight:900;
 
-    box-shadow:5px 5px 0 #050505;
+    transform:
+        skew(-7deg);
 
-    transform:skew(-7deg);
-
-    transition:
-        transform .18s ease,
-        background .18s ease;
+    transition:.15s ease;
 }
 
 .top-nav a:first-child{
-    background:var(--yellow);
+    background:
+        var(--yellow);
 }
 
 .top-nav a:hover{
-    background:var(--yellow);
-
     transform:
         skew(-7deg)
         translate(-3px,-3px);
 }
 
-/* =========================================================
-   卡牌舞台
-========================================================= */
+/* =====================================================
+   CREATOR INFO
+===================================================== */
+
+.creator-info{
+    position:fixed;
+
+    right:5%;
+    top:20%;
+
+    z-index:25;
+
+    width:min(520px,38vw);
+}
+
+.creator-tag{
+    display:inline-block;
+
+    padding:6px 12px;
+
+    color:#050505;
+    background:var(--yellow);
+
+    border:3px solid #050505;
+
+    box-shadow:
+        5px 5px #050505;
+
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
+
+    font-size:12px;
+    font-weight:900;
+
+    transform:
+        rotate(-2deg);
+}
+
+.creator-info h1{
+    margin:18px 0 8px;
+
+    font-size:
+        clamp(
+            58px,
+            6vw,
+            105px
+        );
+
+    line-height:.8;
+
+    color:#fff;
+
+    -webkit-text-stroke:
+        3px #050505;
+
+    text-shadow:
+        8px 8px #050505;
+
+    transform:
+        rotate(-2deg);
+}
+
+.creator-info h1 span{
+    color:var(--red);
+}
+
+.creator-name{
+    display:inline-block;
+
+    margin:
+        7px 0 15px;
+
+    padding:
+        7px 13px;
+
+    color:#050505;
+
+    background:#fff;
+
+    border:
+        3px solid
+        #050505;
+
+    box-shadow:
+        5px 5px
+        var(--red);
+
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
+
+    font-size:
+        clamp(
+            18px,
+            1.7vw,
+            27px
+        );
+
+    font-weight:900;
+
+    transform:
+        rotate(1deg);
+}
+
+.creator-desc{
+    max-width:500px;
+
+    margin-top:13px;
+
+    padding:
+        16px 19px;
+
+    color:#fff;
+
+    background:
+        rgba(0,0,0,.88);
+
+    border-left:
+        6px solid
+        var(--red);
+
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
+
+    font-size:
+        13px;
+
+    line-height:1.8;
+}
+
+.skills{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:9px;
+
+    margin-top:18px;
+}
+
+.skill{
+    padding:
+        9px 11px;
+
+    color:#050505;
+
+    background:
+        var(--white);
+
+    border:
+        3px solid
+        #050505;
+
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
+
+    font-size:11px;
+    font-weight:900;
+
+    box-shadow:
+        4px 4px #050505;
+}
+
+.skill:nth-child(even){
+    background:
+        var(--yellow);
+}
+
+/* =====================================================
+   CARD STAGE
+===================================================== */
 
 .card-stage{
     position:fixed;
@@ -125,205 +365,75 @@ body{
     left:38.2%;
     top:47%;
 
-    width:250px;
-    height:365px;
-
-    transform:translate(-50%,-50%);
-
-    z-index:30;
-
-    perspective:1400px;
-}
-
-/* =========================================================
-   卡牌中心能量
-========================================================= */
-
-.energy-core{
-    position:absolute;
-
-    left:50%;
-    top:53%;
-
-    width:120px;
-    height:120px;
-
-    transform:translate(-50%,-50%);
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,255,220,.9) 0%,
-            rgba(255,230,0,.75) 9%,
-            rgba(255,90,0,.35) 32%,
-            transparent 70%
+    width:
+        clamp(
+            180px,
+            15vw,
+            250px
         );
 
-    filter:blur(7px);
+    aspect-ratio:
+        2 / 3;
 
-    animation:corePulse 2.4s ease-in-out infinite;
+    z-index:40;
 
-    pointer-events:none;
-}
-
-@keyframes corePulse{
-
-    0%,100%{
-        opacity:.45;
-
-        transform:
-            translate(-50%,-50%)
-            scale(.8);
-    }
-
-    50%{
-        opacity:1;
-
-        transform:
-            translate(-50%,-50%)
-            scale(1.18);
-    }
-}
-
-/* =========================================================
-   波状能量光圈
-========================================================= */
-
-.energy-ring{
-    position:absolute;
-
-    left:50%;
-    top:53%;
-
-    width:210px;
-    height:210px;
-
-    border-radius:50%;
-
-    border:2px solid rgba(255,215,40,.85);
+    perspective:1200px;
 
     transform:
-        translate(-50%,-50%)
-        scale(.35);
-
-    opacity:0;
-
-    pointer-events:none;
-
-    box-shadow:
-        0 0 12px rgba(255,230,0,.6),
-        inset 0 0 12px rgba(255,70,0,.4);
-
-    animation:ringWave 3s ease-out infinite;
+        translate(-50%,-50%);
 }
 
-.energy-ring.r2{
-    animation-delay:1s;
-    border-color:rgba(239,16,35,.8);
-}
-
-.energy-ring.r3{
-    animation-delay:2s;
-}
-
-@keyframes ringWave{
-
-    0%{
-        opacity:.8;
-
-        transform:
-            translate(-50%,-50%)
-            scale(.35)
-            rotate(0deg);
-    }
-
-    50%{
-        opacity:.35;
-    }
-
-    100%{
-        opacity:0;
-
-        transform:
-            translate(-50%,-50%)
-            scale(2.2)
-            rotate(15deg);
-    }
-}
-
-/* =========================================================
-   卡牌悬浮
-========================================================= */
+/* floating motion */
 
 .card-float{
-    position:absolute;
-    inset:0;
-
-    animation:
-        cardFloat 3.8s ease-in-out infinite;
-
-    transform-style:preserve-3d;
-}
-
-@keyframes cardFloat{
-
-    0%,100%{
-        transform:
-            translateY(0)
-            rotateZ(-2deg);
-    }
-
-    50%{
-        transform:
-            translateY(-11px)
-            rotateZ(-.5deg);
-    }
-}
-
-/* =========================================================
-   卡牌按钮
-========================================================= */
-
-.card-button{
     width:100%;
     height:100%;
 
-    padding:0;
-    border:0;
-    background:none;
+    animation:
+        cardFloat
+        3.2s
+        ease-in-out
+        infinite;
 
-    cursor:none;
-
-    perspective:1400px;
+    filter:
+        drop-shadow(
+            0 15px 14px
+            rgba(0,0,0,.5)
+        );
 }
 
-/* =========================================================
-   真正翻转的卡牌
-========================================================= */
+@keyframes cardFloat{
+    0%,100%{
+        transform:
+            translateY(0);
+    }
 
-.tarot-card{
+    50%{
+        transform:
+            translateY(-12px);
+    }
+}
+
+.card{
     position:relative;
 
     width:100%;
     height:100%;
 
-    transform-style:preserve-3d;
+    transform-style:
+        preserve-3d;
 
     transition:
-        transform .82s cubic-bezier(.2,.8,.2,1);
+        transform .65s
+        cubic-bezier(.2,.8,.2,1);
 
-    will-change:transform;
+    cursor:pointer;
 }
 
-.card-stage.flipped .tarot-card{
-    transform:rotateY(180deg);
+.card.flipped{
+    transform:
+        rotateY(180deg);
 }
-
-/* =========================================================
-   卡牌正反面通用
-========================================================= */
 
 .card-face{
     position:absolute;
@@ -331,38 +441,31 @@ body{
 
     overflow:hidden;
 
+    border:
+        5px solid
+        var(--gold);
+
+    outline:
+        4px solid
+        #050505;
+
     backface-visibility:hidden;
-    -webkit-backface-visibility:hidden;
-
-    border:5px solid #050505;
-
-    box-shadow:
-        0 0 0 3px var(--yellow),
-        11px 13px 0 rgba(0,0,0,.8),
-        0 0 28px rgba(255,220,0,.22);
 
     background:#080808;
 }
 
-/* =========================================================
-   正面 —— 你的照片
-========================================================= */
-
 .card-front{
-    transform:rotateY(0deg);
+    padding:8px;
 }
 
 .creator-photo{
     position:absolute;
 
-    left:9px;
-    right:9px;
-    top:9px;
-    bottom:52px;
-
-    border:2px solid var(--yellow);
+    inset:8px;
 
     overflow:hidden;
+
+    background:#111;
 }
 
 .creator-photo img{
@@ -373,12 +476,8 @@ body{
 
     object-fit:cover;
 
-    /*
-       修改点：
-       原来是 center center
-       现在让照片中的人物稍微往上移动
-    */
-    object-position:center 38%;
+    object-position:
+        center 38%;
 }
 
 .creator-photo::after{
@@ -387,528 +486,303 @@ body{
     position:absolute;
     inset:0;
 
-    background:
-        linear-gradient(
-            180deg,
-            transparent 55%,
-            rgba(0,0,0,.45) 100%
-        );
-
     pointer-events:none;
-}
-
-.creator-label{
-    position:absolute;
-
-    left:13px;
-    bottom:11px;
-
-    padding:5px 9px;
-
-    background:var(--yellow);
-    color:#050505;
-
-    border:2px solid #050505;
-
-    font-family:"Microsoft YaHei",sans-serif;
-
-    font-size:10px;
-    font-weight:900;
-
-    transform:rotate(-2deg);
-}
-
-/* =========================================================
-   卡牌表面扫光
-========================================================= */
-
-.card-shine{
-    position:absolute;
-
-    width:55%;
-    height:160%;
-
-    left:-100%;
-    top:-30%;
 
     background:
         linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.12),
-            rgba(255,235,100,.4),
-            rgba(255,255,255,.08),
-            transparent
+            to top,
+            rgba(0,0,0,.72),
+            transparent 42%
+        );
+}
+
+.card-label{
+    position:absolute;
+
+    left:12px;
+    right:12px;
+    bottom:14px;
+
+    z-index:5;
+
+    color:#fff;
+
+    font-size:
+        clamp(
+            13px,
+            1.2vw,
+            19px
         );
 
-    transform:rotate(18deg);
-
-    pointer-events:none;
-
-    transition:
-        left .75s cubic-bezier(.2,.8,.2,1);
+    text-shadow:
+        3px 3px #000;
 }
 
-.card-stage:hover .card-shine{
-    left:150%;
-}
+.card-label span{
+    display:block;
 
-/* =========================================================
-   背面 —— 塔罗牌
-========================================================= */
+    margin-top:4px;
+
+    color:var(--yellow);
+
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
+
+    font-size:9px;
+}
 
 .card-back{
-    transform:rotateY(180deg);
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(255,215,30,.18),
-            transparent 29%
-        ),
-
-        repeating-linear-gradient(
-            45deg,
-            transparent 0 10px,
-            rgba(255,215,30,.055) 11px 12px
-        ),
-
-        linear-gradient(
-            145deg,
-            #050505 0%,
-            #280509 45%,
-            #080808 100%
-        );
-}
-
-.card-back::before{
-    content:"";
-
-    position:absolute;
-    inset:12px;
-
-    border:3px solid var(--gold);
-
-    box-shadow:
-        inset 0 0 0 5px #080808,
-        inset 0 0 0 7px rgba(255,201,40,.8);
-}
-
-.card-back::after{
-    content:"";
-
-    position:absolute;
-    inset:25px;
-
-    border:1px solid rgba(255,201,40,.75);
-}
-
-/* =========================================================
-   塔罗牌中心图案
-========================================================= */
-
-.tarot-number{
-    position:absolute;
-
-    left:50%;
-    top:28px;
-
-    transform:translateX(-50%);
-
-    color:var(--gold);
-
-    font-family:Georgia,serif;
-    font-weight:bold;
-
-    font-size:21px;
-
-    z-index:5;
-}
-
-.tarot-center{
-    position:absolute;
-
-    left:50%;
-    top:50%;
-
-    width:125px;
-    height:125px;
-
     transform:
-        translate(-50%,-50%)
-        rotate(45deg);
-
-    border:3px solid var(--gold);
-
-    z-index:5;
+        rotateY(180deg);
 
     display:grid;
     place-items:center;
 
-    box-shadow:
-        0 0 25px rgba(255,200,30,.3);
+    background:
+        radial-gradient(
+            circle,
+            #3b090d,
+            #080808 65%
+        );
 }
 
-.tarot-center::before{
-    content:"";
+.tarot-symbol{
+    position:relative;
 
-    width:78px;
-    height:78px;
+    display:grid;
+    place-items:center;
+
+    width:68%;
+    aspect-ratio:1;
+
+    border:
+        3px solid
+        var(--gold);
 
     border-radius:50%;
 
-    border:3px solid var(--gold);
-
-    box-shadow:
-        inset 0 0 0 7px #080808,
-        0 0 15px rgba(255,200,30,.25);
-}
-
-.tarot-star{
-    position:absolute;
-
     color:var(--gold);
 
-    font-size:54px;
+    font-size:
+        clamp(
+            38px,
+            4vw,
+            72px
+        );
 
-    transform:rotate(-45deg);
-
-    text-shadow:
-        0 0 12px rgba(255,230,0,.75);
+    box-shadow:
+        0 0 25px
+        rgba(255,201,40,.25);
 }
 
-/* =========================================================
-   CLICK TO FLIP
-========================================================= */
+.tarot-symbol::after{
+    content:"";
 
-.flip-tip{
+    position:absolute;
+
+    inset:-18px;
+
+    border:
+        1px solid
+        rgba(255,201,40,.55);
+
+    transform:
+        rotate(45deg);
+}
+
+.card-hint{
     position:absolute;
 
     left:50%;
-    bottom:-58px;
+    bottom:-41px;
+
+    white-space:nowrap;
 
     transform:
         translateX(-50%)
         rotate(-2deg);
 
-    white-space:nowrap;
-
-    padding:8px 13px;
+    padding:
+        5px 11px;
 
     color:#050505;
-    background:var(--yellow);
 
-    border:3px solid #050505;
+    background:
+        var(--yellow);
+
+    border:
+        2px solid
+        #050505;
+
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
+
+    font-size:10px;
+    font-weight:900;
 
     box-shadow:
-        5px 5px 0 #050505;
-
-    font-family:"Arial Black","Microsoft YaHei",sans-serif;
-
-    font-size:11px;
-
-    pointer-events:none;
-
-    animation:
-        tipFloat 1.7s ease-in-out infinite;
+        4px 4px #050505;
 }
 
-@keyframes tipFloat{
+/* =====================================================
+   CARD ENERGY
+===================================================== */
 
+.card-energy{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:145%;
+    aspect-ratio:1;
+
+    z-index:-1;
+
+    border:
+        2px solid
+        rgba(255,211,40,.5);
+
+    border-radius:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    animation:
+        cardEnergy
+        3s ease-in-out
+        infinite;
+}
+
+.card-energy::before,
+.card-energy::after{
+    content:"";
+
+    position:absolute;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(239,16,35,.6);
+}
+
+.card-energy::before{
+    inset:15%;
+}
+
+.card-energy::after{
+    inset:30%;
+}
+
+@keyframes cardEnergy{
     0%,100%{
-        margin-bottom:0;
+        opacity:.2;
+        transform:
+            translate(-50%,-50%)
+            scale(.82)
+            rotate(0);
     }
 
     50%{
-        margin-bottom:5px;
+        opacity:.65;
+
+        transform:
+            translate(-50%,-50%)
+            scale(1.06)
+            rotate(100deg);
     }
 }
 
-/* =========================================================
-   右侧 Creator 信息
-========================================================= */
+/* =====================================================
+   PAGE EXIT
+===================================================== */
 
-.profile{
-    position:absolute;
+.exit{
+    position:fixed;
+    inset:0;
 
-    right:5vw;
-    top:13vh;
+    z-index:4000;
 
-    width:min(540px,36vw);
+    pointer-events:none;
 
-    z-index:20;
+    visibility:hidden;
 }
 
-.profile-tag{
-    display:inline-block;
-
-    padding:7px 13px;
-
-    color:#050505;
-    background:var(--yellow);
-
-    border:3px solid #050505;
-
-    box-shadow:
-        5px 5px 0 #050505;
-
-    transform:rotate(-2deg);
-
-    font-size:12px;
-}
-
-/* =========================================================
-   CREATOR 标题
-========================================================= */
-
-.profile h1{
-    margin:25px 0 18px;
-
-    font-size:
-        clamp(58px,5.5vw,100px);
-
-    line-height:.78;
-
-    letter-spacing:-.05em;
-
-    color:var(--white);
-
-    -webkit-text-stroke:
-        3px #050505;
-
-    text-shadow:
-        7px 7px 0 #050505;
-
-    transform:rotate(-2deg);
-}
-
-.profile h1 span{
-    display:inline-block;
-
-    margin-top:10px;
-
-    color:var(--red);
-}
-
-/* =========================================================
-   自我介绍
-========================================================= */
-
-.intro{
-    position:relative;
-
-    padding:19px 22px;
-
-    background:
-        rgba(3,3,3,.91);
-
-    border-left:
-        6px solid var(--red);
-
-    box-shadow:
-        8px 8px 0
-        rgba(0,0,0,.55);
-
-    transform:rotate(-.5deg);
-}
-
-.intro::after{
-    content:"PROFILE";
+.exit::before{
+    content:"";
 
     position:absolute;
 
-    top:-23px;
-    right:-2px;
-
-    padding:5px 9px;
+    inset:-20%;
 
     background:var(--red);
 
-    color:white;
-
-    font-size:9px;
-
-    transform:rotate(2deg);
+    transform:
+        translateX(-130%)
+        rotate(-7deg);
 }
 
-.intro h2{
-    margin:0 0 9px;
-
-    color:var(--yellow);
-
-    font-family:
-        "Microsoft YaHei",
-        sans-serif;
-
-    font-size:27px;
-}
-
-.intro p{
-    margin:0;
-
-    font-family:
-        "Microsoft YaHei",
-        sans-serif;
-
-    font-size:13px;
-    line-height:1.75;
-    font-weight:700;
-}
-
-/* =========================================================
-   技能信息
-========================================================= */
-
-.info-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:10px;
-
-    margin-top:16px;
-}
-
-.info-box{
-    padding:11px 13px;
-
-    min-height:61px;
-
-    background:var(--white);
-
-    color:#050505;
-
-    border:
-        3px solid #050505;
-
-    box-shadow:
-        4px 4px 0 #050505;
-
-    transform:rotate(-.4deg);
-}
-
-.info-box:nth-child(even){
-    transform:rotate(.5deg);
-}
-
-.info-box strong{
-    display:block;
-
-    margin-bottom:5px;
-
-    font-size:12px;
-}
-
-.info-box span{
-    display:block;
-
-    font-family:
-        "Microsoft YaHei",
-        sans-serif;
-
-    font-size:11px;
-    font-weight:900;
-}
-
-/* =========================================================
-   Project
-========================================================= */
-
-.project{
-    position:relative;
-
-    margin-top:15px;
-
-    padding:14px 17px;
-
-    background:var(--red);
-
-    border:
-        3px solid #050505;
-
-    box-shadow:
-        6px 6px 0 #050505;
-
-    transform:rotate(.4deg);
-}
-
-.project h3{
-    margin:0 0 5px;
-
-    color:var(--yellow);
-
-    font-size:18px;
-}
-
-.project p{
-    margin:0;
-
-    padding-right:30px;
-
-    font-family:
-        "Microsoft YaHei",
-        sans-serif;
-
-    font-size:11px;
-    line-height:1.6;
-    font-weight:800;
-}
-
-.project::after{
-    content:"↗";
+.exit::after{
+    content:"";
 
     position:absolute;
 
-    right:13px;
-    top:7px;
+    inset:-20%;
 
-    color:var(--yellow);
+    background:#000;
 
-    font-size:25px;
+    transform:
+        translateX(130%)
+        rotate(6deg);
 }
 
-/* =========================================================
-   Contact
-========================================================= */
-
-.contact{
-    margin-top:14px;
-
-    display:flex;
-    flex-wrap:wrap;
-
-    gap:7px;
+body.leaving .exit{
+    visibility:visible;
 }
 
-.contact span{
-    padding:5px 8px;
-
-    background:#050505;
-
-    border-left:
-        3px solid var(--yellow);
-
-    font-family:
-        "Microsoft YaHei",
-        sans-serif;
-
-    font-size:9px;
-    font-weight:700;
+body.leaving .exit::before{
+    animation:
+        leaveRed
+        .42s forwards;
 }
 
-/* =========================================================
-   自定义鼠标
-========================================================= */
+body.leaving .exit::after{
+    animation:
+        leaveBlack
+        .42s .1s forwards;
+}
+
+@keyframes leaveRed{
+    to{
+        transform:
+            translateX(-20%)
+            rotate(-7deg);
+    }
+}
+
+@keyframes leaveBlack{
+    to{
+        transform:
+            translateX(20%)
+            rotate(6deg);
+    }
+}
+
+/* =====================================================
+   CURSOR
+===================================================== */
 
 .cursor{
     position:fixed;
 
-    left:0;
-    top:0;
+    left:-100px;
+    top:-100px;
 
-    width:30px;
-    height:30px;
+    width:28px;
+    height:28px;
 
     z-index:9999;
 
@@ -916,323 +790,129 @@ body{
 
     transform:
         translate(-50%,-50%);
-
-    transition:
-        width .16s ease,
-        height .16s ease;
 }
 
 .cursor::before{
     content:"";
 
     position:absolute;
-    inset:3px;
+    inset:2px;
 
     border:
-        2px solid var(--yellow);
+        2px solid
+        var(--yellow);
 
     border-radius:50%;
 
     box-shadow:
         0 0 8px
-        rgba(255,230,0,.8);
-
-    animation:
-        cursorSpin 2.2s linear infinite;
+        var(--yellow);
 }
 
 .cursor::after{
     content:"✦";
 
     position:absolute;
+    inset:0;
 
-    left:50%;
-    top:50%;
+    display:grid;
+    place-items:center;
 
-    transform:
-        translate(-50%,-53%);
+    color:var(--red);
 
-    color:var(--yellow);
-
-    font-size:16px;
-
-    text-shadow:
-        0 0 7px red;
+    font-size:14px;
 }
-
-@keyframes cursorSpin{
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-body.interactive .cursor{
-    width:48px;
-    height:48px;
-}
-
-body.interactive .cursor::before{
-    border-color:var(--red);
-
-    box-shadow:
-        0 0 0 3px
-        rgba(255,230,0,.25),
-
-        0 0 15px
-        rgba(239,16,35,.8);
-}
-
-/* =========================================================
-   鼠标拖尾
-========================================================= */
 
 .trail{
     position:fixed;
 
-    width:8px;
-    height:8px;
+    width:6px;
+    height:6px;
 
     z-index:9998;
 
     pointer-events:none;
 
-    background:var(--yellow);
+    background:
+        var(--yellow);
 
-    clip-path:
-        polygon(
-            50% 0,
-            65% 35%,
-            100% 50%,
-            65% 65%,
-            50% 100%,
-            35% 65%,
-            0 50%,
-            35% 35%
-        );
+    transform:
+        rotate(45deg);
 
     animation:
-        trailFade .52s linear forwards;
-}
-
-.trail.red{
-    background:var(--red);
+        trailFade
+        .5s forwards;
 }
 
 @keyframes trailFade{
-
-    0%{
-        opacity:.95;
-
-        transform:
-            translate(-50%,-50%)
-            scale(1)
-            rotate(0deg);
-    }
-
-    100%{
+    to{
         opacity:0;
-
         transform:
-            translate(-50%,-50%)
-            scale(.1)
-            rotate(150deg);
+            rotate(160deg)
+            scale(.1);
     }
 }
 
-/* =========================================================
-   翻牌冲击波
-========================================================= */
+/* =====================================================
+   MOBILE
+===================================================== */
 
-.flip-wave{
-    position:fixed;
-
-    width:40px;
-    height:40px;
-
-    z-index:500;
-
-    pointer-events:none;
-
-    border:
-        4px solid var(--yellow);
-
-    border-radius:50%;
-
-    transform:
-        translate(-50%,-50%)
-        scale(.2);
-
-    box-shadow:
-        0 0 20px var(--yellow);
-
-    animation:
-        flipWave .7s ease-out forwards;
-}
-
-.flip-wave.red{
-    border-color:var(--red);
-
-    box-shadow:
-        0 0 20px var(--red);
-
-    animation-delay:.07s;
-}
-
-@keyframes flipWave{
-
-    0%{
-        opacity:1;
-
-        transform:
-            translate(-50%,-50%)
-            scale(.2);
-    }
-
-    100%{
-        opacity:0;
-
-        transform:
-            translate(-50%,-50%)
-            scale(8);
-    }
-}
-
-/* =========================================================
-   页面转场
-========================================================= */
-
-.transition{
-    position:fixed;
-    inset:0;
-
-    z-index:10000;
-
-    background:var(--red);
-
-    pointer-events:none;
-
-    opacity:0;
-
-    clip-path:
-        polygon(
-            0 100%,
-            100% 100%,
-            100% 100%,
-            0 100%
-        );
-
-    transition:
-        opacity .12s,
-        clip-path .48s
-        cubic-bezier(.77,0,.18,1);
-}
-
-body.leaving .transition{
-    opacity:1;
-
-    clip-path:
-        polygon(
-            0 0,
-            100% 7%,
-            100% 100%,
-            0 93%
-        );
-}
-
-/* =========================================================
-   响应式
-========================================================= */
-
-@media(max-width:1100px){
-
-    .card-stage{
-        left:38%;
-
-        transform:
-            translate(-50%,-50%)
-            scale(.82);
-    }
-
-    .profile{
-        right:3vw;
-        width:39vw;
-    }
-
-    .profile h1{
-        font-size:60px;
-    }
-}
-
-@media(max-width:760px){
+@media(max-width:850px){
 
     body{
         overflow:auto;
-        cursor:auto;
     }
 
     .creator-bg{
+        position:fixed;
         background-position:
-            35% center;
+            40% center;
+
+        filter:
+            brightness(.55);
     }
 
-    .creator-bg::after{
-        background:
-            linear-gradient(
-                180deg,
-                transparent 0 48%,
-                rgba(0,0,0,.88) 70%
-            );
-    }
-
-    .card-stage{
-        left:50%;
-        top:43%;
-
-        transform:
-            translate(-50%,-50%)
-            scale(.72);
-    }
-
-    .profile{
+    .creator-info{
         position:relative;
 
-        top:auto;
         right:auto;
+        top:auto;
 
         width:90%;
 
-        margin:0 auto;
-
-        padding-top:100vh;
-        padding-bottom:50px;
+        margin:
+            110px auto 70px;
     }
 
-    .profile h1{
-        font-size:64px;
-    }
+    .card-stage{
+        position:relative;
 
-    .cursor{
-        display:none;
+        left:auto;
+        top:auto;
+
+        width:200px;
+
+        margin:
+            35px auto 80px;
+
+        transform:none;
     }
 
     .top-nav{
-        right:12px;
-        top:12px;
-    }
-
-    .top-nav a{
-        padding:7px 10px;
-        font-size:11px;
+        top:10px;
+        right:10px;
     }
 }
 
-@media(prefers-reduced-motion:reduce){
+@media(pointer:fine){
+    body,a,.card{
+        cursor:none;
+    }
+}
 
-    *,
-    *::before,
-    *::after{
-        animation:none!important;
-        transition:none!important;
+@media(pointer:coarse){
+    .cursor{
+        display:none;
     }
 }
 
@@ -1241,368 +921,220 @@ body.leaving .transition{
 
 <body>
 
-<!-- 背景 -->
 <div class="creator-bg"></div>
 
-<!-- 页面切换动画 -->
-<div class="transition"></div>
-
-<!-- 顶部导航 -->
-<nav class="top-nav">
-
-    <a
-        href="index.html"
-        data-transition
-        class="interactive"
-    >
-        返回搜索
-    </a>
-
-    <a
-        href="feedback.html"
-        data-transition
-        class="interactive"
-    >
-        反馈
-    </a>
-
-</nav>
+<div class="entry-flash"></div>
 
 
-<!-- =====================================================
-     悬浮互动卡牌
-===================================================== -->
+<div class="page-content">
 
-<section
-    class="card-stage"
-    id="cardStage"
->
+    <nav class="top-nav">
 
-    <!-- 能量中心 -->
-    <div class="energy-core"></div>
+        <a
+            href="index.html"
+            data-page>
+            返回搜索
+        </a>
 
-    <!-- 三层波纹 -->
-    <div class="energy-ring r1"></div>
-    <div class="energy-ring r2"></div>
-    <div class="energy-ring r3"></div>
+        <a
+            href="feedback.html"
+            data-page>
+            意见反馈
+        </a>
+
+    </nav>
 
 
-    <div
-        class="card-float"
-        id="cardFloat"
-    >
+    <div class="card-stage">
 
-        <button
-            class="card-button interactive"
-            id="cardButton"
-            type="button"
-            aria-label="点击翻转创作者卡片"
-        >
+        <div class="card-energy"></div>
+
+        <div class="card-float">
 
             <div
-                class="tarot-card"
-                id="tarotCard"
-            >
+                class="card"
+                id="creatorCard">
 
-                <!-- ================================
-                     正面：你的照片
-                ================================= -->
-
-                <div class="card-face card-front">
+                <div
+                    class="card-face
+                           card-front">
 
                     <div class="creator-photo">
 
                         <img
                             src="assets/creator-photo.png"
-                            alt="陈植轩"
-                            draggable="false"
-                        >
+                            alt="创作者照片">
 
                     </div>
 
-                    <div class="creator-label">
-                        CREATOR / 陈植轩
-                    </div>
+                    <div class="card-label">
 
-                    <div class="card-shine"></div>
+                        PHANTOM CREATOR
+
+                        <span>
+                            PROFILE 01
+                        </span>
+
+                    </div>
 
                 </div>
 
 
-                <!-- ================================
-                     背面：塔罗牌
-                ================================= -->
+                <div
+                    class="card-face
+                           card-back">
 
-                <div class="card-face card-back">
-
-                    <div class="tarot-number">
-                        XIII
-                    </div>
-
-                    <div class="tarot-center">
-
-                        <div class="tarot-star">
-                            ✦
-                        </div>
-
+                    <div class="tarot-symbol">
+                        ✦
                     </div>
 
                 </div>
 
             </div>
 
-        </button>
+        </div>
 
 
-        <div class="flip-tip">
+        <div class="card-hint">
             CLICK TO FLIP ↻
         </div>
 
     </div>
 
-</section>
 
+    <section class="creator-info">
 
-<!-- =====================================================
-     右侧 Creator 信息
-===================================================== -->
+        <div class="creator-tag">
+            PHANTOM CREATOR / PROFILE 01
+        </div>
 
-<section class="profile">
+        <h1>
+            CREA<span>TOR</span>
+        </h1>
 
-    <div class="profile-tag">
-        PHANTOM CREATOR / PROFILE 01
-    </div>
-
-
-    <h1>
-        CREATOR
-        <br>
-        <span>陈植轩</span>
-    </h1>
-
-
-    <div class="intro">
-
-        <h2>
+        <div class="creator-name">
             我是陈植轩
-        </h2>
+        </div>
 
-        <p>
-            欢迎来到我的创作者档案。
-            PHANTOM SEARCH 是我正在制作的个人搜索引擎实验项目。
-            我希望通过网页设计、视觉语言与交互动画，
-            让一个普通的工具拥有属于自己的性格。
-        </p>
+        <div class="creator-desc">
 
-    </div>
+            欢迎来到我的创作者页面。
+            <br><br>
 
-
-    <div class="info-grid">
-
-        <div class="info-box">
-
-            <strong>
-                DESIGN
-            </strong>
-
-            <span>
-                WEB DESIGN / UI DESIGN
-            </span>
+            我喜欢探索技术、设计与创意之间的可能性，
+            也希望通过自己的作品，将想法变成真正能够体验的东西。
 
         </div>
 
 
-        <div class="info-box">
+        <div class="skills">
 
-            <strong>
-                CODE
-            </strong>
+            <div class="skill">
+                WEB DESIGN
+            </div>
 
-            <span>
-                HTML / CSS / JAVASCRIPT
-            </span>
+            <div class="skill">
+                AI EXPLORATION
+            </div>
 
-        </div>
+            <div class="skill">
+                CREATIVE CODING
+            </div>
 
-
-        <div class="info-box">
-
-            <strong>
-                VISUAL
-            </strong>
-
-            <span>
-                VISUAL DESIGN / CREATIVE CODING
-            </span>
+            <div class="skill">
+                VISUAL DESIGN
+            </div>
 
         </div>
 
+    </section>
 
-        <div class="info-box">
-
-            <strong>
-                PROJECT
-            </strong>
-
-            <span>
-                PHANTOM SEARCH
-            </span>
-
-        </div>
-
-    </div>
+</div>
 
 
-    <div class="project">
+<div class="exit"></div>
 
-        <h3>
-            PHANTOM SEARCH
-        </h3>
-
-        <p>
-            一个具有怪盗团视觉气质的个人搜索入口。
-            搜索只是开始，真正重要的是寻找属于自己的答案。
-        </p>
-
-    </div>
-
-
-    <div class="contact">
-
-        <span>
-            CREATED BY 陈植轩
-        </span>
-
-        <span>
-            WEB / UI / CREATIVE CODING
-        </span>
-
-    </div>
-
-</section>
-
-
-<!-- 自定义鼠标 -->
 <div
     class="cursor"
-    id="cursor"
-></div>
+    id="cursor">
+</div>
 
 
 <script>
 
-/* =========================================================
-   获取元素
-========================================================= */
+/* =====================================================
+   ENTRY
+===================================================== */
 
-const cardStage =
-    document.getElementById("cardStage");
+if(
+    sessionStorage.getItem(
+        "phantomTransition"
+    )
+    ===
+    "creator"
+){
 
-const cardButton =
-    document.getElementById("cardButton");
+    document.body.classList.add(
+        "from-home"
+    );
 
-const tarotCard =
-    document.getElementById("tarotCard");
+    sessionStorage.removeItem(
+        "phantomTransition"
+    );
+}
 
-const cursor =
-    document.getElementById("cursor");
+
+/* =====================================================
+   CARD FLIP
+===================================================== */
+
+const card =
+    document.getElementById(
+        "creatorCard"
+    );
 
 
-/* =========================================================
-   点击卡牌翻转
-========================================================= */
-
-cardButton.addEventListener(
+card.addEventListener(
     "click",
-    function(e){
+    ()=>{
 
-        cardStage
-            .classList
-            .toggle("flipped");
-
-
-        createFlipWave(
-            e.clientX,
-            e.clientY
+        card.classList.toggle(
+            "flipped"
         );
 
     }
 );
 
 
-/* =========================================================
-   翻牌冲击波
-========================================================= */
+/* =====================================================
+   CARD MOUSE TILT
+===================================================== */
 
-function createFlipWave(x,y){
-
-    const wave1 =
-        document.createElement("div");
-
-
-    wave1.className =
-        "flip-wave";
-
-
-    wave1.style.left =
-        x + "px";
-
-    wave1.style.top =
-        y + "px";
-
-
-    const wave2 =
-        document.createElement("div");
-
-
-    wave2.className =
-        "flip-wave red";
-
-
-    wave2.style.left =
-        x + "px";
-
-    wave2.style.top =
-        y + "px";
-
-
-    document.body.appendChild(
-        wave1
-    );
-
-    document.body.appendChild(
-        wave2
+const stage =
+    document.querySelector(
+        ".card-stage"
     );
 
 
-    setTimeout(
-        ()=>{
-
-            wave1.remove();
-            wave2.remove();
-
-        },
-        850
-    );
-}
-
-
-/* =========================================================
-   卡牌 3D 鼠标响应
-========================================================= */
-
-cardButton.addEventListener(
+stage.addEventListener(
     "mousemove",
-    function(e){
+    event=>{
+
+        if(
+            card.classList.contains(
+                "flipped"
+            )
+        )return;
+
 
         const rect =
-            cardButton
-                .getBoundingClientRect();
+            stage.getBoundingClientRect();
 
 
         const x =
             (
-                e.clientX -
+                event.clientX
+                -
                 rect.left
             )
             /
@@ -1613,7 +1145,8 @@ cardButton.addEventListener(
 
         const y =
             (
-                e.clientY -
+                event.clientY
+                -
                 rect.top
             )
             /
@@ -1622,35 +1155,27 @@ cardButton.addEventListener(
             .5;
 
 
-        const rotateX =
-            y * -5;
+        card.style.transform =
+            `
+            rotateY(${x*12}deg)
+            rotateX(${y*-10}deg)
+            `;
+
+    }
+);
 
 
-        const rotateY =
-            x * 6;
+stage.addEventListener(
+    "mouseleave",
+    ()=>{
 
+        if(
+            !card.classList.contains(
+                "flipped"
+            )
+        ){
 
-        const flipped =
-            cardStage
-                .classList
-                .contains("flipped");
-
-
-        if(flipped){
-
-            tarotCard.style.transform =
-                `
-                rotateX(${rotateX}deg)
-                rotateY(${180 + rotateY}deg)
-                `;
-
-        }else{
-
-            tarotCard.style.transform =
-                `
-                rotateX(${rotateX}deg)
-                rotateY(${rotateY}deg)
-                `;
+            card.style.transform = "";
 
         }
 
@@ -1658,287 +1183,132 @@ cardButton.addEventListener(
 );
 
 
-/* 鼠标离开卡牌恢复 */
+/* =====================================================
+   EXIT LINKS
+===================================================== */
 
-cardButton.addEventListener(
-    "mouseleave",
-    function(){
+let leaving=false;
 
-        const flipped =
-            cardStage
+
+document
+.querySelectorAll("[data-page]")
+.forEach(link=>{
+
+    link.addEventListener(
+        "click",
+        event=>{
+
+            event.preventDefault();
+
+            if(leaving)return;
+
+            leaving=true;
+
+            document.body
                 .classList
-                .contains("flipped");
+                .add("leaving");
+
+            const target=
+                link.href;
+
+            setTimeout(
+                ()=>{
+
+                    location.href=
+                        target;
+
+                },
+                480
+            );
+
+        }
+    );
+
+});
 
 
-        tarotCard.style.transform =
-            flipped
-            ?
-            "rotateY(180deg)"
-            :
-            "rotateY(0deg)";
+/* =====================================================
+   CURSOR
+===================================================== */
 
-    }
-);
+const cursor=
+    document.getElementById(
+        "cursor"
+    );
 
-
-/* =========================================================
-   鼠标位置
-========================================================= */
-
-let mouseX = -100;
-let mouseY = -100;
-
-let cursorX = -100;
-let cursorY = -100;
+let mx=-100;
+let my=-100;
+let cx=-100;
+let cy=-100;
+let last=0;
 
 
 document.addEventListener(
     "mousemove",
-    function(e){
-
-        mouseX =
-            e.clientX;
-
-        mouseY =
-            e.clientY;
-
-
-        createTrail(
-            mouseX,
-            mouseY
-        );
-
-    }
-);
-
-
-/* =========================================================
-   鼠标惯性动画
-========================================================= */
-
-function animateCursor(){
-
-    cursorX +=
-        (mouseX - cursorX)
-        *
-        .32;
-
-
-    cursorY +=
-        (mouseY - cursorY)
-        *
-        .32;
-
-
-    cursor.style.left =
-        cursorX + "px";
-
-
-    cursor.style.top =
-        cursorY + "px";
-
-
-    requestAnimationFrame(
-        animateCursor
-    );
-}
-
-
-animateCursor();
-
-
-/* =========================================================
-   鼠标拖尾
-========================================================= */
-
-let lastTrail = 0;
-
-
-function createTrail(x,y){
-
-    const now =
-        performance.now();
-
-
-    if(
-        now - lastTrail < 38
-    ){
-        return;
-    }
-
-
-    lastTrail = now;
-
-
-    const particle =
-        document.createElement("div");
-
-
-    particle.className =
-        Math.random() > .55
-        ?
-        "trail red"
-        :
-        "trail";
-
-
-    const offsetX =
-        (
-            Math.random() - .5
-        )
-        *
-        12;
-
-
-    const offsetY =
-        (
-            Math.random() - .5
-        )
-        *
-        12;
-
-
-    particle.style.left =
-        x + offsetX + "px";
-
-
-    particle.style.top =
-        y + offsetY + "px";
-
-
-    const size =
-        5 +
-        Math.random() * 6;
-
-
-    particle.style.width =
-        size + "px";
-
-
-    particle.style.height =
-        size + "px";
-
-
-    document.body.appendChild(
-        particle
-    );
-
-
-    setTimeout(
-        ()=>{
-
-            particle.remove();
-
-        },
-        550
-    );
-}
-
-
-/* =========================================================
-   可交互元素 Hover
-========================================================= */
-
-document
-.querySelectorAll(".interactive")
-.forEach(
-
-    element=>{
-
-        element.addEventListener(
-            "mouseenter",
-            function(){
-
-                document.body
-                    .classList
-                    .add("interactive");
-
-            }
-        );
-
-
-        element.addEventListener(
-            "mouseleave",
-            function(){
-
-                document.body
-                    .classList
-                    .remove("interactive");
-
-            }
-        );
-
-    }
-
-);
-
-
-/* =========================================================
-   页面转场
-========================================================= */
-
-document
-.querySelectorAll(
-    "[data-transition]"
-)
-.forEach(
-
-    link=>{
-
-        link.addEventListener(
-            "click",
-            function(e){
-
-                e.preventDefault();
-
-
-                const target =
-                    this.href;
-
-
-                document.body
-                    .classList
-                    .add("leaving");
-
-
-                setTimeout(
-                    ()=>{
-
-                        window.location.href =
-                            target;
-
-                    },
-                    480
+    event=>{
+
+        mx=event.clientX;
+        my=event.clientY;
+
+        const now=
+            performance.now();
+
+        if(
+            now-last > 48
+            &&
+            matchMedia(
+                "(pointer:fine)"
+            ).matches
+        ){
+
+            last=now;
+
+            const p=
+                document.createElement(
+                    "span"
                 );
 
-            }
-        );
+            p.className=
+                "trail";
+
+            p.style.left=
+                mx+"px";
+
+            p.style.top=
+                my+"px";
+
+            document.body.appendChild(
+                p
+            );
+
+            setTimeout(
+                ()=>p.remove(),
+                520
+            );
+        }
 
     }
-
 );
 
 
-/* =========================================================
-   禁止拖动图片
-========================================================= */
+function loop(){
 
-document
-.querySelectorAll("img")
-.forEach(
+    cx+=(mx-cx)*.3;
+    cy+=(my-cy)*.3;
 
-    img=>{
+    cursor.style.left=
+        cx+"px";
 
-        img.addEventListener(
-            "dragstart",
-            e=>e.preventDefault()
-        );
+    cursor.style.top=
+        cy+"px";
 
-    }
+    requestAnimationFrame(
+        loop
+    );
+}
 
-);
+loop();
 
 </script>
-
 </body>
 </html>
