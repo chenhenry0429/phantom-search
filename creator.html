@@ -8,6 +8,7 @@
 <title>CREATOR | PHANTOM SEARCH</title>
 
 <style>
+
 :root{
     --red:#ef1023;
     --black:#050505;
@@ -16,9 +17,12 @@
     --gold:#ffc928;
 }
 
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+}
 
-html,body{
+html,
+body{
     margin:0;
     width:100%;
     height:100%;
@@ -36,23 +40,20 @@ body{
         sans-serif;
 }
 
-/* =====================================================
+/* =========================================================
    BACKGROUND
-===================================================== */
+========================================================= */
 
 .creator-bg{
     position:fixed;
     inset:-2%;
 
     background:
-        url("assets/creator-bg.png?v=6")
+        url("assets/creator-bg.png?v=7")
         center / cover
         no-repeat;
 
     transform:scale(1.025);
-
-    transition:
-        transform .5s ease;
 }
 
 .creator-bg::after{
@@ -66,33 +67,35 @@ body{
     background:
         radial-gradient(
             ellipse at center,
-            transparent 42%,
-            rgba(0,0,0,.23) 100%
+            transparent 43%,
+            rgba(0,0,0,.22) 100%
         );
 }
 
-/* =====================================================
+/* =========================================================
    ENTRY
-===================================================== */
+========================================================= */
 
 .page-content{
     opacity:0;
 
     transform:
-        translateX(30px);
+        translateX(25px);
 
     animation:
         pageEnter
-        .62s .12s
+        .6s .1s
         cubic-bezier(.2,.8,.2,1)
         forwards;
 }
 
 @keyframes pageEnter{
+
     to{
         opacity:1;
         transform:none;
     }
+
 }
 
 .entry-flash{
@@ -103,14 +106,14 @@ body{
 
     pointer-events:none;
 
+    opacity:0;
+
     background:
         radial-gradient(
             circle at 38% 47%,
-            rgba(255,230,0,.52),
-            transparent 14%
+            rgba(255,230,0,.45),
+            transparent 16%
         );
-
-    opacity:0;
 }
 
 body.from-home .entry-flash{
@@ -120,18 +123,20 @@ body.from-home .entry-flash{
 }
 
 @keyframes entryFlash{
+
     0%{
-        opacity:.85;
+        opacity:.75;
     }
 
     100%{
         opacity:0;
     }
+
 }
 
-/* =====================================================
-   NAV
-===================================================== */
+/* =========================================================
+   TOP NAV
+========================================================= */
 
 .top-nav{
     position:fixed;
@@ -139,10 +144,10 @@ body.from-home .entry-flash{
     top:22px;
     right:30px;
 
-    z-index:80;
+    z-index:100;
 
     display:flex;
-    gap:9px;
+    gap:10px;
 }
 
 .top-nav a{
@@ -151,10 +156,12 @@ body.from-home .entry-flash{
     color:#050505;
     background:#fff;
 
-    border:3px solid #050505;
+    border:
+        3px solid
+        #050505;
 
     box-shadow:
-        5px 5px 0
+        5px 5px
         #050505;
 
     text-decoration:none;
@@ -183,9 +190,9 @@ body.from-home .entry-flash{
         translate(-3px,-3px);
 }
 
-/* =====================================================
+/* =========================================================
    CREATOR INFO
-===================================================== */
+========================================================= */
 
 .creator-info{
     position:fixed;
@@ -193,23 +200,32 @@ body.from-home .entry-flash{
     right:5%;
     top:20%;
 
-    z-index:25;
+    z-index:30;
 
-    width:min(520px,38vw);
+    width:
+        min(
+            520px,
+            38vw
+        );
 }
 
 .creator-tag{
     display:inline-block;
 
-    padding:6px 12px;
+    padding:
+        6px 12px;
 
     color:#050505;
-    background:var(--yellow);
+    background:
+        var(--yellow);
 
-    border:3px solid #050505;
+    border:
+        3px solid
+        #050505;
 
     box-shadow:
-        5px 5px #050505;
+        5px 5px
+        #050505;
 
     font-family:
         "Microsoft YaHei",
@@ -223,7 +239,8 @@ body.from-home .entry-flash{
 }
 
 .creator-info h1{
-    margin:18px 0 8px;
+    margin:
+        18px 0 8px;
 
     font-size:
         clamp(
@@ -247,7 +264,8 @@ body.from-home .entry-flash{
 }
 
 .creator-info h1 span{
-    color:var(--red);
+    color:
+        var(--red);
 }
 
 .creator-name{
@@ -260,7 +278,6 @@ body.from-home .entry-flash{
         7px 13px;
 
     color:#050505;
-
     background:#fff;
 
     border:
@@ -309,9 +326,7 @@ body.from-home .entry-flash{
         "Microsoft YaHei",
         sans-serif;
 
-    font-size:
-        13px;
-
+    font-size:13px;
     line-height:1.8;
 }
 
@@ -331,12 +346,15 @@ body.from-home .entry-flash{
         9px 11px;
 
     color:#050505;
-
     background:
         var(--white);
 
     border:
         3px solid
+        #050505;
+
+    box-shadow:
+        4px 4px
         #050505;
 
     font-family:
@@ -345,9 +363,6 @@ body.from-home .entry-flash{
 
     font-size:11px;
     font-weight:900;
-
-    box-shadow:
-        4px 4px #050505;
 }
 
 .skill:nth-child(even){
@@ -355,9 +370,10 @@ body.from-home .entry-flash{
         var(--yellow);
 }
 
-/* =====================================================
-   CARD STAGE
-===================================================== */
+/* =========================================================
+   CARD POSITION
+   保留之前已经确认好的位置
+========================================================= */
 
 .card-stage{
     position:fixed;
@@ -375,15 +391,18 @@ body.from-home .entry-flash{
     aspect-ratio:
         2 / 3;
 
-    z-index:40;
+    z-index:45;
 
-    perspective:1200px;
+    perspective:
+        1300px;
 
     transform:
         translate(-50%,-50%);
 }
 
-/* floating motion */
+/* =========================================================
+   FLOAT
+========================================================= */
 
 .card-float{
     width:100%;
@@ -397,13 +416,15 @@ body.from-home .entry-flash{
 
     filter:
         drop-shadow(
-            0 15px 14px
-            rgba(0,0,0,.5)
+            0 16px 14px
+            rgba(0,0,0,.55)
         );
 }
 
 @keyframes cardFloat{
-    0%,100%{
+
+    0%,
+    100%{
         transform:
             translateY(0);
     }
@@ -412,28 +433,63 @@ body.from-home .entry-flash{
         transform:
             translateY(-12px);
     }
+
 }
 
+/* =========================================================
+   CARD
+
+   tilt 用 CSS variable，
+   避免和翻牌 rotateY 互相覆盖
+========================================================= */
+
 .card{
+    --tilt-x:0deg;
+    --tilt-y:0deg;
+
     position:relative;
 
     width:100%;
     height:100%;
 
+    cursor:pointer;
+
     transform-style:
         preserve-3d;
 
-    transition:
-        transform .65s
-        cubic-bezier(.2,.8,.2,1);
+    transform:
+        rotateX(
+            var(--tilt-x)
+        )
+        rotateY(
+            var(--tilt-y)
+        );
 
-    cursor:pointer;
+    transition:
+        transform
+        .55s
+        cubic-bezier(.2,.8,.2,1);
 }
+
+/* 翻转 */
 
 .card.flipped{
     transform:
-        rotateY(180deg);
+        rotateX(
+            var(--tilt-x)
+        )
+        rotateY(
+            calc(
+                180deg
+                +
+                var(--tilt-y)
+            )
+        );
 }
+
+/* =========================================================
+   CARD FACE
+========================================================= */
 
 .card-face{
     position:absolute;
@@ -449,14 +505,32 @@ body.from-home .entry-flash{
         4px solid
         #050505;
 
-    backface-visibility:hidden;
-
     background:#080808;
+
+    backface-visibility:
+        hidden;
 }
+
+/* =========================================================
+   CARD FRONT
+========================================================= */
 
 .card-front{
     padding:8px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #191919,
+            #050505
+        );
 }
+
+/* =========================================================
+   CREATOR PHOTO
+
+   ★ 这里就是本次主要修改区域
+========================================================= */
 
 .creator-photo{
     position:absolute;
@@ -468,9 +542,22 @@ body.from-home .entry-flash{
     background:#111;
 }
 
+/*
+   照片略微放大以后再做轻微反向旋转，
+   防止旋转时边缘露出空白。
+
+   如果以后还想微调：
+   1.6deg → 1deg / 2deg 即可。
+*/
+
 .creator-photo img{
-    width:100%;
-    height:100%;
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:108%;
+    height:108%;
 
     display:block;
 
@@ -478,7 +565,16 @@ body.from-home .entry-flash{
 
     object-position:
         center 38%;
+
+    transform:
+        translate(-4%,-4%)
+        rotate(1.6deg);
+
+    transform-origin:
+        center center;
 }
+
+/* 照片暗角 */
 
 .creator-photo::after{
     content:"";
@@ -492,9 +588,13 @@ body.from-home .entry-flash{
         linear-gradient(
             to top,
             rgba(0,0,0,.72),
-            transparent 42%
+            transparent 43%
         );
 }
+
+/* =========================================================
+   CARD LABEL
+========================================================= */
 
 .card-label{
     position:absolute;
@@ -523,7 +623,8 @@ body.from-home .entry-flash{
 
     margin-top:4px;
 
-    color:var(--yellow);
+    color:
+        var(--yellow);
 
     font-family:
         "Microsoft YaHei",
@@ -531,6 +632,10 @@ body.from-home .entry-flash{
 
     font-size:9px;
 }
+
+/* =========================================================
+   TAROT BACK
+========================================================= */
 
 .card-back{
     transform:
@@ -541,9 +646,9 @@ body.from-home .entry-flash{
 
     background:
         radial-gradient(
-            circle,
-            #3b090d,
-            #080808 65%
+            circle at center,
+            #40090d,
+            #090909 64%
         );
 }
 
@@ -562,7 +667,8 @@ body.from-home .entry-flash{
 
     border-radius:50%;
 
-    color:var(--gold);
+    color:
+        var(--gold);
 
     font-size:
         clamp(
@@ -574,6 +680,20 @@ body.from-home .entry-flash{
     box-shadow:
         0 0 25px
         rgba(255,201,40,.25);
+}
+
+.tarot-symbol::before{
+    content:"";
+
+    position:absolute;
+
+    inset:14%;
+
+    border:
+        1px solid
+        rgba(255,201,40,.7);
+
+    border-radius:50%;
 }
 
 .tarot-symbol::after{
@@ -591,11 +711,15 @@ body.from-home .entry-flash{
         rotate(45deg);
 }
 
+/* =========================================================
+   CLICK HINT
+========================================================= */
+
 .card-hint{
     position:absolute;
 
     left:50%;
-    bottom:-41px;
+    bottom:-42px;
 
     white-space:nowrap;
 
@@ -615,20 +739,21 @@ body.from-home .entry-flash{
         2px solid
         #050505;
 
+    box-shadow:
+        4px 4px
+        #050505;
+
     font-family:
         "Microsoft YaHei",
         sans-serif;
 
     font-size:10px;
     font-weight:900;
-
-    box-shadow:
-        4px 4px #050505;
 }
 
-/* =====================================================
+/* =========================================================
    CARD ENERGY
-===================================================== */
+========================================================= */
 
 .card-energy{
     position:absolute;
@@ -637,6 +762,7 @@ body.from-home .entry-flash{
     top:50%;
 
     width:145%;
+
     aspect-ratio:1;
 
     z-index:-1;
@@ -663,48 +789,136 @@ body.from-home .entry-flash{
     position:absolute;
 
     border-radius:50%;
-
-    border:
-        1px solid
-        rgba(239,16,35,.6);
 }
 
 .card-energy::before{
     inset:15%;
+
+    border:
+        1px solid
+        rgba(239,16,35,.65);
 }
 
 .card-energy::after{
     inset:30%;
+
+    border:
+        1px solid
+        rgba(255,211,40,.5);
 }
 
 @keyframes cardEnergy{
-    0%,100%{
-        opacity:.2;
+
+    0%,
+    100%{
+        opacity:.18;
+
         transform:
             translate(-50%,-50%)
             scale(.82)
-            rotate(0);
+            rotate(0deg);
     }
 
     50%{
-        opacity:.65;
+        opacity:.62;
 
         transform:
             translate(-50%,-50%)
             scale(1.06)
             rotate(100deg);
     }
+
 }
 
-/* =====================================================
-   PAGE EXIT
-===================================================== */
+/* =========================================================
+   EXTRA ENERGY SPARKS
+========================================================= */
+
+.spark{
+    position:absolute;
+
+    width:8px;
+    height:8px;
+
+    pointer-events:none;
+
+    background:
+        var(--yellow);
+
+    clip-path:
+        polygon(
+            50% 0,
+            64% 36%,
+            100% 50%,
+            64% 64%,
+            50% 100%,
+            36% 64%,
+            0 50%,
+            36% 36%
+        );
+
+    filter:
+        drop-shadow(
+            0 0 5px
+            var(--yellow)
+        );
+
+    animation:
+        sparkle
+        2s ease-in-out
+        infinite;
+}
+
+.spark.one{
+    left:-18%;
+    top:20%;
+}
+
+.spark.two{
+    right:-20%;
+    top:38%;
+
+    animation-delay:
+        -.7s;
+}
+
+.spark.three{
+    left:12%;
+    bottom:-10%;
+
+    animation-delay:
+        -1.2s;
+}
+
+@keyframes sparkle{
+
+    0%,
+    100%{
+        opacity:.1;
+        transform:
+            scale(.5)
+            rotate(0deg);
+    }
+
+    50%{
+        opacity:1;
+
+        transform:
+            scale(1.5)
+            rotate(90deg);
+    }
+
+}
+
+/* =========================================================
+   EXIT
+========================================================= */
 
 .exit{
     position:fixed;
     inset:0;
 
-    z-index:4000;
+    z-index:5000;
 
     pointer-events:none;
 
@@ -715,10 +929,10 @@ body.from-home .entry-flash{
     content:"";
 
     position:absolute;
-
     inset:-20%;
 
-    background:var(--red);
+    background:
+        var(--red);
 
     transform:
         translateX(-130%)
@@ -729,7 +943,6 @@ body.from-home .entry-flash{
     content:"";
 
     position:absolute;
-
     inset:-20%;
 
     background:#000;
@@ -756,24 +969,28 @@ body.leaving .exit::after{
 }
 
 @keyframes leaveRed{
+
     to{
         transform:
             translateX(-20%)
             rotate(-7deg);
     }
+
 }
 
 @keyframes leaveBlack{
+
     to{
         transform:
             translateX(20%)
             rotate(6deg);
     }
+
 }
 
-/* =====================================================
+/* =========================================================
    CURSOR
-===================================================== */
+========================================================= */
 
 .cursor{
     position:fixed;
@@ -796,6 +1013,7 @@ body.leaving .exit::after{
     content:"";
 
     position:absolute;
+
     inset:2px;
 
     border:
@@ -818,7 +1036,8 @@ body.leaving .exit::after{
     display:grid;
     place-items:center;
 
-    color:var(--red);
+    color:
+        var(--red);
 
     font-size:14px;
 }
@@ -836,26 +1055,43 @@ body.leaving .exit::after{
     background:
         var(--yellow);
 
-    transform:
-        rotate(45deg);
+    clip-path:
+        polygon(
+            50% 0,
+            65% 35%,
+            100% 50%,
+            65% 65%,
+            50% 100%,
+            35% 65%,
+            0 50%,
+            35% 35%
+        );
 
     animation:
         trailFade
         .5s forwards;
 }
 
+.trail.red{
+    background:
+        var(--red);
+}
+
 @keyframes trailFade{
+
     to{
         opacity:0;
+
         transform:
             rotate(160deg)
             scale(.1);
     }
+
 }
 
-/* =====================================================
+/* =========================================================
    MOBILE
-===================================================== */
+========================================================= */
 
 @media(max-width:850px){
 
@@ -864,7 +1100,6 @@ body.leaving .exit::after{
     }
 
     .creator-bg{
-        position:fixed;
         background-position:
             40% center;
 
@@ -902,24 +1137,37 @@ body.leaving .exit::after{
         top:10px;
         right:10px;
     }
+
 }
 
+/* =========================================================
+   POINTER
+========================================================= */
+
 @media(pointer:fine){
-    body,a,.card{
+
+    body,
+    a,
+    .card{
         cursor:none;
     }
+
 }
 
 @media(pointer:coarse){
+
     .cursor{
         display:none;
     }
+
 }
 
 </style>
 </head>
 
+
 <body>
+
 
 <div class="creator-bg"></div>
 
@@ -927,6 +1175,9 @@ body.leaving .exit::after{
 
 
 <div class="page-content">
+
+
+    <!-- NAV -->
 
     <nav class="top-nav">
 
@@ -945,27 +1196,46 @@ body.leaving .exit::after{
     </nav>
 
 
+    <!-- =================================================
+         FLOATING CARD
+    ================================================== -->
+
     <div class="card-stage">
+
 
         <div class="card-energy"></div>
 
+
+        <div class="spark one"></div>
+
+        <div class="spark two"></div>
+
+        <div class="spark three"></div>
+
+
         <div class="card-float">
+
 
             <div
                 class="card"
                 id="creatorCard">
 
+
+                <!-- FRONT -->
+
                 <div
                     class="card-face
                            card-front">
 
+
                     <div class="creator-photo">
 
                         <img
-                            src="assets/creator-photo.png"
+                            src="assets/creator-photo.png?v=7"
                             alt="创作者照片">
 
                     </div>
+
 
                     <div class="card-label">
 
@@ -980,15 +1250,19 @@ body.leaving .exit::after{
                 </div>
 
 
+                <!-- BACK -->
+
                 <div
                     class="card-face
                            card-back">
+
 
                     <div class="tarot-symbol">
                         ✦
                     </div>
 
                 </div>
+
 
             </div>
 
@@ -999,26 +1273,36 @@ body.leaving .exit::after{
             CLICK TO FLIP ↻
         </div>
 
+
     </div>
 
 
+    <!-- =================================================
+         CREATOR INFORMATION
+    ================================================== -->
+
     <section class="creator-info">
+
 
         <div class="creator-tag">
             PHANTOM CREATOR / PROFILE 01
         </div>
 
+
         <h1>
             CREA<span>TOR</span>
         </h1>
+
 
         <div class="creator-name">
             我是陈植轩
         </div>
 
+
         <div class="creator-desc">
 
             欢迎来到我的创作者页面。
+
             <br><br>
 
             我喜欢探索技术、设计与创意之间的可能性，
@@ -1047,12 +1331,15 @@ body.leaving .exit::after{
 
         </div>
 
+
     </section>
+
 
 </div>
 
 
 <div class="exit"></div>
+
 
 <div
     class="cursor"
@@ -1062,9 +1349,9 @@ body.leaving .exit::after{
 
 <script>
 
-/* =====================================================
-   ENTRY
-===================================================== */
+/* =========================================================
+   ENTRY FROM HOME
+========================================================= */
 
 if(
     sessionStorage.getItem(
@@ -1074,19 +1361,23 @@ if(
     "creator"
 ){
 
-    document.body.classList.add(
-        "from-home"
-    );
+    document.body
+        .classList
+        .add(
+            "from-home"
+        );
+
 
     sessionStorage.removeItem(
         "phantomTransition"
     );
+
 }
 
 
-/* =====================================================
+/* =========================================================
    CARD FLIP
-===================================================== */
+========================================================= */
 
 const card =
     document.getElementById(
@@ -1096,7 +1387,7 @@ const card =
 
 card.addEventListener(
     "click",
-    ()=>{
+    function(){
 
         card.classList.toggle(
             "flipped"
@@ -1106,29 +1397,26 @@ card.addEventListener(
 );
 
 
-/* =====================================================
-   CARD MOUSE TILT
-===================================================== */
+/* =========================================================
+   CARD TILT
 
-const stage =
+   使用变量，不再直接覆盖 transform，
+   因此不会破坏翻牌效果。
+========================================================= */
+
+const cardStage =
     document.querySelector(
         ".card-stage"
     );
 
 
-stage.addEventListener(
+cardStage.addEventListener(
     "mousemove",
-    event=>{
-
-        if(
-            card.classList.contains(
-                "flipped"
-            )
-        )return;
-
+    function(event){
 
         const rect =
-            stage.getBoundingClientRect();
+            cardStage
+            .getBoundingClientRect();
 
 
         const x =
@@ -1155,160 +1443,255 @@ stage.addEventListener(
             .5;
 
 
-        card.style.transform =
-            `
-            rotateY(${x*12}deg)
-            rotateX(${y*-10}deg)
-            `;
+        card.style.setProperty(
+            "--tilt-y",
+            (x * 11)
+            +
+            "deg"
+        );
+
+
+        card.style.setProperty(
+            "--tilt-x",
+            (y * -9)
+            +
+            "deg"
+        );
 
     }
 );
 
 
-stage.addEventListener(
+cardStage.addEventListener(
     "mouseleave",
-    ()=>{
+    function(){
 
-        if(
-            !card.classList.contains(
-                "flipped"
-            )
-        ){
+        card.style.setProperty(
+            "--tilt-x",
+            "0deg"
+        );
 
-            card.style.transform = "";
 
-        }
+        card.style.setProperty(
+            "--tilt-y",
+            "0deg"
+        );
 
     }
 );
 
 
-/* =====================================================
-   EXIT LINKS
-===================================================== */
+/* =========================================================
+   PAGE EXIT
+========================================================= */
 
-let leaving=false;
+let leaving =
+    false;
 
 
 document
-.querySelectorAll("[data-page]")
-.forEach(link=>{
+.querySelectorAll(
+    "[data-page]"
+)
+.forEach(
+    function(link){
 
-    link.addEventListener(
-        "click",
-        event=>{
+        link.addEventListener(
+            "click",
+            function(event){
 
-            event.preventDefault();
-
-            if(leaving)return;
-
-            leaving=true;
-
-            document.body
-                .classList
-                .add("leaving");
-
-            const target=
-                link.href;
-
-            setTimeout(
-                ()=>{
-
-                    location.href=
-                        target;
-
-                },
-                480
-            );
-
-        }
-    );
-
-});
+                event.preventDefault();
 
 
-/* =====================================================
+                if(leaving){
+                    return;
+                }
+
+
+                leaving =
+                    true;
+
+
+                document.body
+                    .classList
+                    .add(
+                        "leaving"
+                    );
+
+
+                const target =
+                    link.href;
+
+
+                setTimeout(
+                    function(){
+
+                        location.href =
+                            target;
+
+                    },
+                    480
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
    CURSOR
-===================================================== */
+========================================================= */
 
-const cursor=
+const cursor =
     document.getElementById(
         "cursor"
     );
 
-let mx=-100;
-let my=-100;
-let cx=-100;
-let cy=-100;
-let last=0;
+
+let mouseX = -100;
+let mouseY = -100;
+
+let cursorX = -100;
+let cursorY = -100;
+
+let lastTrail = 0;
 
 
 document.addEventListener(
     "mousemove",
-    event=>{
+    function(event){
 
-        mx=event.clientX;
-        my=event.clientY;
+        mouseX =
+            event.clientX;
 
-        const now=
+        mouseY =
+            event.clientY;
+
+
+        const now =
             performance.now();
 
+
         if(
-            now-last > 48
+            now - lastTrail > 46
             &&
             matchMedia(
                 "(pointer:fine)"
             ).matches
         ){
 
-            last=now;
+            lastTrail =
+                now;
 
-            const p=
+
+            const particle =
                 document.createElement(
                     "span"
                 );
 
-            p.className=
+
+            particle.className =
+                Math.random() > .6
+                ?
+                "trail red"
+                :
                 "trail";
 
-            p.style.left=
-                mx+"px";
 
-            p.style.top=
-                my+"px";
+            particle.style.left =
+                mouseX
+                +
+                (
+                    Math.random()
+                    -
+                    .5
+                )
+                *
+                8
+                +
+                "px";
+
+
+            particle.style.top =
+                mouseY
+                +
+                (
+                    Math.random()
+                    -
+                    .5
+                )
+                *
+                8
+                +
+                "px";
+
 
             document.body.appendChild(
-                p
+                particle
             );
 
+
             setTimeout(
-                ()=>p.remove(),
+                function(){
+
+                    particle.remove();
+
+                },
                 520
             );
+
         }
 
     }
 );
 
 
-function loop(){
+function cursorLoop(){
 
-    cx+=(mx-cx)*.3;
-    cy+=(my-cy)*.3;
+    cursorX +=
+        (
+            mouseX
+            -
+            cursorX
+        )
+        *
+        .3;
 
-    cursor.style.left=
-        cx+"px";
 
-    cursor.style.top=
-        cy+"px";
+    cursorY +=
+        (
+            mouseY
+            -
+            cursorY
+        )
+        *
+        .3;
+
+
+    cursor.style.left =
+        cursorX
+        +
+        "px";
+
+
+    cursor.style.top =
+        cursorY
+        +
+        "px";
+
 
     requestAnimationFrame(
-        loop
+        cursorLoop
     );
+
 }
 
-loop();
+
+cursorLoop();
 
 </script>
+
 </body>
 </html>
