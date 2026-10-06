@@ -1,131 +1,260 @@
 <!doctype html>
 <html lang="zh-CN">
+
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>FEEDBACK | PHANTOM SEARCH</title>
 
 <style>
 :root{
     --red:#ef1023;
-    --darkred:#8d0711;
     --black:#050505;
     --white:#fffdf2;
     --yellow:#ffe600;
     --gold:#ffc928;
 }
 
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+}
 
 html,body{
     margin:0;
     width:100%;
-    min-height:100%;
+    height:100%;
 }
 
 body{
     overflow:hidden;
-    background:#050505;
-    color:var(--white);
-    font-family:Impact,"Arial Black","Microsoft YaHei",sans-serif;
-    cursor:none;
+
+    background:#000;
+
+    color:#fff;
+
+    font-family:
+        Impact,
+        "Arial Black",
+        "Microsoft YaHei",
+        sans-serif;
 }
 
-/* =========================================================
+/* =====================================================
    BACKGROUND
-========================================================= */
+===================================================== */
 
 .feedback-bg{
     position:fixed;
-    inset:0;
-    z-index:0;
-    background-image:url("assets/feedback-bg.png");
-    background-size:cover;
-    background-position:center center;
-    background-repeat:no-repeat;
+
+    inset:-2%;
+
+    background:
+        url("assets/feedback-bg.png?v=6")
+        center / cover
+        no-repeat;
+
+    transform:scale(1.025);
 }
 
 .feedback-bg::after{
     content:"";
+
     position:absolute;
     inset:0;
+
     pointer-events:none;
+
     background:
         linear-gradient(
             90deg,
-            rgba(0,0,0,.15) 0%,
-            rgba(0,0,0,.08) 40%,
-            transparent 60%
+            rgba(0,0,0,.16),
+            transparent 58%
+        ),
+        radial-gradient(
+            ellipse at center,
+            transparent 45%,
+            rgba(0,0,0,.2)
         );
 }
 
-/* =========================================================
-   NAVIGATION
-========================================================= */
+/* =====================================================
+   PAGE ENTER
+===================================================== */
+
+.feedback-content{
+    opacity:0;
+
+    transform:
+        translateX(-25px);
+
+    animation:
+        contentEnter
+        .58s .1s
+        forwards;
+}
+
+@keyframes contentEnter{
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.entry-shock{
+    position:fixed;
+
+    left:82%;
+    top:58%;
+
+    z-index:300;
+
+    width:80px;
+    height:80px;
+
+    border:
+        6px solid
+        var(--yellow);
+
+    border-radius:50%;
+
+    pointer-events:none;
+
+    opacity:0;
+
+    transform:
+        translate(-50%,-50%)
+        scale(.1);
+}
+
+body.from-home
+.entry-shock{
+    animation:
+        entryShock
+        .58s ease-out;
+}
+
+@keyframes entryShock{
+    0%{
+        opacity:.9;
+
+        transform:
+            translate(-50%,-50%)
+            scale(.1);
+    }
+
+    100%{
+        opacity:0;
+
+        transform:
+            translate(-50%,-50%)
+            scale(11);
+    }
+}
+
+/* =====================================================
+   NAV
+===================================================== */
 
 .top-nav{
     position:fixed;
-    top:24px;
-    right:3vw;
-    z-index:200;
+
+    top:22px;
+    right:30px;
+
+    z-index:100;
+
     display:flex;
-    gap:12px;
+
+    gap:10px;
 }
 
 .top-nav a{
-    padding:9px 16px;
-    text-decoration:none;
+    padding:9px 15px;
+
     color:#050505;
-    background:#fffdf2;
-    border:3px solid #050505;
-    box-shadow:5px 5px 0 #050505;
-    font-family:"Microsoft YaHei",sans-serif;
+    background:#fff;
+
+    border:
+        3px solid
+        #050505;
+
+    box-shadow:
+        5px 5px
+        #050505;
+
+    text-decoration:none;
+
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
+
     font-size:13px;
     font-weight:900;
-    transform:skew(-7deg);
-    transition:.18s ease;
+
+    transform:
+        skew(-7deg);
+
+    transition:.15s ease;
 }
 
 .top-nav a:first-child{
-    background:var(--yellow);
+    background:
+        var(--yellow);
 }
 
 .top-nav a:hover{
-    background:var(--yellow);
-    transform:skew(-7deg) translate(-3px,-3px);
+    transform:
+        skew(-7deg)
+        translate(-3px,-3px);
 }
 
-/* =========================================================
-   LEFT CONTENT
-========================================================= */
+/* =====================================================
+   LEFT PANEL
+===================================================== */
 
 .feedback-panel{
     position:relative;
-    z-index:20;
-    width:min(720px,46vw);
+
+    z-index:30;
+
+    width:min(690px,45vw);
+
     margin-left:4.5vw;
-    padding-top:4.2vh;
+
+    padding-top:4vh;
 }
 
-/* =========================================================
+/* =====================================================
    TITLE
-========================================================= */
+===================================================== */
 
 .feedback-title{
-    position:relative;
     display:inline-block;
-    margin-bottom:2px;
 }
 
 .feedback-title h1{
     margin:0;
-    font-size:clamp(52px,5vw,88px);
+
+    font-size:
+        clamp(
+            50px,
+            5vw,
+            86px
+        );
+
     line-height:.82;
-    letter-spacing:-.05em;
-    color:var(--white);
-    -webkit-text-stroke:3px #050505;
-    text-shadow:7px 7px 0 #050505;
-    transform:rotate(-2deg);
+
+    color:#fff;
+
+    -webkit-text-stroke:
+        3px #050505;
+
+    text-shadow:
+        7px 7px #050505;
+
+    transform:
+        rotate(-2deg);
 }
 
 .feedback-title h1 span{
@@ -134,102 +263,147 @@ body{
 
 .feedback-title .english{
     display:inline-block;
-    margin-left:115px;
-    margin-top:-5px;
-    padding:3px 14px;
-    background:var(--yellow);
+
+    margin:
+        -4px 0 0 110px;
+
+    padding:
+        3px 14px;
+
     color:#050505;
-    border:3px solid #050505;
-    box-shadow:5px 5px 0 #050505;
-    font-size:clamp(20px,2vw,34px);
-    transform:rotate(-3deg);
+
+    background:
+        var(--yellow);
+
+    border:
+        3px solid
+        #050505;
+
+    box-shadow:
+        5px 5px
+        #050505;
+
+    font-size:
+        clamp(
+            18px,
+            1.9vw,
+            32px
+        );
+
+    transform:
+        rotate(-3deg);
 }
 
 .slogan{
     display:inline-block;
-    margin:5px 0 12px 90px;
-    padding:6px 15px;
+
+    margin:
+        5px 0 12px 80px;
+
+    padding:
+        6px 13px;
+
     color:#050505;
-    background:var(--yellow);
-    border:3px solid #050505;
-    box-shadow:5px 5px 0 #050505;
-    font-family:"Microsoft YaHei",sans-serif;
-    font-size:13px;
+
+    background:
+        var(--yellow);
+
+    border:
+        3px solid
+        #050505;
+
+    box-shadow:
+        5px 5px #050505;
+
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
+
+    font-size:12px;
     font-weight:900;
-    transform:rotate(-1deg);
 }
 
-/* =========================================================
+/* =====================================================
    FORM
-========================================================= */
+===================================================== */
 
 .feedback-form{
     position:relative;
-    padding:16px 20px 18px;
-    background:rgba(3,3,3,.91);
-    border:4px solid var(--red);
+
+    padding:
+        16px 20px 18px;
+
+    background:
+        rgba(3,3,3,.91);
+
+    border:
+        4px solid
+        var(--red);
+
     box-shadow:
-        9px 9px 0 rgba(0,0,0,.8),
-        inset 0 0 0 2px rgba(255,255,255,.04);
+        9px 9px
+        rgba(0,0,0,.8);
 
-    clip-path:polygon(
-        1% 0,
-        98% 2%,
-        100% 95%,
-        96% 100%,
-        2% 98%,
-        0 5%
-    );
-}
-
-.feedback-form::before{
-    content:"";
-    position:absolute;
-    left:-16px;
-    top:24%;
-    width:7px;
-    height:45%;
-    background:var(--yellow);
-    transform:rotate(2deg);
+    clip-path:
+        polygon(
+            1% 0,
+            98% 2%,
+            100% 95%,
+            96% 100%,
+            2% 98%,
+            0 5%
+        );
 }
 
 .field{
-    position:relative;
     margin-bottom:12px;
 }
 
 .field-label{
     display:flex;
     align-items:center;
+
     gap:8px;
+
     margin-bottom:7px;
 }
 
 .cn-label{
-    display:inline-block;
-    padding:4px 10px;
+    padding:
+        4px 10px;
+
     color:#050505;
-    background:var(--white);
-    border:2px solid #050505;
-    font-family:"Microsoft YaHei",sans-serif;
+
+    background:#fff;
+
+    border:
+        2px solid
+        #050505;
+
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
+
     font-size:11px;
     font-weight:900;
-    transform:rotate(-1deg);
 }
 
 .en-label{
     color:var(--red);
+
     font-size:10px;
-    letter-spacing:.08em;
 }
 
-/* =========================================================
-   TYPE
-========================================================= */
+/* =====================================================
+   TYPES
+===================================================== */
 
 .type-options{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+        repeat(3,1fr);
+
     gap:9px;
 }
 
@@ -239,233 +413,294 @@ body{
 
 .type-option input{
     position:absolute;
+
     opacity:0;
-    pointer-events:none;
 }
 
 .type-option label{
     display:flex;
-    justify-content:center;
+
     align-items:center;
-    gap:7px;
-    min-height:42px;
-    padding:7px 9px;
-    color:white;
+    justify-content:center;
+
+    min-height:41px;
+
+    color:#fff;
+
     background:#111;
-    border:3px solid white;
-    font-family:"Microsoft YaHei",sans-serif;
+
+    border:
+        3px solid
+        #fff;
+
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
+
     font-size:12px;
     font-weight:900;
-    cursor:none;
-    transition:.15s ease;
+
+    transition:.14s ease;
 }
 
 .type-option label:hover{
-    border-color:var(--yellow);
-    transform:translateY(-3px) rotate(-1deg);
+    border-color:
+        var(--yellow);
+
+    transform:
+        translateY(-3px);
 }
 
-.type-option input:checked + label{
+.type-option input:checked
++
+label{
     color:#050505;
-    background:var(--yellow);
-    border-color:var(--red);
-    box-shadow:5px 5px 0 var(--red);
-    transform:translate(-2px,-2px) rotate(-1deg);
+
+    background:
+        var(--yellow);
+
+    border-color:
+        var(--red);
+
+    box-shadow:
+        5px 5px
+        var(--red);
 }
 
-.type-icon{
-    font-size:17px;
-}
-
-/* =========================================================
-   TEXTAREA
-========================================================= */
+/* =====================================================
+   TEXT
+===================================================== */
 
 .textarea-wrap{
     position:relative;
+
     overflow:hidden;
 }
 
 textarea{
     display:block;
+
     width:100%;
-    height:105px;
+    height:103px;
+
     resize:none;
-    padding:12px 14px 26px;
-    outline:none;
-    color:white;
-    background:rgba(15,15,15,.96);
-    border:3px solid white;
-    font-family:"Microsoft YaHei",sans-serif;
+
+    padding:
+        12px 14px 25px;
+
+    outline:0;
+
+    color:#fff;
+    background:#101010;
+
+    border:
+        3px solid #fff;
+
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
+
     font-size:12px;
+
     line-height:1.6;
-    cursor:text;
-    transition:.2s ease;
+
+    transition:.18s ease;
 }
 
 textarea:focus{
-    border-color:var(--yellow);
+    border-color:
+        var(--yellow);
+
     box-shadow:
-        0 0 0 3px var(--red),
-        0 0 20px rgba(255,230,0,.2);
-}
-
-.scan-line{
-    position:absolute;
-    left:-100%;
-    top:0;
-    width:55%;
-    height:100%;
-    pointer-events:none;
-    background:linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,230,0,.08),
-        rgba(255,255,255,.14),
-        transparent
-    );
-    transform:skewX(-20deg);
-}
-
-.textarea-wrap.focused .scan-line{
-    animation:scanInput 1.15s ease-out;
-}
-
-@keyframes scanInput{
-    from{left:-100%}
-    to{left:160%}
+        0 0 0 3px
+        var(--red);
 }
 
 .char-count{
     position:absolute;
+
     right:9px;
     bottom:6px;
-    color:rgba(255,255,255,.55);
+
+    color:
+        rgba(255,255,255,.58);
+
     font-family:Arial,sans-serif;
     font-size:10px;
 }
 
-/* =========================================================
+/* =====================================================
    RATING
-========================================================= */
+===================================================== */
 
 .rating-row{
     display:flex;
     align-items:center;
+
     gap:5px;
-    min-height:42px;
+
+    min-height:40px;
 }
 
 .star{
     padding:0;
+
     border:0;
-    outline:none;
+
     background:none;
-    color:white;
-    font-size:35px;
+
+    color:#fff;
+
+    font-size:34px;
+
     line-height:1;
-    cursor:none;
-    -webkit-text-stroke:2px #050505;
-    text-shadow:2px 2px 0 #050505;
-    transition:.15s ease;
+
+    -webkit-text-stroke:
+        2px #050505;
+
+    text-shadow:
+        2px 2px #050505;
+
+    transition:.14s ease;
 }
 
 .star:hover{
-    transform:scale(1.22) rotate(-10deg);
+    transform:
+        scale(1.2)
+        rotate(-8deg);
 }
 
 .star.active{
     color:var(--yellow);
-    transform:scale(1.1);
+
     text-shadow:
-        2px 2px 0 #050505,
-        0 0 13px rgba(255,230,0,.8);
+        0 0 12px
+        var(--yellow);
 }
 
 .rating-text{
     margin-left:8px;
-    color:rgba(255,255,255,.65);
-    font-family:"Microsoft YaHei",sans-serif;
+
+    color:
+        rgba(255,255,255,.65);
+
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
+
     font-size:10px;
-    font-weight:700;
 }
 
-/* =========================================================
+/* =====================================================
    CONTACT
-========================================================= */
+===================================================== */
 
 .contact-input{
     width:100%;
     height:39px;
-    padding:0 12px;
-    outline:none;
-    color:white;
+
+    padding:
+        0 12px;
+
+    outline:0;
+
+    color:#fff;
     background:#101010;
-    border:3px solid white;
-    font-family:"Microsoft YaHei",sans-serif;
+
+    border:
+        3px solid #fff;
+
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
+
     font-size:11px;
-    cursor:text;
-    transition:.2s ease;
 }
 
 .contact-input:focus{
-    border-color:var(--yellow);
-    box-shadow:0 0 0 3px var(--red);
+    border-color:
+        var(--yellow);
+
+    box-shadow:
+        0 0 0 3px
+        var(--red);
 }
 
-/* =========================================================
-   SUBMIT BUTTON
-========================================================= */
+/* =====================================================
+   SUBMIT
+===================================================== */
 
 .submit-wrap{
     display:flex;
+
     justify-content:center;
+
     margin-top:14px;
 }
 
 .submit-button{
-    min-width:290px;
-    padding:12px 38px;
-    border:4px solid #050505;
-    outline:none;
+    min-width:280px;
+
+    padding:
+        11px 34px;
+
     color:#050505;
-    background:var(--yellow);
+
+    background:
+        var(--yellow);
+
+    border:
+        4px solid
+        #050505;
+
     box-shadow:
-        8px 8px 0 var(--red),
-        12px 12px 0 #050505;
-    font-family:Impact,"Arial Black","Microsoft YaHei",sans-serif;
-    font-size:23px;
-    font-weight:900;
-    transform:skew(-8deg);
-    cursor:none;
-    transition:.16s ease;
+        8px 8px
+        var(--red),
+        12px 12px
+        #050505;
+
+    font-family:
+        Impact,
+        "Arial Black",
+        "Microsoft YaHei",
+        sans-serif;
+
+    font-size:22px;
+
+    transform:
+        skew(-8deg);
+
+    transition:.14s ease;
 }
 
 .submit-button span{
     display:inline-block;
-    transform:skew(8deg);
+
+    transform:
+        skew(8deg);
 }
 
 .submit-button:hover{
-    transform:skew(-8deg) translate(-4px,-4px);
-    box-shadow:
-        12px 12px 0 var(--red),
-        16px 16px 0 #050505;
-}
-
-.submit-button:active{
-    transform:skew(-8deg) translate(3px,3px);
+    transform:
+        skew(-8deg)
+        translate(-4px,-4px);
 }
 
 .submit-button:disabled{
-    opacity:.65;
+    opacity:.6;
 }
 
 .form-status{
     min-height:17px;
+
     margin-top:12px;
+
     text-align:center;
-    font-family:"Microsoft YaHei",sans-serif;
+
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
+
     font-size:10px;
     font-weight:900;
 }
@@ -478,738 +713,651 @@ textarea:focus{
     color:var(--yellow);
 }
 
-/* =========================================================
-   BACKGROUND EFFECTS
-========================================================= */
-
-.spark{
-    position:fixed;
-    z-index:8;
-    width:14px;
-    height:14px;
-    pointer-events:none;
-    background:var(--yellow);
-    clip-path:polygon(
-        50% 0,
-        61% 39%,
-        100% 50%,
-        61% 61%,
-        50% 100%,
-        39% 61%,
-        0 50%,
-        39% 39%
-    );
-    filter:drop-shadow(0 0 6px var(--yellow));
-    animation:sparkPulse 2.4s ease-in-out infinite;
-}
-
-.spark.s1{left:52%;top:27%}
-.spark.s2{left:88%;top:42%;animation-delay:.7s}
-.spark.s3{left:57%;top:68%;animation-delay:1.4s}
-.spark.s4{left:94%;top:71%;animation-delay:.35s}
-
-@keyframes sparkPulse{
-    0%,100%{
-        opacity:.2;
-        transform:scale(.5) rotate(0deg);
-    }
-    50%{
-        opacity:1;
-        transform:scale(1.8) rotate(90deg);
-    }
-}
-
-.shard{
-    position:fixed;
-    z-index:7;
-    width:90px;
-    height:14px;
-    pointer-events:none;
-    opacity:.4;
-    background:var(--red);
-    clip-path:polygon(0 40%,100% 0,84% 100%,8% 75%);
-    animation:shardFloat 6s ease-in-out infinite;
-}
-
-.shard.a{
-    left:47%;
-    top:14%;
-    transform:rotate(-25deg);
-}
-
-.shard.b{
-    right:3%;
-    bottom:15%;
-    animation-delay:2s;
-}
-
-.shard.c{
-    left:54%;
-    bottom:6%;
-    width:130px;
-    animation-delay:3.5s;
-}
-
-@keyframes shardFloat{
-    0%,100%{
-        opacity:.2;
-        translate:0 0;
-    }
-    50%{
-        opacity:.65;
-        translate:10px -12px;
-    }
-}
-
-/* =========================================================
-   CURSOR
-========================================================= */
-
-.cursor{
-    position:fixed;
-    left:0;
-    top:0;
-    width:30px;
-    height:30px;
-    z-index:9999;
-    pointer-events:none;
-    transform:translate(-50%,-50%);
-    transition:width .16s ease,height .16s ease;
-}
-
-.cursor::before{
-    content:"";
-    position:absolute;
-    inset:3px;
-    border:2px solid var(--yellow);
-    border-radius:50%;
-    box-shadow:0 0 8px rgba(255,230,0,.8);
-    animation:cursorSpin 2.2s linear infinite;
-}
-
-.cursor::after{
-    content:"✦";
-    position:absolute;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-53%);
-    color:var(--yellow);
-    font-size:16px;
-    text-shadow:0 0 7px red;
-}
-
-@keyframes cursorSpin{
-    to{transform:rotate(360deg)}
-}
-
-body.interactive .cursor{
-    width:48px;
-    height:48px;
-}
-
-body.interactive .cursor::before{
-    border-color:var(--red);
-    box-shadow:
-        0 0 0 3px rgba(255,230,0,.25),
-        0 0 15px rgba(239,16,35,.8);
-}
-
-/* =========================================================
-   CURSOR TRAIL
-========================================================= */
-
-.trail{
-    position:fixed;
-    width:8px;
-    height:8px;
-    z-index:9998;
-    pointer-events:none;
-    background:var(--yellow);
-    clip-path:polygon(
-        50% 0,
-        65% 35%,
-        100% 50%,
-        65% 65%,
-        50% 100%,
-        35% 65%,
-        0 50%,
-        35% 35%
-    );
-    animation:trailFade .52s linear forwards;
-}
-
-.trail.red{
-    background:var(--red);
-}
-
-@keyframes trailFade{
-    0%{
-        opacity:.95;
-        transform:translate(-50%,-50%) scale(1) rotate(0deg);
-    }
-    100%{
-        opacity:0;
-        transform:translate(-50%,-50%) scale(.1) rotate(150deg);
-    }
-}
-
-/* =========================================================
-   RATING PARTICLES
-========================================================= */
-
-.rating-particle{
-    position:fixed;
-    z-index:9990;
-    width:8px;
-    height:8px;
-    pointer-events:none;
-    background:var(--yellow);
-    clip-path:polygon(
-        50% 0,
-        62% 38%,
-        100% 50%,
-        62% 62%,
-        50% 100%,
-        38% 62%,
-        0 50%,
-        38% 38%
-    );
-    animation:ratingParticle .65s ease-out forwards;
-}
-
-@keyframes ratingParticle{
-    from{
-        opacity:1;
-        transform:translate(0,0) scale(1);
-    }
-    to{
-        opacity:0;
-        transform:
-            translate(var(--dx),var(--dy))
-            scale(.1)
-            rotate(180deg);
-    }
-}
-
-/* =========================================================
-   SUBMIT SHOCKWAVE
-========================================================= */
-
-.submit-wave{
-    position:fixed;
-    left:50%;
-    top:50%;
-    width:100px;
-    height:100px;
-    z-index:10001;
-    pointer-events:none;
-    border:8px solid var(--yellow);
-    border-radius:50%;
-    transform:translate(-50%,-50%) scale(.1);
-    animation:submitWave .7s ease-out forwards;
-}
-
-.submit-wave.red{
-    border-color:var(--red);
-    animation-delay:.06s;
-}
-
-@keyframes submitWave{
-    0%{
-        opacity:1;
-        transform:translate(-50%,-50%) scale(.1);
-    }
-    100%{
-        opacity:0;
-        transform:translate(-50%,-50%) scale(18);
-    }
-}
-
-/* =========================================================
-   SUCCESS SCREEN
-========================================================= */
+/* =====================================================
+   SUCCESS
+===================================================== */
 
 .success-screen{
     position:fixed;
     inset:0;
-    z-index:9000;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+
+    z-index:7000;
+
+    display:grid;
+    place-items:center;
+
     visibility:hidden;
     opacity:0;
-    pointer-events:none;
-    background:rgba(0,0,0,.74);
-    transition:opacity .25s ease;
+
+    background:
+        rgba(0,0,0,.75);
+
+    transition:.22s ease;
 }
 
 .success-screen.show{
     visibility:visible;
     opacity:1;
-    pointer-events:auto;
 }
 
-.success-content{
-    position:relative;
-    padding:50px 70px;
+.success-card{
+    padding:
+        48px 65px;
+
     text-align:center;
-    background:var(--red);
-    border:6px solid #050505;
+
+    background:
+        var(--red);
+
+    border:
+        6px solid
+        #050505;
+
     box-shadow:
-        15px 15px 0 var(--yellow),
-        23px 23px 0 #050505;
-    transform:rotate(-3deg) scale(.7);
+        15px 15px
+        var(--yellow),
+        22px 22px
+        #050505;
+
+    transform:
+        rotate(-3deg)
+        scale(.72);
 }
 
-.success-screen.show .success-content{
-    animation:successPop .55s cubic-bezier(.2,1.5,.3,1) forwards;
+.success-screen.show
+.success-card{
+    animation:
+        successPop
+        .5s
+        cubic-bezier(.2,1.45,.3,1)
+        forwards;
 }
 
 @keyframes successPop{
     to{
-        transform:rotate(-3deg) scale(1);
+        transform:
+            rotate(-3deg)
+            scale(1);
     }
 }
 
-.success-content::before{
-    content:"MISSION COMPLETE";
-    position:absolute;
-    top:-25px;
-    left:30px;
-    padding:6px 14px;
-    color:#050505;
-    background:var(--yellow);
-    border:3px solid #050505;
-    font-size:13px;
-    transform:rotate(3deg);
-}
-
-.success-content h2{
+.success-card h2{
     margin:0;
-    color:white;
-    font-size:clamp(45px,6vw,95px);
-    line-height:.83;
-    -webkit-text-stroke:3px #050505;
-    text-shadow:7px 7px 0 #050505;
+
+    font-size:
+        clamp(
+            44px,
+            5vw,
+            85px
+        );
+
+    line-height:.82;
+
+    color:#fff;
+
+    -webkit-text-stroke:
+        3px #050505;
+
+    text-shadow:
+        7px 7px #050505;
 }
 
-.success-content h2 span{
+.success-card h2 span{
     color:var(--yellow);
 }
 
-.success-content p{
-    margin:25px 0 0;
-    font-family:"Microsoft YaHei",sans-serif;
-    font-size:14px;
+.success-card p{
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
+
+    font-size:13px;
     font-weight:900;
 }
 
 .success-close{
-    margin-top:24px;
-    padding:10px 25px;
+    margin-top:15px;
+
+    padding:
+        9px 22px;
+
     color:#050505;
-    background:var(--yellow);
-    border:3px solid #050505;
-    box-shadow:5px 5px 0 #050505;
-    font-family:"Microsoft YaHei",sans-serif;
+
+    background:
+        var(--yellow);
+
+    border:
+        3px solid
+        #050505;
+
+    box-shadow:
+        5px 5px #050505;
+
+    font-family:
+        "Microsoft YaHei",
+        sans-serif;
+
     font-weight:900;
-    cursor:none;
 }
 
-/* =========================================================
-   PAGE TRANSITION
-========================================================= */
+/* =====================================================
+   EXIT
+===================================================== */
 
-.transition{
+.exit{
     position:fixed;
     inset:0;
-    z-index:10000;
-    opacity:0;
+
+    z-index:5000;
+
     pointer-events:none;
+
+    visibility:hidden;
+}
+
+.exit::before{
+    content:"";
+
+    position:absolute;
+    inset:-20%;
+
     background:var(--red);
-    clip-path:polygon(
-        0 100%,
-        100% 100%,
-        100% 100%,
-        0 100%
-    );
-    transition:
-        opacity .12s,
-        clip-path .48s cubic-bezier(.77,0,.18,1);
+
+    transform:
+        translateX(-130%)
+        rotate(-7deg);
 }
 
-body.leaving .transition{
-    opacity:1;
-    clip-path:polygon(
-        0 0,
-        100% 7%,
-        100% 100%,
-        0 93%
-    );
+.exit::after{
+    content:"";
+
+    position:absolute;
+    inset:-20%;
+
+    background:#000;
+
+    transform:
+        translateX(130%)
+        rotate(6deg);
 }
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
+body.leaving .exit{
+    visibility:visible;
+}
 
-@media(max-width:1100px){
-    .feedback-panel{
-        width:50vw;
-        margin-left:3vw;
+body.leaving .exit::before{
+    animation:
+        exitA
+        .4s forwards;
+}
+
+body.leaving .exit::after{
+    animation:
+        exitB
+        .4s .1s forwards;
+}
+
+@keyframes exitA{
+    to{
+        transform:
+            translateX(-20%)
+            rotate(-7deg);
     }
+}
 
-    .feedback-title h1{
-        font-size:58px;
+@keyframes exitB{
+    to{
+        transform:
+            translateX(20%)
+            rotate(6deg);
     }
 }
 
-@media(max-height:800px) and (min-width:761px){
-    .feedback-panel{
-        padding-top:2.5vh;
-        transform:scale(.91);
-        transform-origin:top left;
+/* =====================================================
+   CURSOR
+===================================================== */
+
+.cursor{
+    position:fixed;
+
+    left:-100px;
+    top:-100px;
+
+    width:28px;
+    height:28px;
+
+    z-index:9999;
+
+    pointer-events:none;
+
+    transform:
+        translate(-50%,-50%);
+}
+
+.cursor::before{
+    content:"";
+
+    position:absolute;
+    inset:2px;
+
+    border:
+        2px solid
+        var(--yellow);
+
+    border-radius:50%;
+
+    box-shadow:
+        0 0 8px
+        var(--yellow);
+}
+
+.cursor::after{
+    content:"✦";
+
+    position:absolute;
+    inset:0;
+
+    display:grid;
+    place-items:center;
+
+    color:var(--red);
+
+    font-size:14px;
+}
+
+.trail{
+    position:fixed;
+
+    width:6px;
+    height:6px;
+
+    z-index:9998;
+
+    pointer-events:none;
+
+    background:
+        var(--yellow);
+
+    animation:
+        trailFade
+        .5s forwards;
+}
+
+@keyframes trailFade{
+    to{
+        opacity:0;
+
+        transform:
+            rotate(150deg)
+            scale(.1);
     }
 }
 
-@media(max-width:760px){
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:800px){
+
     body{
         overflow:auto;
-        cursor:auto;
     }
 
     .feedback-bg{
-        background-position:65% center;
-    }
+        background-position:
+            66% center;
 
-    .feedback-bg::after{
-        background:rgba(0,0,0,.7);
+        filter:
+            brightness(.55);
     }
 
     .feedback-panel{
-        width:92%;
-        margin:0 auto;
-        padding:100px 0 60px;
-    }
+        width:90%;
 
-    .feedback-title h1{
-        font-size:58px;
-    }
+        margin:
+            95px auto 50px;
 
-    .feedback-title .english{
-        margin-left:30px;
-    }
-
-    .slogan{
-        margin-left:20px;
+        padding:0;
     }
 
     .type-options{
         grid-template-columns:1fr;
     }
 
+    .top-nav{
+        top:10px;
+        right:8px;
+    }
+
+    .success-card{
+        width:86%;
+        padding:
+            40px 20px;
+    }
+}
+
+@media(pointer:fine){
+    body,input,textarea,button,a,label{
+        cursor:none;
+    }
+}
+
+@media(pointer:coarse){
     .cursor{
         display:none;
     }
-
-    .top-nav{
-        top:12px;
-        right:12px;
-    }
-
-    .top-nav a{
-        padding:7px 10px;
-        font-size:11px;
-    }
-
-    .success-content{
-        width:86%;
-        padding:40px 20px;
-    }
 }
 
-@media(prefers-reduced-motion:reduce){
-    *,
-    *::before,
-    *::after{
-        animation:none!important;
-        transition:none!important;
-    }
-}
 </style>
 </head>
 
 <body>
 
+
 <div class="feedback-bg"></div>
 
-<!-- 动态装饰 -->
-<div class="spark s1"></div>
-<div class="spark s2"></div>
-<div class="spark s3"></div>
-<div class="spark s4"></div>
+<div class="entry-shock"></div>
 
-<div class="shard a"></div>
-<div class="shard b"></div>
-<div class="shard c"></div>
 
-<div class="transition"></div>
+<div class="feedback-content">
 
-<!-- =====================================================
-     NAV
-===================================================== -->
+    <nav class="top-nav">
 
-<nav class="top-nav">
-    <a href="index.html"
-       data-transition
-       class="interactive">
-        返回搜索
-    </a>
+        <a
+            href="index.html"
+            data-page>
+            返回搜索
+        </a>
 
-    <a href="creator.html"
-       data-transition
-       class="interactive">
-        创作者信息
-    </a>
-</nav>
+        <a
+            href="creator.html"
+            data-page>
+            创作者信息
+        </a>
 
-<!-- =====================================================
-     FEEDBACK
-===================================================== -->
+    </nav>
 
-<main class="feedback-panel">
 
-    <header class="feedback-title">
-        <h1>
-            意见<span>反馈</span>
-        </h1>
+    <main class="feedback-panel">
 
-        <div class="english">
-            FEEDBACK
-        </div>
-    </header>
+        <header class="feedback-title">
 
-    <div class="slogan">
-        你的反馈，是我们的行动力！
-    </div>
+            <h1>
+                意见<span>反馈</span>
+            </h1>
 
-    <form class="feedback-form"
-          id="feedbackForm">
-
-        <!-- TYPE -->
-        <div class="field">
-
-            <div class="field-label">
-                <span class="cn-label">
-                    反馈类型
-                </span>
-
-                <span class="en-label">
-                    TYPE
-                </span>
+            <div class="english">
+                FEEDBACK
             </div>
 
-            <div class="type-options">
+        </header>
 
-                <div class="type-option">
-                    <input
-                        type="radio"
-                        id="typeFeature"
-                        name="feedback_type"
-                        value="功能建议"
-                        checked
-                    >
 
-                    <label
-                        for="typeFeature"
-                        class="interactive">
-                        <span class="type-icon">✦</span>
-                        功能建议
-                    </label>
-                </div>
-
-                <div class="type-option">
-                    <input
-                        type="radio"
-                        id="typeBug"
-                        name="feedback_type"
-                        value="问题反馈"
-                    >
-
-                    <label
-                        for="typeBug"
-                        class="interactive">
-                        <span class="type-icon">⚠</span>
-                        问题反馈
-                    </label>
-                </div>
-
-                <div class="type-option">
-                    <input
-                        type="radio"
-                        id="typeOther"
-                        name="feedback_type"
-                        value="其他"
-                    >
-
-                    <label
-                        for="typeOther"
-                        class="interactive">
-                        <span class="type-icon">◆</span>
-                        其他
-                    </label>
-                </div>
-
-            </div>
+        <div class="slogan">
+            你的反馈，是我们的行动力！
         </div>
 
-        <!-- DETAIL -->
-        <div class="field">
 
-            <div class="field-label">
-                <span class="cn-label">
-                    详细描述
-                </span>
+        <form
+            class="feedback-form"
+            id="feedbackForm">
 
-                <span class="en-label">
-                    DETAIL
-                </span>
-            </div>
 
-            <div class="textarea-wrap"
-                 id="textareaWrap">
+            <div class="field">
 
-                <textarea
-                    id="message"
-                    name="message"
-                    maxlength="500"
-                    required
-                    placeholder="告诉我你对 PHANTOM SEARCH 的想法……"
-                ></textarea>
+                <div class="field-label">
 
-                <div class="scan-line"></div>
+                    <span class="cn-label">
+                        反馈类型
+                    </span>
 
-                <div class="char-count">
-                    <span id="charCount">0</span>
-                    / 500
+                    <span class="en-label">
+                        TYPE
+                    </span>
+
+                </div>
+
+
+                <div class="type-options">
+
+
+                    <div class="type-option">
+
+                        <input
+                            id="feature"
+                            type="radio"
+                            name="feedback_type"
+                            value="功能建议"
+                            checked>
+
+                        <label for="feature">
+                            ✦ 功能建议
+                        </label>
+
+                    </div>
+
+
+                    <div class="type-option">
+
+                        <input
+                            id="bug"
+                            type="radio"
+                            name="feedback_type"
+                            value="问题反馈">
+
+                        <label for="bug">
+                            ⚠ 问题反馈
+                        </label>
+
+                    </div>
+
+
+                    <div class="type-option">
+
+                        <input
+                            id="other"
+                            type="radio"
+                            name="feedback_type"
+                            value="其他">
+
+                        <label for="other">
+                            ◆ 其他
+                        </label>
+
+                    </div>
+
+
                 </div>
 
             </div>
-        </div>
 
-        <!-- RATING -->
-        <div class="field">
 
-            <div class="field-label">
-                <span class="cn-label">
-                    满意度
-                </span>
+            <div class="field">
 
-                <span class="en-label">
-                    RATING
-                </span>
+                <div class="field-label">
+
+                    <span class="cn-label">
+                        详细描述
+                    </span>
+
+                    <span class="en-label">
+                        DETAIL
+                    </span>
+
+                </div>
+
+
+                <div class="textarea-wrap">
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        maxlength="500"
+                        required
+                        placeholder="告诉我你对 PHANTOM SEARCH 的想法……"></textarea>
+
+
+                    <div class="char-count">
+
+                        <span id="charCount">
+                            0
+                        </span>
+
+                        / 500
+
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="rating-row">
 
-                <button type="button"
-                        class="star interactive"
-                        data-value="1">★</button>
+            <div class="field">
 
-                <button type="button"
-                        class="star interactive"
-                        data-value="2">★</button>
+                <div class="field-label">
 
-                <button type="button"
-                        class="star interactive"
-                        data-value="3">★</button>
+                    <span class="cn-label">
+                        满意度
+                    </span>
 
-                <button type="button"
-                        class="star interactive"
-                        data-value="4">★</button>
+                    <span class="en-label">
+                        RATING
+                    </span>
 
-                <button type="button"
-                        class="star interactive"
-                        data-value="5">★</button>
+                </div>
 
-                <span class="rating-text"
-                      id="ratingText">
-                    点击星星进行评分
-                </span>
+
+                <div class="rating-row">
+
+                    <button
+                        class="star"
+                        type="button"
+                        data-value="1">
+                        ★
+                    </button>
+
+                    <button
+                        class="star"
+                        type="button"
+                        data-value="2">
+                        ★
+                    </button>
+
+                    <button
+                        class="star"
+                        type="button"
+                        data-value="3">
+                        ★
+                    </button>
+
+                    <button
+                        class="star"
+                        type="button"
+                        data-value="4">
+                        ★
+                    </button>
+
+                    <button
+                        class="star"
+                        type="button"
+                        data-value="5">
+                        ★
+                    </button>
+
+
+                    <span
+                        class="rating-text"
+                        id="ratingText">
+
+                        点击星星评分
+
+                    </span>
+
+
+                    <input
+                        type="hidden"
+                        name="rating"
+                        id="ratingInput">
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <div class="field-label">
+
+                    <span class="cn-label">
+                        联系方式
+                    </span>
+
+                    <span class="en-label">
+                        CONTACT / OPTIONAL
+                    </span>
+
+                </div>
+
 
                 <input
-                    type="hidden"
-                    name="rating"
-                    id="ratingInput"
-                    value=""
-                >
+                    class="contact-input"
+                    type="text"
+                    name="contact"
+                    maxlength="120"
+                    placeholder="邮箱 / 社交账号（可选）">
 
             </div>
-        </div>
 
-        <!-- CONTACT -->
-        <div class="field">
 
-            <div class="field-label">
-                <span class="cn-label">
-                    联系方式
-                </span>
+            <div class="submit-wrap">
 
-                <span class="en-label">
-                    CONTACT（可选）
-                </span>
+                <button
+                    class="submit-button"
+                    id="submitButton"
+                    type="submit">
+
+                    <span>
+                        提交反馈 ➤
+                    </span>
+
+                </button>
+
             </div>
 
-            <input
-                type="text"
-                class="contact-input"
-                name="contact"
-                maxlength="120"
-                placeholder="例如：邮箱 / 社交账号（可选）"
-            >
 
-        </div>
+            <div
+                class="form-status"
+                id="formStatus">
+            </div>
 
-        <!-- SUBMIT -->
-        <div class="submit-wrap">
+        </form>
 
-            <button
-                type="submit"
-                class="submit-button interactive"
-                id="submitButton">
+    </main>
 
-                <span>
-                    提交反馈 ➤
-                </span>
+</div>
 
-            </button>
 
-        </div>
+<div
+    class="success-screen"
+    id="successScreen">
 
-        <div
-            class="form-status"
-            id="formStatus">
-        </div>
-
-    </form>
-
-</main>
-
-<!-- =====================================================
-     SUCCESS
-===================================================== -->
-
-<div class="success-screen"
-     id="successScreen">
-
-    <div class="success-content">
+    <div class="success-card">
 
         <h2>
+
             THANKS
             <br>
-            <span>FOR YOUR</span>
+
+            <span>
+                FOR YOUR
+            </span>
+
             <br>
+
             FEEDBACK!
+
         </h2>
+
 
         <p>
             反馈已成功送达。
@@ -1217,437 +1365,338 @@ body.leaving .transition{
             感谢你帮助 PHANTOM SEARCH 变得更好。
         </p>
 
+
         <button
-            type="button"
-            class="success-close interactive"
-            id="successClose">
+            class="success-close"
+            id="successClose"
+            type="button">
+
             RETURN ↩
+
         </button>
 
     </div>
 
 </div>
 
-<div class="cursor"
-     id="cursor"></div>
+
+<div class="exit"></div>
+
+
+<div
+    class="cursor"
+    id="cursor">
+</div>
+
 
 <script>
 
-/* =========================================================
-   DOM
-========================================================= */
+/* =====================================================
+   ENTRY
+===================================================== */
 
-const form =
-    document.getElementById("feedbackForm");
+if(
+    sessionStorage.getItem(
+        "phantomTransition"
+    )
+    ===
+    "feedback"
+){
+
+    document.body.classList.add(
+        "from-home"
+    );
+
+    sessionStorage.removeItem(
+        "phantomTransition"
+    );
+}
+
+
+/* =====================================================
+   CHAR COUNT
+===================================================== */
 
 const message =
-    document.getElementById("message");
+    document.getElementById(
+        "message"
+    );
 
 const charCount =
-    document.getElementById("charCount");
+    document.getElementById(
+        "charCount"
+    );
 
-const textareaWrap =
-    document.getElementById("textareaWrap");
+
+message.addEventListener(
+    "input",
+    ()=>{
+
+        charCount.textContent =
+            message.value.length;
+
+    }
+);
+
+
+/* =====================================================
+   RATING
+===================================================== */
 
 const stars =
-    document.querySelectorAll(".star");
+    document.querySelectorAll(
+        ".star"
+    );
 
 const ratingInput =
-    document.getElementById("ratingInput");
+    document.getElementById(
+        "ratingInput"
+    );
 
 const ratingText =
-    document.getElementById("ratingText");
+    document.getElementById(
+        "ratingText"
+    );
 
-const submitButton =
-    document.getElementById("submitButton");
+let rating=0;
 
-const formStatus =
-    document.getElementById("formStatus");
-
-const successScreen =
-    document.getElementById("successScreen");
-
-const successClose =
-    document.getElementById("successClose");
-
-const cursor =
-    document.getElementById("cursor");
-
-
-/* =========================================================
-   CHARACTER COUNTER
-========================================================= */
-
-message.addEventListener("input",function(){
-
-    charCount.textContent =
-        message.value.length;
-
-});
-
-
-/* =========================================================
-   TEXTAREA SCAN
-========================================================= */
-
-message.addEventListener("focus",function(){
-
-    textareaWrap.classList.remove("focused");
-
-    void textareaWrap.offsetWidth;
-
-    textareaWrap.classList.add("focused");
-
-});
-
-
-/* =========================================================
-   RATING
-========================================================= */
-
-let currentRating = 0;
 
 stars.forEach(star=>{
 
-    star.addEventListener("mouseenter",function(){
+    star.addEventListener(
+        "click",
+        ()=>{
 
-        previewRating(
-            Number(this.dataset.value)
-        );
+            rating =
+                Number(
+                    star.dataset.value
+                );
 
-    });
+            ratingInput.value =
+                rating;
 
-    star.addEventListener("mouseleave",function(){
+            updateStars();
 
-        updateRatingDisplay(
-            currentRating
-        );
-
-    });
-
-    star.addEventListener("click",function(e){
-
-        currentRating =
-            Number(this.dataset.value);
-
-        ratingInput.value =
-            currentRating;
-
-        updateRatingDisplay(
-            currentRating
-        );
-
-        createRatingBurst(
-            e.clientX,
-            e.clientY
-        );
-
-    });
+        }
+    );
 
 });
 
 
-function previewRating(value){
+function updateStars(){
 
     stars.forEach(star=>{
 
-        const starValue =
-            Number(star.dataset.value);
-
         star.classList.toggle(
             "active",
-            starValue <= value
+            Number(
+                star.dataset.value
+            )
+            <=
+            rating
         );
 
     });
 
-}
 
-
-function updateRatingDisplay(value){
-
-    stars.forEach(star=>{
-
-        const starValue =
-            Number(star.dataset.value);
-
-        star.classList.toggle(
-            "active",
-            starValue <= value
-        );
-
-    });
-
-    if(value === 0){
-
-        ratingText.textContent =
-            "点击星星进行评分";
-
-    }else{
-
-        ratingText.textContent =
-            value + " / 5";
-
-    }
+    ratingText.textContent =
+        rating
+        ?
+        rating + " / 5"
+        :
+        "点击星星评分";
 
 }
 
 
-/* =========================================================
-   STAR PARTICLES
-========================================================= */
+/* =====================================================
+   FORM SUBMIT
+===================================================== */
 
-function createRatingBurst(x,y){
-
-    for(let i=0;i<12;i++){
-
-        const particle =
-            document.createElement("div");
-
-        particle.className =
-            "rating-particle";
-
-        particle.style.left =
-            x + "px";
-
-        particle.style.top =
-            y + "px";
-
-        const angle =
-            Math.random()
-            *
-            Math.PI
-            *
-            2;
-
-        const distance =
-            25
-            +
-            Math.random()
-            *
-            55;
-
-        const dx =
-            Math.cos(angle)
-            *
-            distance;
-
-        const dy =
-            Math.sin(angle)
-            *
-            distance;
-
-        particle.style.setProperty(
-            "--dx",
-            dx + "px"
-        );
-
-        particle.style.setProperty(
-            "--dy",
-            dy + "px"
-        );
-
-        document.body.appendChild(
-            particle
-        );
-
-        setTimeout(
-            ()=>particle.remove(),
-            700
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   SUBMIT
-========================================================= */
-
-form.addEventListener("submit",async function(e){
-
-    e.preventDefault();
-
-
-    /* 检查反馈文字 */
-
-    if(message.value.trim().length < 3){
-
-        showError(
-            "请至少写下几个字的反馈内容。"
-        );
-
-        message.focus();
-
-        return;
-
-    }
-
-
-    /* 检查评分 */
-
-    if(currentRating === 0){
-
-        showError(
-            "请先选择 1–5 星满意度。"
-        );
-
-        return;
-
-    }
-
-
-    submitButton.disabled = true;
-
-    submitButton
-        .querySelector("span")
-        .textContent =
-        "正在发送……";
-
-    formStatus.className =
-        "form-status sending";
-
-    formStatus.textContent =
-        "正在发送反馈……";
-
-
-    const formData =
-        new FormData(form);
-
-
-    /*
-       FormSubmit 邮件设置
-    */
-
-    formData.append(
-        "_subject",
-        "PHANTOM SEARCH - New Feedback"
+const form =
+    document.getElementById(
+        "feedbackForm"
     );
 
-    formData.append(
-        "_template",
-        "table"
+const submitButton =
+    document.getElementById(
+        "submitButton"
+    );
+
+const formStatus =
+    document.getElementById(
+        "formStatus"
+    );
+
+const successScreen =
+    document.getElementById(
+        "successScreen"
     );
 
 
-    try{
+form.addEventListener(
+    "submit",
+    async event=>{
 
-        const response =
-            await fetch(
-                "https://formsubmit.co/ajax/Henrychen2008@hotmail.com",
-                {
-                    method:"POST",
-
-                    headers:{
-                        "Accept":
-                        "application/json"
-                    },
-
-                    body:formData
-                }
-            );
-
-
-        if(!response.ok){
-
-            throw new Error(
-                "HTTP " +
-                response.status
-            );
-
-        }
-
-
-        const result =
-            await response.json();
+        event.preventDefault();
 
 
         if(
-            result.success === true
-            ||
-            result.success === "true"
+            message.value
+            .trim()
+            .length < 3
         ){
 
-            submitSuccess();
-
-        }else{
-
-            throw new Error(
-                "Submit failed"
+            error(
+                "请至少写下几个字的反馈内容。"
             );
 
+            return;
         }
 
 
-    }catch(error){
+        if(
+            rating === 0
+        ){
 
-        console.error(error);
+            error(
+                "请先选择 1–5 星满意度。"
+            );
 
-        showError(
-            "暂时没有发送成功，请稍后再试。"
-        );
+            return;
+        }
+
 
         submitButton.disabled =
-            false;
+            true;
+
 
         submitButton
             .querySelector("span")
             .textContent =
-            "提交反馈 ➤";
+            "正在发送……";
+
+
+        formStatus.className =
+            "form-status sending";
+
+
+        formStatus.textContent =
+            "正在发送反馈……";
+
+
+        const data =
+            new FormData(form);
+
+
+        data.append(
+            "_subject",
+            "PHANTOM SEARCH - New Feedback"
+        );
+
+
+        data.append(
+            "_template",
+            "table"
+        );
+
+
+        try{
+
+            const response =
+                await fetch(
+                    "https://formsubmit.co/ajax/Henrychen2008@hotmail.com",
+                    {
+                        method:"POST",
+
+                        headers:{
+                            "Accept":
+                            "application/json"
+                        },
+
+                        body:data
+                    }
+                );
+
+
+            if(
+                !response.ok
+            ){
+
+                throw new Error();
+
+            }
+
+
+            const result =
+                await response.json();
+
+
+            if(
+                result.success === true
+                ||
+                result.success === "true"
+            ){
+
+                success();
+
+            }else{
+
+                throw new Error();
+
+            }
+
+        }
+        catch(err){
+
+            console.error(err);
+
+
+            error(
+                "暂时没有发送成功，请稍后再试。"
+            );
+
+
+            resetButton();
+
+        }
 
     }
+);
 
-});
 
+function success(){
 
-/* =========================================================
-   SUCCESS
-========================================================= */
-
-function submitSuccess(){
-
-    createSubmitWave();
-
-    setTimeout(()=>{
-
-        successScreen
-            .classList
-            .add("show");
-
-    },180);
+    successScreen
+        .classList
+        .add("show");
 
 
     form.reset();
 
-    currentRating = 0;
 
-    ratingInput.value = "";
+    rating=0;
 
-    updateRatingDisplay(0);
+    ratingInput.value="";
 
-    charCount.textContent = "0";
+    updateStars();
 
-    formStatus.textContent = "";
 
-    formStatus.className =
+    charCount.textContent="0";
+
+
+    formStatus.textContent="";
+
+    formStatus.className=
         "form-status";
 
-    submitButton.disabled = false;
 
-    submitButton
-        .querySelector("span")
-        .textContent =
-        "提交反馈 ➤";
+    resetButton();
 
 }
 
 
-/* =========================================================
-   ERROR
-========================================================= */
-
-function showError(text){
+function error(text){
 
     formStatus.className =
         "form-status error";
@@ -1658,49 +1707,29 @@ function showError(text){
 }
 
 
-/* =========================================================
-   SUBMIT WAVE
-========================================================= */
+function resetButton(){
 
-function createSubmitWave(){
+    submitButton.disabled=
+        false;
 
-    const yellow =
-        document.createElement("div");
 
-    const red =
-        document.createElement("div");
-
-    yellow.className =
-        "submit-wave";
-
-    red.className =
-        "submit-wave red";
-
-    document.body.appendChild(
-        yellow
-    );
-
-    document.body.appendChild(
-        red
-    );
-
-    setTimeout(()=>{
-
-        yellow.remove();
-        red.remove();
-
-    },850);
+    submitButton
+        .querySelector("span")
+        .textContent =
+        "提交反馈 ➤";
 
 }
 
 
-/* =========================================================
-   CLOSE SUCCESS
-========================================================= */
+/* SUCCESS CLOSE */
 
-successClose.addEventListener(
+document
+.getElementById(
+    "successClose"
+)
+.addEventListener(
     "click",
-    function(){
+    ()=>{
 
         successScreen
             .classList
@@ -1710,192 +1739,150 @@ successClose.addEventListener(
 );
 
 
-/* =========================================================
-   CURSOR
-========================================================= */
+/* =====================================================
+   PAGE EXIT
+===================================================== */
 
-let mouseX = -100;
-let mouseY = -100;
+let leaving=false;
 
-let cursorX = -100;
-let cursorY = -100;
-
-document.addEventListener(
-    "mousemove",
-    function(e){
-
-        mouseX =
-            e.clientX;
-
-        mouseY =
-            e.clientY;
-
-        createTrail(
-            mouseX,
-            mouseY
-        );
-
-    }
-);
-
-
-function animateCursor(){
-
-    cursorX +=
-        (mouseX-cursorX)
-        *
-        .32;
-
-    cursorY +=
-        (mouseY-cursorY)
-        *
-        .32;
-
-    cursor.style.left =
-        cursorX + "px";
-
-    cursor.style.top =
-        cursorY + "px";
-
-    requestAnimationFrame(
-        animateCursor
-    );
-
-}
-
-animateCursor();
-
-
-/* =========================================================
-   CURSOR TRAIL
-========================================================= */
-
-let lastTrail = 0;
-
-function createTrail(x,y){
-
-    const now =
-        performance.now();
-
-    if(now-lastTrail < 38){
-        return;
-    }
-
-    lastTrail = now;
-
-    const particle =
-        document.createElement("div");
-
-    particle.className =
-        Math.random()>.55
-        ?
-        "trail red"
-        :
-        "trail";
-
-    const offsetX =
-        (Math.random()-.5)
-        *
-        12;
-
-    const offsetY =
-        (Math.random()-.5)
-        *
-        12;
-
-    particle.style.left =
-        x + offsetX + "px";
-
-    particle.style.top =
-        y + offsetY + "px";
-
-    const size =
-        5 +
-        Math.random()*6;
-
-    particle.style.width =
-        size + "px";
-
-    particle.style.height =
-        size + "px";
-
-    document.body.appendChild(
-        particle
-    );
-
-    setTimeout(
-        ()=>particle.remove(),
-        550
-    );
-
-}
-
-
-/* =========================================================
-   INTERACTIVE CURSOR
-========================================================= */
 
 document
-.querySelectorAll(".interactive")
-.forEach(element=>{
-
-    element.addEventListener(
-        "mouseenter",
-        function(){
-
-            document.body
-                .classList
-                .add("interactive");
-
-        }
-    );
-
-    element.addEventListener(
-        "mouseleave",
-        function(){
-
-            document.body
-                .classList
-                .remove("interactive");
-
-        }
-    );
-
-});
-
-
-/* =========================================================
-   PAGE TRANSITION
-========================================================= */
-
-document
-.querySelectorAll("[data-transition]")
+.querySelectorAll(
+    "[data-page]"
+)
 .forEach(link=>{
 
     link.addEventListener(
         "click",
-        function(e){
+        event=>{
 
-            e.preventDefault();
+            event.preventDefault();
 
-            const target =
-                this.href;
+            if(leaving)return;
+
+            leaving=true;
+
 
             document.body
                 .classList
                 .add("leaving");
 
-            setTimeout(()=>{
 
-                window.location.href =
-                    target;
+            const target=
+                link.href;
 
-            },480);
+
+            setTimeout(
+                ()=>{
+
+                    location.href=
+                        target;
+
+                },
+                470
+            );
 
         }
     );
 
 });
+
+
+/* =====================================================
+   CURSOR
+===================================================== */
+
+const cursor =
+    document.getElementById(
+        "cursor"
+    );
+
+let mx=-100;
+let my=-100;
+let cx=-100;
+let cy=-100;
+let last=0;
+
+
+document.addEventListener(
+    "mousemove",
+    event=>{
+
+        mx=event.clientX;
+        my=event.clientY;
+
+
+        const now=
+            performance.now();
+
+
+        if(
+            now-last > 48
+            &&
+            matchMedia(
+                "(pointer:fine)"
+            ).matches
+        ){
+
+            last=now;
+
+
+            const p=
+                document.createElement(
+                    "span"
+                );
+
+
+            p.className=
+                "trail";
+
+
+            p.style.left=
+                mx+"px";
+
+
+            p.style.top=
+                my+"px";
+
+
+            document.body.appendChild(
+                p
+            );
+
+
+            setTimeout(
+                ()=>p.remove(),
+                520
+            );
+
+        }
+
+    }
+);
+
+
+function cursorLoop(){
+
+    cx+=(mx-cx)*.3;
+    cy+=(my-cy)*.3;
+
+
+    cursor.style.left=
+        cx+"px";
+
+
+    cursor.style.top=
+        cy+"px";
+
+
+    requestAnimationFrame(
+        cursorLoop
+    );
+
+}
+
+
+cursorLoop();
 
 </script>
 
