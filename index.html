@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="zh-CN">
-
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -8,9 +7,8 @@
 <title>PHANTOM SEARCH</title>
 
 <style>
-
 :root{
-    --red:#ed1024;
+    --red:#ef1023;
     --black:#050505;
     --white:#fffdf2;
     --yellow:#ffe600;
@@ -32,6 +30,7 @@ body{
     overflow:hidden;
     background:#000;
     color:#fff;
+
     font-family:
         Impact,
         "Arial Black",
@@ -40,42 +39,42 @@ body{
 }
 
 /* =========================================================
-   FULL SCREEN
+   MAIN STAGE
 ========================================================= */
 
 .stage{
     position:fixed;
     inset:0;
+
     overflow:hidden;
+
     background:#000;
 }
 
 /* =========================================================
    BACKGROUND
-
-   不再限制 3:2
-   直接铺满整个浏览器
 ========================================================= */
 
 .background{
     position:absolute;
+
     inset:-2%;
 
     background-image:
-        url("assets/home-bg.png");
+        url("assets/home-bg.png?v=4");
 
-    background-repeat:no-repeat;
-    background-position:center 51%;
     background-size:cover;
+    background-position:center 48%;
+    background-repeat:no-repeat;
 
     transform:scale(1.025);
 
     transition:
-        transform .6s cubic-bezier(.2,.75,.2,1),
+        transform .55s cubic-bezier(.2,.8,.2,1),
         filter .4s ease;
 }
 
-/* 暗角 */
+/* 轻微暗角 */
 
 .background::after{
     content:"";
@@ -87,113 +86,21 @@ body{
 
     background:
         radial-gradient(
-            ellipse at 55% 45%,
-            transparent 35%,
-            rgba(0,0,0,.10) 65%,
-            rgba(0,0,0,.35) 100%
+            ellipse at 55% 48%,
+            transparent 42%,
+            rgba(0,0,0,.12) 72%,
+            rgba(0,0,0,.28) 100%
         );
 }
 
 /* =========================================================
-   COVER ORIGINAL FAKE UI
-
-   原图片已经画有搜索框和按钮。
-   这里把那一部分自然遮住，
-   再放真正可以操作的 HTML。
-========================================================= */
-
-.search-mask{
-    position:absolute;
-
-    left:0;
-    top:48%;
-
-    width:61%;
-    height:27%;
-
-    z-index:5;
-
-    pointer-events:none;
-
-    background:
-        linear-gradient(
-            105deg,
-            rgba(2,2,2,.98) 0%,
-            rgba(2,2,2,.97) 80%,
-            rgba(2,2,2,.82) 92%,
-            transparent 100%
-        );
-
-    clip-path:
-        polygon(
-            0 7%,
-            96% 0,
-            100% 89%,
-            7% 100%,
-            0 88%
-        );
-}
-
-/* 红色漫画切片 */
-
-.search-mask::before{
-    content:"";
-
-    position:absolute;
-
-    left:-5%;
-    bottom:-14px;
-
-    width:62%;
-    height:9px;
-
-    background:var(--red);
-
-    transform:rotate(-2deg);
-}
-
-/* =========================================================
-   TOP NAV MASK
-========================================================= */
-
-.nav-mask{
-    position:absolute;
-
-    right:0;
-    top:0;
-
-    width:30%;
-    height:10%;
-
-    z-index:8;
-
-    pointer-events:none;
-
-    background:
-        linear-gradient(
-            100deg,
-            transparent 0%,
-            rgba(0,0,0,.80) 18%,
-            rgba(0,0,0,.96) 35%
-        );
-
-    clip-path:
-        polygon(
-            12% 0,
-            100% 0,
-            100% 100%,
-            0 78%
-        );
-}
-
-/* =========================================================
-   NAVIGATION
+   TOP NAV
 ========================================================= */
 
 .top-nav{
     position:absolute;
 
-    top:20px;
+    top:22px;
     right:32px;
 
     z-index:30;
@@ -201,7 +108,33 @@ body{
     display:flex;
     align-items:center;
 
-    gap:10px;
+    gap:7px;
+
+    padding:5px 9px;
+
+    background:
+        rgba(0,0,0,.62);
+
+    backdrop-filter:
+        blur(3px);
+
+    clip-path:
+        polygon(
+            5% 0,
+            100% 0,
+            97% 100%,
+            0 85%
+        );
+}
+
+.nav-divider{
+    width:1px;
+    height:26px;
+
+    margin:0 4px;
+
+    background:
+        rgba(255,255,255,.45);
 }
 
 .nav-link{
@@ -210,10 +143,9 @@ body{
     display:flex;
     align-items:center;
 
-    gap:9px;
+    gap:8px;
 
-    padding:
-        9px 14px;
+    padding:9px 13px;
 
     color:#fff;
 
@@ -227,8 +159,8 @@ body{
     font-weight:900;
 
     transition:
-        transform .16s ease,
-        color .16s ease;
+        color .15s ease,
+        transform .15s ease;
 }
 
 .nav-link:hover{
@@ -245,7 +177,6 @@ body{
 
     left:10px;
     right:10px;
-
     bottom:2px;
 
     height:3px;
@@ -257,7 +188,7 @@ body{
     transform-origin:left;
 
     transition:
-        transform .18s ease;
+        transform .17s ease;
 }
 
 .nav-link:hover::after{
@@ -266,34 +197,27 @@ body{
 
 .nav-icon{
     color:var(--red);
-    font-size:18px;
-}
 
-.nav-divider{
-    width:1px;
-    height:25px;
-
-    background:
-        rgba(255,255,255,.45);
+    font-size:17px;
 }
 
 /* =========================================================
-   REAL SEARCH AREA
+   SEARCH AREA
 ========================================================= */
 
 .search-area{
     position:absolute;
 
-    left:5.2%;
-    top:52%;
+    left:5.4%;
+    top:54%;
 
-    width:min(760px,51vw);
+    width:min(720px,47vw);
 
-    z-index:20;
+    z-index:25;
 }
 
 /* =========================================================
-   SEARCH BAR
+   SEARCH FORM
 ========================================================= */
 
 .search-form{
@@ -306,50 +230,53 @@ body{
 
     background:#fff;
 
-    border:4px solid #050505;
+    border:
+        4px solid
+        var(--black);
 
     box-shadow:
         0 0 0 2px #fff,
-        8px 8px 0 rgba(0,0,0,.85);
+        8px 8px 0 rgba(0,0,0,.82);
 
     clip-path:
         polygon(
-            1% 5%,
+            1% 4%,
             100% 0,
             96% 95%,
             0 100%
         );
 
-    transform:rotate(-.4deg);
+    transform:
+        rotate(-.5deg);
 
     transition:
-        transform .18s ease,
-        filter .18s ease;
+        transform .17s ease,
+        filter .17s ease;
 }
 
 .search-form:focus-within{
     transform:
-        rotate(-.4deg)
+        rotate(-.5deg)
         translateY(-3px);
 
     filter:
         drop-shadow(
             0 0 9px
-            rgba(255,230,0,.6)
+            rgba(255,230,0,.65)
         );
 }
 
-/* 输入扫描光 */
+/* 搜索框扫描光 */
 
 .search-form::after{
     content:"";
 
     position:absolute;
 
-    left:-35%;
     top:0;
+    left:-40%;
 
-    width:22%;
+    width:24%;
     height:100%;
 
     pointer-events:none;
@@ -358,29 +285,30 @@ body{
         linear-gradient(
             90deg,
             transparent,
-            rgba(255,230,0,.15),
-            rgba(255,255,255,.75),
+            rgba(255,230,0,.16),
+            rgba(255,255,255,.72),
             transparent
         );
 
-    transform:skewX(-20deg);
+    transform:
+        skewX(-20deg);
 
     opacity:0;
 }
 
 .search-form:focus-within::after{
     animation:
-        searchScan .8s ease-out;
+        searchScan .75s ease-out;
 }
 
 @keyframes searchScan{
 
     0%{
-        left:-35%;
+        left:-40%;
         opacity:0;
     }
 
-    20%{
+    18%{
         opacity:1;
     }
 
@@ -388,11 +316,10 @@ body{
         left:120%;
         opacity:0;
     }
-
 }
 
 /* =========================================================
-   INPUT
+   SEARCH INPUT
 ========================================================= */
 
 .search-input{
@@ -406,8 +333,8 @@ body{
     padding:
         0 25px;
 
+    color:#181818;
     background:#fff;
-    color:#191919;
 
     font-family:
         "Microsoft YaHei",
@@ -432,8 +359,10 @@ body{
 
     border:0;
 
-    background:var(--red);
-    color:white;
+    color:#fff;
+
+    background:
+        var(--red);
 
     cursor:pointer;
 
@@ -446,13 +375,15 @@ body{
         );
 
     transition:
-        background .15s ease,
-        color .15s ease;
+        color .15s ease,
+        background .15s ease;
 }
 
 .search-button:hover{
     color:#050505;
-    background:var(--yellow);
+
+    background:
+        var(--yellow);
 }
 
 .search-icon{
@@ -479,16 +410,16 @@ body{
 
     position:absolute;
 
-    width:12px;
-    height:4px;
-
     right:-9px;
     bottom:-5px;
 
+    width:12px;
+    height:4px;
+
+    border-radius:3px;
+
     background:
         currentColor;
-
-    border-radius:4px;
 
     transform:
         rotate(45deg);
@@ -503,28 +434,27 @@ body{
 
     align-items:center;
 
+    gap:15px;
+
     margin-top:22px;
-
-    gap:16px;
-
-    transform:
-        rotate(-.5deg);
 }
 
 .engine-title{
     flex:none;
 
+    color:#fff;
+
     font-family:
         "Microsoft YaHei",
         sans-serif;
 
-    font-size:14px;
+    font-size:13px;
     font-weight:900;
 
     white-space:nowrap;
 
     text-shadow:
-        2px 2px #000;
+        2px 2px 0 #000;
 }
 
 .engine-buttons{
@@ -535,22 +465,22 @@ body{
     grid-template-columns:
         repeat(4,1fr);
 
-    gap:10px;
+    gap:9px;
 }
 
 .engine{
     position:relative;
 
-    height:48px;
+    height:46px;
 
     border:
         2px solid
         rgba(255,255,255,.8);
 
-    color:white;
+    color:#fff;
 
     background:
-        rgba(7,7,7,.95);
+        rgba(5,5,5,.92);
 
     box-shadow:
         4px 4px 0 #000;
@@ -567,9 +497,9 @@ body{
 
     transition:
         transform .14s ease,
-        background .14s ease,
+        border-color .14s ease,
         color .14s ease,
-        border-color .14s ease;
+        background .14s ease;
 }
 
 .engine:hover{
@@ -586,8 +516,7 @@ body{
     background:
         var(--yellow);
 
-    border-color:
-        #050505;
+    border-color:#050505;
 
     box-shadow:
         5px 5px 0
@@ -595,77 +524,80 @@ body{
 }
 
 /* =========================================================
-   SEARCH TIP
+   NOTE
 ========================================================= */
 
 .search-note{
     margin:
-        17px 0 0 13px;
+        16px 0 0 12px;
 
     color:
-        rgba(255,255,255,.65);
+        rgba(255,255,255,.67);
 
     font-family:
         "Microsoft YaHei",
         sans-serif;
 
     font-size:11px;
+
+    text-shadow:
+        2px 2px 0 #000;
 }
 
 /* =========================================================
-   HAND ENERGY
-
-   人物右手附近的小型动画
+   SUBTLE HAND ENERGY
 ========================================================= */
 
 .hand-energy{
     position:absolute;
 
-    left:83.5%;
-    top:60%;
+    left:84.2%;
+    top:60.8%;
 
-    width:85px;
-    height:85px;
+    width:72px;
+    height:72px;
 
-    z-index:12;
+    z-index:14;
 
     pointer-events:none;
+
+    opacity:.58;
 
     transform:
         translate(-50%,-50%);
 }
 
-.ring{
+.energy-ring{
     position:absolute;
 
     inset:0;
 
     border:
-        2px solid
-        rgba(255,211,36,.55);
+        1.5px solid
+        rgba(255,214,40,.48);
 
     border-radius:50%;
 
     animation:
-        ringPulse 2.8s
-        ease-in-out infinite;
+        energyIdle
+        3s ease-in-out infinite;
 }
 
-.ring:nth-child(2){
-    inset:18px;
+.energy-ring:nth-child(2){
+    inset:16px;
 
     animation-delay:
-        -.6s;
+        -.8s;
 }
 
-.energy-dot{
+.energy-core{
     position:absolute;
 
     left:50%;
     top:50%;
 
-    width:7px;
-    height:7px;
+    width:6px;
+    height:6px;
 
     border-radius:50%;
 
@@ -673,34 +605,31 @@ body{
         var(--yellow);
 
     box-shadow:
-        0 0 12px
-        var(--yellow),
-        0 0 22px
-        var(--red);
+        0 0 10px var(--yellow),
+        0 0 18px var(--red);
 
     transform:
         translate(-50%,-50%);
 }
 
-@keyframes ringPulse{
+@keyframes energyIdle{
 
     0%,
     100%{
-        opacity:.15;
+        opacity:.12;
 
         transform:
-            scale(.6)
-            rotate(0);
+            scale(.65)
+            rotate(0deg);
     }
 
     50%{
-        opacity:.6;
+        opacity:.48;
 
         transform:
-            scale(1.15)
-            rotate(80deg);
+            scale(1.08)
+            rotate(90deg);
     }
-
 }
 
 /* =========================================================
@@ -710,8 +639,8 @@ body{
 .cursor{
     position:fixed;
 
-    left:-50px;
-    top:-50px;
+    left:-100px;
+    top:-100px;
 
     width:28px;
     height:28px;
@@ -739,7 +668,7 @@ body{
 
     box-shadow:
         0 0 8px
-        var(--yellow);
+        rgba(255,230,0,.8);
 }
 
 .cursor::after{
@@ -752,9 +681,10 @@ body{
     display:grid;
     place-items:center;
 
-    color:var(--red);
+    color:
+        var(--red);
 
-    font-size:15px;
+    font-size:14px;
 }
 
 .trail{
@@ -770,33 +700,50 @@ body{
     background:
         var(--yellow);
 
-    transform:
-        translate(-50%,-50%)
-        rotate(45deg);
+    clip-path:
+        polygon(
+            50% 0,
+            65% 35%,
+            100% 50%,
+            65% 65%,
+            50% 100%,
+            35% 65%,
+            0 50%,
+            35% 35%
+        );
 
     animation:
         trailFade .5s
         forwards;
 }
 
+.trail.red{
+    background:
+        var(--red);
+}
+
 @keyframes trailFade{
+
+    from{
+        opacity:.9;
+
+        transform:
+            translate(-50%,-50%)
+            scale(1);
+    }
 
     to{
         opacity:0;
 
         transform:
             translate(-50%,-50%)
-            rotate(150deg)
-            scale(.1);
+            scale(.1)
+            rotate(150deg);
     }
-
 }
 
 /* =========================================================
    TRANSITION
-
-   重点修复：
-   默认状态完全隐藏！
 ========================================================= */
 
 .transition{
@@ -813,38 +760,36 @@ body{
     visibility:hidden;
 }
 
-/* 默认完全在屏幕外 */
-
-.red-slice{
+.transition-red{
     position:absolute;
 
-    inset:-20%;
+    inset:-25%;
 
     background:
         var(--red);
 
-    transform:
-        translateX(-120%)
-        rotate(-7deg);
-
     opacity:0;
+
+    transform:
+        translateX(-130%)
+        rotate(-7deg);
 }
 
-.black-slice{
+.transition-black{
     position:absolute;
 
-    inset:-20%;
+    inset:-25%;
 
     background:#000;
 
-    transform:
-        translateX(120%)
-        rotate(6deg);
-
     opacity:0;
+
+    transform:
+        translateX(130%)
+        rotate(6deg);
 }
 
-.white-flash{
+.transition-flash{
     position:absolute;
 
     inset:0;
@@ -855,66 +800,158 @@ body{
 }
 
 /* =========================================================
-   CREATOR
+   CREATOR TRANSITION
 ========================================================= */
 
-body.creator-leave
+body.to-creator
 .transition{
     visibility:visible;
 }
 
-body.creator-leave
+body.to-creator
 .background{
     transform:
         scale(1.09)
         translate(-2%,1%);
+
+    filter:
+        contrast(1.08)
+        saturate(1.1);
 }
 
-body.creator-leave
+body.to-creator
 .hand-energy{
     animation:
-        creatorPower
-        .48s ease-out forwards;
+        creatorEnergy .45s
+        ease-out forwards;
 }
 
-body.creator-leave
-.red-slice{
+body.to-creator
+.transition-flash{
     animation:
-        redCreator
-        .45s .27s
+        flash .20s
+        .23s forwards;
+}
+
+body.to-creator
+.transition-red{
+    animation:
+        creatorRed .42s
+        .25s
         cubic-bezier(.75,0,.2,1)
         forwards;
 }
 
-body.creator-leave
-.black-slice{
+body.to-creator
+.transition-black{
     animation:
-        blackCreator
-        .42s .39s
+        creatorBlack .38s
+        .37s
         cubic-bezier(.75,0,.2,1)
         forwards;
 }
 
-body.creator-leave
-.white-flash{
-    animation:
-        flash
-        .23s .25s
-        forwards;
-}
+@keyframes creatorEnergy{
 
-@keyframes creatorPower{
-
-    50%{
-        filter:
-            drop-shadow(
-                0 0 30px
-                var(--yellow)
-            );
+    45%{
+        opacity:1;
 
         transform:
             translate(-50%,-50%)
-            scale(3);
+            scale(2.2);
+    }
+
+    100%{
+        opacity:0;
+
+        transform:
+            translate(-50%,-50%)
+            scale(4);
+    }
+}
+
+@keyframes creatorRed{
+
+    to{
+        opacity:1;
+
+        transform:
+            translateX(-22%)
+            rotate(-7deg);
+    }
+}
+
+@keyframes creatorBlack{
+
+    to{
+        opacity:1;
+
+        transform:
+            translateX(22%)
+            rotate(6deg);
+    }
+}
+
+/* =========================================================
+   FEEDBACK TRANSITION
+========================================================= */
+
+body.to-feedback
+.transition{
+    visibility:visible;
+}
+
+body.to-feedback
+.background{
+    transform:
+        scale(1.11)
+        translate(-3%,1%);
+
+    filter:
+        contrast(1.1)
+        saturate(1.13);
+}
+
+body.to-feedback
+.hand-energy{
+    animation:
+        feedbackEnergy .36s
+        ease-out forwards;
+}
+
+body.to-feedback
+.transition-flash{
+    animation:
+        flash .18s
+        .16s forwards;
+}
+
+body.to-feedback
+.transition-red{
+    animation:
+        feedbackRed .38s
+        .18s
+        cubic-bezier(.75,0,.2,1)
+        forwards;
+}
+
+body.to-feedback
+.transition-black{
+    animation:
+        feedbackBlack .35s
+        .30s
+        cubic-bezier(.75,0,.2,1)
+        forwards;
+}
+
+@keyframes feedbackEnergy{
+
+    45%{
+        opacity:1;
+
+        transform:
+            translate(-50%,-50%)
+            scale(2.8);
     }
 
     100%{
@@ -924,115 +961,15 @@ body.creator-leave
             translate(-50%,-50%)
             scale(5);
     }
-
 }
 
-@keyframes redCreator{
-
-    to{
-        opacity:1;
-
-        transform:
-            translateX(-28%)
-            rotate(-7deg);
-    }
-
-}
-
-@keyframes blackCreator{
-
-    to{
-        opacity:1;
-
-        transform:
-            translateX(23%)
-            rotate(6deg);
-    }
-
-}
-
-/* =========================================================
-   FEEDBACK
-========================================================= */
-
-body.feedback-leave
-.transition{
-    visibility:visible;
-}
-
-body.feedback-leave
-.background{
-    transform:
-        scale(1.12)
-        translate(-3%,1%);
-}
-
-body.feedback-leave
-.hand-energy{
-    animation:
-        feedbackPower
-        .38s
-        ease-out
-        forwards;
-}
-
-body.feedback-leave
-.red-slice{
-    animation:
-        redFeedback
-        .40s .18s
-        cubic-bezier(.75,0,.2,1)
-        forwards;
-}
-
-body.feedback-leave
-.black-slice{
-    animation:
-        blackFeedback
-        .38s .30s
-        cubic-bezier(.75,0,.2,1)
-        forwards;
-}
-
-body.feedback-leave
-.white-flash{
-    animation:
-        flash
-        .2s .17s
-        forwards;
-}
-
-@keyframes feedbackPower{
-
-    45%{
-        filter:
-            drop-shadow(
-                0 0 35px
-                var(--red)
-            );
-
-        transform:
-            translate(-50%,-50%)
-            scale(3.5);
-    }
-
-    100%{
-        opacity:0;
-
-        transform:
-            translate(-50%,-50%)
-            scale(6);
-    }
-
-}
-
-@keyframes redFeedback{
+@keyframes feedbackRed{
 
     0%{
         opacity:1;
 
         transform:
-            translateX(120%)
+            translateX(125%)
             rotate(-7deg);
     }
 
@@ -1040,19 +977,18 @@ body.feedback-leave
         opacity:1;
 
         transform:
-            translateX(-25%)
+            translateX(-20%)
             rotate(-7deg);
     }
-
 }
 
-@keyframes blackFeedback{
+@keyframes feedbackBlack{
 
     0%{
         opacity:1;
 
         transform:
-            translateX(-120%)
+            translateX(-125%)
             rotate(6deg);
     }
 
@@ -1060,10 +996,9 @@ body.feedback-leave
         opacity:1;
 
         transform:
-            translateX(22%)
+            translateX(20%)
             rotate(6deg);
     }
-
 }
 
 @keyframes flash{
@@ -1073,68 +1008,58 @@ body.feedback-leave
         opacity:0;
     }
 
-    45%{
-        opacity:.88;
+    50%{
+        opacity:.85;
     }
-
 }
 
 /* =========================================================
    RESPONSIVE
 ========================================================= */
 
-@media(max-width:1050px){
+@media(max-width:1200px){
 
     .search-area{
-        width:57vw;
-    }
+        width:52vw;
 
-    .search-mask{
-        width:66%;
+        left:4.5%;
     }
-
 }
 
-@media(max-width:760px){
-
-    body{
-        overflow:hidden;
-    }
+@media(max-width:800px){
 
     .background{
         background-position:
-            66% center;
+            65% center;
 
         filter:
             brightness(.72);
     }
 
-    .search-mask{
-        left:0;
-        top:auto;
-        bottom:0;
-
-        width:100%;
-        height:38%;
-
-        background:
-            rgba(0,0,0,.86);
-
-        clip-path:
-            polygon(
-                0 10%,
-                100% 0,
-                100% 100%,
-                0 100%
-            );
-    }
-
     .search-area{
         left:5%;
         top:auto;
-        bottom:5%;
+        bottom:6%;
 
         width:90%;
+
+        padding:
+            13px;
+
+        background:
+            rgba(0,0,0,.73);
+
+        border-left:
+            5px solid
+            var(--red);
+
+        clip-path:
+            polygon(
+                0 5%,
+                98% 0,
+                100% 94%,
+                2% 100%
+            );
     }
 
     .search-form{
@@ -1143,6 +1068,8 @@ body.feedback-leave
 
     .engine-section{
         display:block;
+
+        margin-top:14px;
     }
 
     .engine-title{
@@ -1150,12 +1077,17 @@ body.feedback-leave
     }
 
     .engine-buttons{
-        margin-top:13px;
+        gap:6px;
     }
 
     .engine{
-        font-size:10px;
         height:42px;
+
+        font-size:10px;
+    }
+
+    .search-note{
+        display:none;
     }
 
     .top-nav{
@@ -1163,14 +1095,16 @@ body.feedback-leave
         right:8px;
     }
 
-    .nav-mask{
-        width:60%;
+    .nav-link{
+        padding:
+            7px 9px;
+
+        font-size:11px;
     }
 
     .hand-energy{
         display:none;
     }
-
 }
 
 /* =========================================================
@@ -1180,12 +1114,11 @@ body.feedback-leave
 @media(pointer:fine){
 
     body,
-    button,
     input,
+    button,
     a{
         cursor:none;
     }
-
 }
 
 @media(pointer:coarse){
@@ -1193,7 +1126,6 @@ body.feedback-leave
     .cursor{
         display:none;
     }
-
 }
 
 /* =========================================================
@@ -1208,19 +1140,16 @@ body.feedback-leave
         animation:none!important;
         transition:none!important;
     }
-
 }
 
 </style>
-
 </head>
-
 
 <body>
 
 <div class="stage">
 
-    <!-- BACKGROUND -->
+    <!-- FINAL CLEAN BACKGROUND -->
 
     <div
         class="background"
@@ -1228,24 +1157,14 @@ body.feedback-leave
     </div>
 
 
-    <!-- MASK ORIGINAL UI -->
-
-    <div class="search-mask"></div>
-
-    <div class="nav-mask"></div>
-
-
-    <!-- =============================================
-         NAV
-    ============================================== -->
+    <!-- NAV -->
 
     <nav class="top-nav">
 
         <a
             href="feedback.html"
             class="nav-link"
-            id="feedbackLink"
-        >
+            id="feedbackLink">
 
             <span class="nav-icon">
                 ✉
@@ -1264,8 +1183,7 @@ body.feedback-leave
         <a
             href="creator.html"
             class="nav-link"
-            id="creatorLink"
-        >
+            id="creatorLink">
 
             <span class="nav-icon">
                 ♟
@@ -1280,22 +1198,20 @@ body.feedback-leave
     </nav>
 
 
-    <!-- =============================================
-         REAL SEARCH
-    ============================================== -->
+    <!-- SEARCH -->
 
     <main class="search-area">
 
         <form
             class="search-form"
-            id="searchForm"
-        >
+            id="searchForm">
 
             <input
                 class="search-input"
                 id="searchInput"
                 type="text"
                 autocomplete="off"
+                spellcheck="false"
                 placeholder="搜索任何内容..."
             >
 
@@ -1303,8 +1219,7 @@ body.feedback-leave
             <button
                 class="search-button"
                 type="submit"
-                aria-label="搜索"
-            >
+                aria-label="搜索">
 
                 <span class="search-icon"></span>
 
@@ -1313,41 +1228,41 @@ body.feedback-leave
         </form>
 
 
-        <!-- ENGINE -->
+        <!-- SEARCH ENGINES -->
 
         <div class="engine-section">
 
-            <div class="engine-title">
+            <span class="engine-title">
                 快捷搜索：
-            </div>
+            </span>
 
 
             <div class="engine-buttons">
 
                 <button
-                    class="engine active"
                     type="button"
+                    class="engine active"
                     data-engine="bing">
                     Bing
                 </button>
 
                 <button
-                    class="engine"
                     type="button"
+                    class="engine"
                     data-engine="google">
                     Google
                 </button>
 
                 <button
-                    class="engine"
                     type="button"
+                    class="engine"
                     data-engine="youtube">
                     YouTube
                 </button>
 
                 <button
-                    class="engine"
                     type="button"
+                    class="engine"
                     data-engine="wikipedia">
                     Wikipedia
                 </button>
@@ -1358,40 +1273,36 @@ body.feedback-leave
 
 
         <div class="search-note">
-            默认使用 Bing；点击按钮可以切换搜索引擎，也可以直接输入网址访问。
+            默认使用 Bing；可以切换搜索引擎，也可以直接输入网址访问。
         </div>
 
     </main>
 
 
-    <!-- =============================================
-         HAND ENERGY
-    ============================================== -->
+    <!-- SUBTLE HAND ENERGY -->
 
     <div class="hand-energy">
 
-        <div class="ring"></div>
+        <div class="energy-ring"></div>
 
-        <div class="ring"></div>
+        <div class="energy-ring"></div>
 
-        <div class="energy-dot"></div>
+        <div class="energy-core"></div>
 
     </div>
 
 </div>
 
 
-<!-- =============================================
-     TRANSITION
-============================================== -->
+<!-- TRANSITION -->
 
 <div class="transition">
 
-    <div class="white-flash"></div>
+    <div class="transition-flash"></div>
 
-    <div class="red-slice"></div>
+    <div class="transition-red"></div>
 
-    <div class="black-slice"></div>
+    <div class="transition-black"></div>
 
 </div>
 
@@ -1420,7 +1331,7 @@ const searchInput =
         "searchInput"
     );
 
-const engines =
+const engineButtons =
     document.querySelectorAll(
         ".engine"
     );
@@ -1430,7 +1341,7 @@ let currentEngine =
     "bing";
 
 
-const searchURLs = {
+const engines = {
 
     bing:
         "https://www.bing.com/search?q=",
@@ -1447,15 +1358,17 @@ const searchURLs = {
 };
 
 
-engines.forEach(button=>{
+/* ENGINE SWITCH */
+
+engineButtons.forEach(button=>{
 
     button.addEventListener(
         "click",
         function(){
 
-            engines.forEach(
-                b =>
-                    b.classList.remove(
+            engineButtons.forEach(
+                item =>
+                    item.classList.remove(
                         "active"
                     )
             );
@@ -1478,19 +1391,21 @@ engines.forEach(button=>{
 });
 
 
+/* SEARCH SUBMIT */
+
 searchForm.addEventListener(
     "submit",
     function(event){
 
         event.preventDefault();
 
-        search();
+        performSearch();
 
     }
 );
 
 
-function search(){
+function performSearch(){
 
     const value =
         searchInput.value.trim();
@@ -1501,21 +1416,20 @@ function search(){
         searchInput.focus();
 
         return;
-
     }
 
 
-    /* 完整 URL */
+    /* https://example.com */
 
     if(
-        /^https?:\/\//i.test(value)
+        /^https?:\/\//i
+        .test(value)
     ){
 
         location.href =
             value;
 
         return;
-
     }
 
 
@@ -1532,12 +1446,13 @@ function search(){
             "https://" + value;
 
         return;
-
     }
 
 
+    /* normal search */
+
     location.href =
-        searchURLs[currentEngine]
+        engines[currentEngine]
         +
         encodeURIComponent(value);
 
@@ -1545,24 +1460,31 @@ function search(){
 
 
 /* =========================================================
-   PAGE TRANSITION
+   TRANSITIONS
 ========================================================= */
 
 let leaving =
     false;
 
 
-document
-.getElementById(
-    "creatorLink"
-)
-.addEventListener(
+const creatorLink =
+    document.getElementById(
+        "creatorLink"
+    );
+
+const feedbackLink =
+    document.getElementById(
+        "feedbackLink"
+    );
+
+
+creatorLink.addEventListener(
     "click",
     function(event){
 
         event.preventDefault();
 
-        leave(
+        leavePage(
             this.href,
             "creator"
         );
@@ -1571,17 +1493,13 @@ document
 );
 
 
-document
-.getElementById(
-    "feedbackLink"
-)
-.addEventListener(
+feedbackLink.addEventListener(
     "click",
     function(event){
 
         event.preventDefault();
 
-        leave(
+        leavePage(
             this.href,
             "feedback"
         );
@@ -1590,7 +1508,7 @@ document
 );
 
 
-function leave(
+function leavePage(
     url,
     type
 ){
@@ -1599,7 +1517,9 @@ function leave(
         return;
     }
 
-    leaving = true;
+
+    leaving =
+        true;
 
 
     document.body
@@ -1607,9 +1527,9 @@ function leave(
         .add(
             type === "creator"
             ?
-            "creator-leave"
+            "to-creator"
             :
-            "feedback-leave"
+            "to-feedback"
         );
 
 
@@ -1620,7 +1540,7 @@ function leave(
                 url;
 
         },
-        700
+        680
     );
 
 }
@@ -1648,7 +1568,7 @@ document.addEventListener(
         const x =
             event.clientX
             /
-            window.innerWidth
+            innerWidth
             -
             .5;
 
@@ -1656,14 +1576,14 @@ document.addEventListener(
         const y =
             event.clientY
             /
-            window.innerHeight
+            innerHeight
             -
             .5;
 
 
         background.style.transform =
             `
-            scale(1.035)
+            scale(1.03)
             translate(
                 ${x * -5}px,
                 ${y * -3}px
@@ -1711,7 +1631,7 @@ document.addEventListener(
             event.clientY;
 
 
-        makeTrail(
+        createTrail(
             mouseX,
             mouseY
         );
@@ -1759,7 +1679,7 @@ function cursorLoop(){
 cursorLoop();
 
 
-function makeTrail(
+function createTrail(
     x,
     y
 ){
@@ -1799,6 +1719,10 @@ function makeTrail(
 
 
     particle.className =
+        Math.random() > .58
+        ?
+        "trail red"
+        :
         "trail";
 
 
@@ -1840,8 +1764,11 @@ function makeTrail(
 
 
     setTimeout(
-        () =>
-            particle.remove(),
+        function(){
+
+            particle.remove();
+
+        },
         520
     );
 
