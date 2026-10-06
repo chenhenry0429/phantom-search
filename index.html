@@ -1,11 +1,9 @@
 <!doctype html>
 <html lang="zh-CN">
-
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>FEEDBACK | PHANTOM SEARCH</title>
+<title>PHANTOM SEARCH</title>
 
 <style>
 :root{
@@ -16,9 +14,7 @@
     --gold:#ffc928;
 }
 
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 html,body{
     margin:0;
@@ -28,128 +24,52 @@ html,body{
 
 body{
     overflow:hidden;
-
     background:#000;
-
     color:#fff;
+    font-family:Impact,"Arial Black","Microsoft YaHei",sans-serif;
+}
 
-    font-family:
-        Impact,
-        "Arial Black",
-        "Microsoft YaHei",
-        sans-serif;
+.stage{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    background:#000;
 }
 
 /* =====================================================
-   BACKGROUND
+   HOME BACKGROUND
 ===================================================== */
 
-.feedback-bg{
-    position:fixed;
-
+.background{
+    position:absolute;
     inset:-2%;
 
     background:
-        url("assets/feedback-bg.png?v=6")
-        center / cover
+        url("assets/home-bg.png?v=6")
+        center 48% / cover
         no-repeat;
 
     transform:scale(1.025);
+
+    transition:
+        transform .6s cubic-bezier(.2,.8,.2,1),
+        filter .4s ease;
 }
 
-.feedback-bg::after{
+.background::after{
     content:"";
-
     position:absolute;
     inset:0;
 
-    pointer-events:none;
-
     background:
-        linear-gradient(
-            90deg,
-            rgba(0,0,0,.16),
-            transparent 58%
-        ),
         radial-gradient(
-            ellipse at center,
-            transparent 45%,
-            rgba(0,0,0,.2)
+            ellipse at 55% 48%,
+            transparent 42%,
+            rgba(0,0,0,.12) 74%,
+            rgba(0,0,0,.3) 100%
         );
-}
-
-/* =====================================================
-   PAGE ENTER
-===================================================== */
-
-.feedback-content{
-    opacity:0;
-
-    transform:
-        translateX(-25px);
-
-    animation:
-        contentEnter
-        .58s .1s
-        forwards;
-}
-
-@keyframes contentEnter{
-    to{
-        opacity:1;
-        transform:none;
-    }
-}
-
-.entry-shock{
-    position:fixed;
-
-    left:82%;
-    top:58%;
-
-    z-index:300;
-
-    width:80px;
-    height:80px;
-
-    border:
-        6px solid
-        var(--yellow);
-
-    border-radius:50%;
 
     pointer-events:none;
-
-    opacity:0;
-
-    transform:
-        translate(-50%,-50%)
-        scale(.1);
-}
-
-body.from-home
-.entry-shock{
-    animation:
-        entryShock
-        .58s ease-out;
-}
-
-@keyframes entryShock{
-    0%{
-        opacity:.9;
-
-        transform:
-            translate(-50%,-50%)
-            scale(.1);
-    }
-
-    100%{
-        opacity:0;
-
-        transform:
-            translate(-50%,-50%)
-            scale(11);
-    }
 }
 
 /* =====================================================
@@ -157,759 +77,871 @@ body.from-home
 ===================================================== */
 
 .top-nav{
-    position:fixed;
-
-    top:22px;
+    position:absolute;
+    top:21px;
     right:30px;
+    z-index:40;
 
-    z-index:100;
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    padding:5px 9px;
+
+    background:rgba(0,0,0,.63);
+    backdrop-filter:blur(3px);
+
+    clip-path:
+        polygon(
+            5% 0,
+            100% 0,
+            97% 100%,
+            0 85%
+        );
+}
+
+.nav-link{
+    position:relative;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:9px 13px;
+
+    color:#fff;
+    text-decoration:none;
+
+    font-family:"Microsoft YaHei",sans-serif;
+    font-size:14px;
+    font-weight:900;
+
+    transition:.16s ease;
+}
+
+.nav-link:hover{
+    color:var(--yellow);
+    transform:translateY(-3px);
+}
+
+.nav-link::after{
+    content:"";
+
+    position:absolute;
+    left:10px;
+    right:10px;
+    bottom:2px;
+
+    height:3px;
+
+    background:var(--red);
+
+    transform:scaleX(0);
+    transform-origin:left;
+
+    transition:.17s ease;
+}
+
+.nav-link:hover::after{
+    transform:scaleX(1);
+}
+
+.nav-icon{
+    color:var(--red);
+    font-size:17px;
+}
+
+.nav-divider{
+    width:1px;
+    height:26px;
+
+    background:rgba(255,255,255,.4);
+}
+
+/* =====================================================
+   SEARCH AREA
+===================================================== */
+
+.search-area{
+    position:absolute;
+
+    left:5.4%;
+    top:54%;
+
+    width:min(720px,47vw);
+
+    z-index:25;
+}
+
+.search-form{
+    position:relative;
 
     display:flex;
 
-    gap:10px;
-}
+    width:100%;
+    height:62px;
 
-.top-nav a{
-    padding:9px 15px;
-
-    color:#050505;
     background:#fff;
 
-    border:
-        3px solid
-        #050505;
+    border:4px solid #050505;
 
     box-shadow:
-        5px 5px
-        #050505;
+        0 0 0 2px #fff,
+        8px 8px 0 rgba(0,0,0,.82);
 
-    text-decoration:none;
+    clip-path:
+        polygon(
+            1% 4%,
+            100% 0,
+            96% 95%,
+            0 100%
+        );
 
-    font-family:
-        "Microsoft YaHei",
-        sans-serif;
+    transform:rotate(-.5deg);
 
-    font-size:13px;
-    font-weight:900;
+    transition:
+        transform .17s ease,
+        filter .17s ease;
+}
 
+.search-form:focus-within{
     transform:
-        skew(-7deg);
+        rotate(-.5deg)
+        translateY(-3px);
+
+    filter:
+        drop-shadow(
+            0 0 9px
+            rgba(255,230,0,.65)
+        );
+}
+
+/* scan light */
+
+.search-form::after{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-40%;
+
+    width:24%;
+    height:100%;
+
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,230,0,.15),
+            rgba(255,255,255,.7),
+            transparent
+        );
+
+    transform:skewX(-20deg);
+    opacity:0;
+}
+
+.search-form:focus-within::after{
+    animation:searchScan .75s ease-out;
+}
+
+@keyframes searchScan{
+    0%{
+        left:-40%;
+        opacity:0;
+    }
+
+    20%{
+        opacity:1;
+    }
+
+    100%{
+        left:120%;
+        opacity:0;
+    }
+}
+
+.search-input{
+    flex:1;
+    min-width:0;
+
+    border:0;
+    outline:0;
+
+    padding:0 25px;
+
+    background:#fff;
+    color:#181818;
+
+    font-family:"Microsoft YaHei",sans-serif;
+    font-size:16px;
+    font-weight:700;
+}
+
+.search-input::placeholder{
+    color:#999;
+}
+
+.search-button{
+    position:relative;
+
+    width:100px;
+
+    border:0;
+
+    color:#fff;
+    background:var(--red);
+
+    cursor:pointer;
+
+    clip-path:
+        polygon(
+            20% 0,
+            100% 0,
+            100% 100%,
+            0 100%
+        );
 
     transition:.15s ease;
 }
 
-.top-nav a:first-child{
-    background:
-        var(--yellow);
-}
-
-.top-nav a:hover{
-    transform:
-        skew(-7deg)
-        translate(-3px,-3px);
-}
-
-/* =====================================================
-   LEFT PANEL
-===================================================== */
-
-.feedback-panel{
-    position:relative;
-
-    z-index:30;
-
-    width:min(690px,45vw);
-
-    margin-left:4.5vw;
-
-    padding-top:4vh;
-}
-
-/* =====================================================
-   TITLE
-===================================================== */
-
-.feedback-title{
-    display:inline-block;
-}
-
-.feedback-title h1{
-    margin:0;
-
-    font-size:
-        clamp(
-            50px,
-            5vw,
-            86px
-        );
-
-    line-height:.82;
-
-    color:#fff;
-
-    -webkit-text-stroke:
-        3px #050505;
-
-    text-shadow:
-        7px 7px #050505;
-
-    transform:
-        rotate(-2deg);
-}
-
-.feedback-title h1 span{
-    color:var(--red);
-}
-
-.feedback-title .english{
-    display:inline-block;
-
-    margin:
-        -4px 0 0 110px;
-
-    padding:
-        3px 14px;
-
+.search-button:hover{
     color:#050505;
-
-    background:
-        var(--yellow);
-
-    border:
-        3px solid
-        #050505;
-
-    box-shadow:
-        5px 5px
-        #050505;
-
-    font-size:
-        clamp(
-            18px,
-            1.9vw,
-            32px
-        );
-
-    transform:
-        rotate(-3deg);
+    background:var(--yellow);
 }
 
-.slogan{
-    display:inline-block;
+.search-icon{
+    position:absolute;
 
-    margin:
-        5px 0 12px 80px;
+    left:56%;
+    top:47%;
 
-    padding:
-        6px 13px;
+    width:24px;
+    height:24px;
 
-    color:#050505;
+    border:4px solid currentColor;
+    border-radius:50%;
 
-    background:
-        var(--yellow);
+    transform:translate(-50%,-50%);
+}
 
-    border:
-        3px solid
-        #050505;
+.search-icon::after{
+    content:"";
 
-    box-shadow:
-        5px 5px #050505;
+    position:absolute;
 
-    font-family:
-        "Microsoft YaHei",
-        sans-serif;
+    right:-9px;
+    bottom:-5px;
 
-    font-size:12px;
-    font-weight:900;
+    width:12px;
+    height:4px;
+
+    border-radius:3px;
+
+    background:currentColor;
+
+    transform:rotate(45deg);
 }
 
 /* =====================================================
-   FORM
+   ENGINES
 ===================================================== */
 
-.feedback-form{
-    position:relative;
-
-    padding:
-        16px 20px 18px;
-
-    background:
-        rgba(3,3,3,.91);
-
-    border:
-        4px solid
-        var(--red);
-
-    box-shadow:
-        9px 9px
-        rgba(0,0,0,.8);
-
-    clip-path:
-        polygon(
-            1% 0,
-            98% 2%,
-            100% 95%,
-            96% 100%,
-            2% 98%,
-            0 5%
-        );
-}
-
-.field{
-    margin-bottom:12px;
-}
-
-.field-label{
+.engine-section{
     display:flex;
     align-items:center;
 
-    gap:8px;
+    gap:15px;
 
-    margin-bottom:7px;
+    margin-top:22px;
 }
 
-.cn-label{
-    padding:
-        4px 10px;
+.engine-title{
+    flex:none;
 
-    color:#050505;
-
-    background:#fff;
-
-    border:
-        2px solid
-        #050505;
-
-    font-family:
-        "Microsoft YaHei",
-        sans-serif;
-
-    font-size:11px;
+    font-family:"Microsoft YaHei",sans-serif;
+    font-size:13px;
     font-weight:900;
+
+    text-shadow:2px 2px #000;
 }
 
-.en-label{
-    color:var(--red);
+.engine-buttons{
+    flex:1;
 
-    font-size:10px;
-}
-
-/* =====================================================
-   TYPES
-===================================================== */
-
-.type-options{
     display:grid;
 
-    grid-template-columns:
-        repeat(3,1fr);
+    grid-template-columns:repeat(4,1fr);
 
     gap:9px;
 }
 
-.type-option{
-    position:relative;
-}
+.engine{
+    height:46px;
 
-.type-option input{
-    position:absolute;
-
-    opacity:0;
-}
-
-.type-option label{
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    min-height:41px;
+    border:2px solid rgba(255,255,255,.8);
 
     color:#fff;
+    background:rgba(5,5,5,.92);
 
-    background:#111;
+    box-shadow:4px 4px 0 #000;
 
-    border:
-        3px solid
-        #fff;
-
-    font-family:
-        "Microsoft YaHei",
-        sans-serif;
-
+    font-family:Arial,"Microsoft YaHei",sans-serif;
     font-size:12px;
-    font-weight:900;
+    font-weight:800;
+
+    cursor:pointer;
 
     transition:.14s ease;
 }
 
-.type-option label:hover{
-    border-color:
-        var(--yellow);
+.engine:hover{
+    border-color:var(--yellow);
 
-    transform:
-        translateY(-3px);
+    transform:translateY(-3px);
 }
 
-.type-option input:checked
-+
-label{
+.engine.active{
     color:#050505;
 
-    background:
-        var(--yellow);
+    background:var(--yellow);
 
-    border-color:
-        var(--red);
+    border-color:#050505;
 
     box-shadow:
-        5px 5px
+        5px 5px 0
         var(--red);
 }
 
-/* =====================================================
-   TEXT
-===================================================== */
+.search-note{
+    margin:16px 0 0 12px;
 
-.textarea-wrap{
-    position:relative;
+    color:rgba(255,255,255,.67);
 
-    overflow:hidden;
-}
-
-textarea{
-    display:block;
-
-    width:100%;
-    height:103px;
-
-    resize:none;
-
-    padding:
-        12px 14px 25px;
-
-    outline:0;
-
-    color:#fff;
-    background:#101010;
-
-    border:
-        3px solid #fff;
-
-    font-family:
-        "Microsoft YaHei",
-        sans-serif;
-
-    font-size:12px;
-
-    line-height:1.6;
-
-    transition:.18s ease;
-}
-
-textarea:focus{
-    border-color:
-        var(--yellow);
-
-    box-shadow:
-        0 0 0 3px
-        var(--red);
-}
-
-.char-count{
-    position:absolute;
-
-    right:9px;
-    bottom:6px;
-
-    color:
-        rgba(255,255,255,.58);
-
-    font-family:Arial,sans-serif;
-    font-size:10px;
-}
-
-/* =====================================================
-   RATING
-===================================================== */
-
-.rating-row{
-    display:flex;
-    align-items:center;
-
-    gap:5px;
-
-    min-height:40px;
-}
-
-.star{
-    padding:0;
-
-    border:0;
-
-    background:none;
-
-    color:#fff;
-
-    font-size:34px;
-
-    line-height:1;
-
-    -webkit-text-stroke:
-        2px #050505;
-
-    text-shadow:
-        2px 2px #050505;
-
-    transition:.14s ease;
-}
-
-.star:hover{
-    transform:
-        scale(1.2)
-        rotate(-8deg);
-}
-
-.star.active{
-    color:var(--yellow);
-
-    text-shadow:
-        0 0 12px
-        var(--yellow);
-}
-
-.rating-text{
-    margin-left:8px;
-
-    color:
-        rgba(255,255,255,.65);
-
-    font-family:
-        "Microsoft YaHei",
-        sans-serif;
-
-    font-size:10px;
-}
-
-/* =====================================================
-   CONTACT
-===================================================== */
-
-.contact-input{
-    width:100%;
-    height:39px;
-
-    padding:
-        0 12px;
-
-    outline:0;
-
-    color:#fff;
-    background:#101010;
-
-    border:
-        3px solid #fff;
-
-    font-family:
-        "Microsoft YaHei",
-        sans-serif;
-
+    font-family:"Microsoft YaHei",sans-serif;
     font-size:11px;
-}
 
-.contact-input:focus{
-    border-color:
-        var(--yellow);
-
-    box-shadow:
-        0 0 0 3px
-        var(--red);
+    text-shadow:2px 2px #000;
 }
 
 /* =====================================================
-   SUBMIT
+   HAND ENERGY
 ===================================================== */
 
-.submit-wrap{
-    display:flex;
+.hand-energy{
+    position:absolute;
 
-    justify-content:center;
+    left:84.2%;
+    top:60.8%;
 
-    margin-top:14px;
+    width:70px;
+    height:70px;
+
+    z-index:16;
+
+    pointer-events:none;
+
+    opacity:.42;
+
+    transform:translate(-50%,-50%);
 }
 
-.submit-button{
-    min-width:280px;
-
-    padding:
-        11px 34px;
-
-    color:#050505;
-
-    background:
-        var(--yellow);
-
-    border:
-        4px solid
-        #050505;
-
-    box-shadow:
-        8px 8px
-        var(--red),
-        12px 12px
-        #050505;
-
-    font-family:
-        Impact,
-        "Arial Black",
-        "Microsoft YaHei",
-        sans-serif;
-
-    font-size:22px;
-
-    transform:
-        skew(-8deg);
-
-    transition:.14s ease;
-}
-
-.submit-button span{
-    display:inline-block;
-
-    transform:
-        skew(8deg);
-}
-
-.submit-button:hover{
-    transform:
-        skew(-8deg)
-        translate(-4px,-4px);
-}
-
-.submit-button:disabled{
-    opacity:.6;
-}
-
-.form-status{
-    min-height:17px;
-
-    margin-top:12px;
-
-    text-align:center;
-
-    font-family:
-        "Microsoft YaHei",
-        sans-serif;
-
-    font-size:10px;
-    font-weight:900;
-}
-
-.form-status.error{
-    color:#ff5362;
-}
-
-.form-status.sending{
-    color:var(--yellow);
-}
-
-/* =====================================================
-   SUCCESS
-===================================================== */
-
-.success-screen{
-    position:fixed;
+.energy-ring{
+    position:absolute;
     inset:0;
 
-    z-index:7000;
-
-    display:grid;
-    place-items:center;
-
-    visibility:hidden;
-    opacity:0;
-
-    background:
-        rgba(0,0,0,.75);
-
-    transition:.22s ease;
-}
-
-.success-screen.show{
-    visibility:visible;
-    opacity:1;
-}
-
-.success-card{
-    padding:
-        48px 65px;
-
-    text-align:center;
-
-    background:
-        var(--red);
-
     border:
-        6px solid
-        #050505;
+        1.5px solid
+        rgba(255,210,40,.48);
+
+    border-radius:50%;
+
+    animation:
+        energyIdle
+        3s ease-in-out infinite;
+}
+
+.energy-ring:nth-child(2){
+    inset:16px;
+    animation-delay:-.8s;
+}
+
+.energy-core{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:var(--yellow);
 
     box-shadow:
-        15px 15px
-        var(--yellow),
-        22px 22px
-        #050505;
+        0 0 10px var(--yellow),
+        0 0 18px var(--red);
 
-    transform:
-        rotate(-3deg)
-        scale(.72);
+    transform:translate(-50%,-50%);
 }
 
-.success-screen.show
-.success-card{
-    animation:
-        successPop
-        .5s
-        cubic-bezier(.2,1.45,.3,1)
-        forwards;
-}
+@keyframes energyIdle{
+    0%,100%{
+        opacity:.1;
+        transform:scale(.65);
+    }
 
-@keyframes successPop{
-    to{
+    50%{
+        opacity:.5;
         transform:
-            rotate(-3deg)
-            scale(1);
+            scale(1.08)
+            rotate(90deg);
     }
 }
 
-.success-card h2{
-    margin:0;
-
-    font-size:
-        clamp(
-            44px,
-            5vw,
-            85px
-        );
-
-    line-height:.82;
-
-    color:#fff;
-
-    -webkit-text-stroke:
-        3px #050505;
-
-    text-shadow:
-        7px 7px #050505;
-}
-
-.success-card h2 span{
-    color:var(--yellow);
-}
-
-.success-card p{
-    font-family:
-        "Microsoft YaHei",
-        sans-serif;
-
-    font-size:13px;
-    font-weight:900;
-}
-
-.success-close{
-    margin-top:15px;
-
-    padding:
-        9px 22px;
-
-    color:#050505;
-
-    background:
-        var(--yellow);
-
-    border:
-        3px solid
-        #050505;
-
-    box-shadow:
-        5px 5px #050505;
-
-    font-family:
-        "Microsoft YaHei",
-        sans-serif;
-
-    font-weight:900;
-}
-
 /* =====================================================
-   EXIT
+   TRANSITION SYSTEM
 ===================================================== */
 
-.exit{
+.transition{
     position:fixed;
+
     inset:0;
 
     z-index:5000;
 
+    visibility:hidden;
     pointer-events:none;
 
-    visibility:hidden;
-}
-
-.exit::before{
-    content:"";
-
-    position:absolute;
-    inset:-20%;
-
-    background:var(--red);
-
-    transform:
-        translateX(-130%)
-        rotate(-7deg);
-}
-
-.exit::after{
-    content:"";
-
-    position:absolute;
-    inset:-20%;
+    overflow:hidden;
 
     background:#000;
-
-    transform:
-        translateX(130%)
-        rotate(6deg);
 }
 
-body.leaving .exit{
+.target{
+    position:absolute;
+    inset:-2%;
+
+    opacity:0;
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+
+    transform:scale(1.1);
+}
+
+/* final page imagery */
+
+.creator-target{
+    background-image:
+        url("assets/creator-bg.png?v=6");
+
+    clip-path:
+        circle(0% at 84% 61%);
+}
+
+.feedback-target{
+    background-image:
+        url("assets/feedback-bg.png?v=6");
+
+    clip-path:
+        circle(0% at 84% 61%);
+}
+
+/* =====================================================
+   TAROT
+===================================================== */
+
+.transition-tarot{
+    position:absolute;
+
+    left:84%;
+    top:61%;
+
+    width:72px;
+    aspect-ratio:2/3;
+
+    z-index:20;
+
+    opacity:0;
+
+    transform:
+        translate(-50%,-50%)
+        scale(.2)
+        rotate(-25deg);
+
+    background:
+        radial-gradient(
+            circle at center,
+            var(--gold) 0 4%,
+            transparent 5%
+        ),
+        conic-gradient(
+            #050505,
+            #42070c,
+            #050505,
+            #310609,
+            #050505
+        );
+
+    border:4px solid var(--gold);
+
+    box-shadow:
+        0 0 0 3px #000,
+        0 0 25px rgba(255,202,40,.65);
+}
+
+.transition-tarot::before{
+    content:"✦";
+
+    position:absolute;
+    inset:0;
+
+    display:grid;
+    place-items:center;
+
+    color:var(--gold);
+
+    font-size:34px;
+
+    text-shadow:
+        0 0 10px var(--gold);
+}
+
+.transition-tarot::after{
+    content:"";
+
+    position:absolute;
+    inset:8px;
+
+    border:
+        1px solid
+        rgba(255,202,40,.7);
+}
+
+/* =====================================================
+   SHOCK WAVE
+===================================================== */
+
+.transition-shock{
+    position:absolute;
+
+    left:84%;
+    top:61%;
+
+    width:60px;
+    height:60px;
+
+    z-index:20;
+
+    border:
+        8px solid
+        var(--yellow);
+
+    border-radius:50%;
+
+    opacity:0;
+
+    box-shadow:
+        0 0 0 12px
+        rgba(239,16,35,.85),
+        0 0 50px
+        var(--yellow);
+
+    transform:
+        translate(-50%,-50%)
+        scale(.1);
+}
+
+.transition-flash{
+    position:absolute;
+    inset:0;
+
+    z-index:30;
+
+    background:#fff;
+
+    opacity:0;
+}
+
+/* =====================================================
+   CREATOR TRANSITION
+===================================================== */
+
+body.to-creator .transition{
     visibility:visible;
 }
 
-body.leaving .exit::before{
+body.to-creator .background{
     animation:
-        exitA
-        .4s forwards;
+        homeCreator
+        1.15s
+        cubic-bezier(.2,.8,.2,1)
+        forwards;
 }
 
-body.leaving .exit::after{
+body.to-creator .creator-target{
     animation:
-        exitB
-        .4s .1s forwards;
+        creatorReveal
+        1.08s .14s
+        cubic-bezier(.65,0,.2,1)
+        forwards;
 }
 
-@keyframes exitA{
-    to{
+body.to-creator .transition-tarot{
+    animation:
+        tarotMove
+        1.05s .08s
+        cubic-bezier(.2,.85,.2,1)
+        forwards;
+}
+
+body.to-creator .transition-flash{
+    animation:
+        flashFX
+        .18s .78s
+        ease-out forwards;
+}
+
+@keyframes homeCreator{
+    0%{
+        transform:scale(1.025);
+    }
+
+    55%{
         transform:
-            translateX(-20%)
-            rotate(-7deg);
+            scale(1.065)
+            translate(-1.8%,.5%);
+    }
+
+    100%{
+        transform:
+            scale(1.1)
+            translate(-3%,1%);
     }
 }
 
-@keyframes exitB{
-    to{
+@keyframes creatorReveal{
+    0%{
+        opacity:0;
+
+        clip-path:
+            circle(
+                0% at 84% 61%
+            );
+
+        transform:scale(1.12);
+    }
+
+    28%{
+        opacity:.45;
+    }
+
+    72%{
+        opacity:1;
+
+        clip-path:
+            circle(
+                90% at 84% 61%
+            );
+    }
+
+    100%{
+        opacity:1;
+
+        clip-path:
+            circle(
+                170% at 84% 61%
+            );
+
+        transform:scale(1);
+    }
+}
+
+@keyframes tarotMove{
+    0%{
+        opacity:0;
+
         transform:
-            translateX(20%)
-            rotate(6deg);
+            translate(-50%,-50%)
+            scale(.2)
+            rotate(-25deg);
+    }
+
+    18%{
+        opacity:1;
+
+        transform:
+            translate(-50%,-65%)
+            scale(.9)
+            rotate(10deg);
+    }
+
+    52%{
+        opacity:1;
+
+        left:69%;
+        top:47%;
+
+        transform:
+            translate(-50%,-50%)
+            scale(1.6)
+            rotate(180deg);
+    }
+
+    76%{
+        opacity:1;
+
+        left:57%;
+        top:50%;
+
+        transform:
+            translate(-50%,-50%)
+            scale(3)
+            rotate(350deg);
+    }
+
+    100%{
+        opacity:0;
+
+        left:50%;
+        top:50%;
+
+        transform:
+            translate(-50%,-50%)
+            scale(9)
+            rotate(375deg);
+    }
+}
+
+/* =====================================================
+   FEEDBACK TRANSITION
+===================================================== */
+
+body.to-feedback .transition{
+    visibility:visible;
+}
+
+body.to-feedback .background{
+    animation:
+        homeFeedback
+        .95s
+        cubic-bezier(.2,.85,.2,1)
+        forwards;
+}
+
+body.to-feedback .feedback-target{
+    animation:
+        feedbackReveal
+        .92s .08s
+        cubic-bezier(.65,0,.2,1)
+        forwards;
+}
+
+body.to-feedback .transition-shock{
+    animation:
+        shockMove
+        .55s .05s
+        ease-out
+        forwards;
+}
+
+body.to-feedback .transition-flash{
+    animation:
+        flashFX
+        .16s .38s
+        ease-out forwards;
+}
+
+@keyframes homeFeedback{
+    0%{
+        transform:scale(1.025);
+    }
+
+    50%{
+        transform:
+            scale(1.09)
+            translate(-2%,1%);
+    }
+
+    100%{
+        transform:
+            scale(1.14)
+            translate(-4%,1.5%);
+    }
+}
+
+@keyframes feedbackReveal{
+    0%{
+        opacity:0;
+
+        clip-path:
+            circle(
+                0% at 84% 61%
+            );
+
+        transform:scale(1.12);
+    }
+
+    30%{
+        opacity:.45;
+    }
+
+    70%{
+        opacity:1;
+
+        clip-path:
+            circle(
+                95% at 84% 61%
+            );
+    }
+
+    100%{
+        opacity:1;
+
+        clip-path:
+            circle(
+                170% at 84% 61%
+            );
+
+        transform:scale(1);
+    }
+}
+
+@keyframes shockMove{
+    0%{
+        opacity:0;
+
+        transform:
+            translate(-50%,-50%)
+            scale(.1);
+    }
+
+    18%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:0;
+
+        transform:
+            translate(-50%,-50%)
+            scale(12);
+    }
+}
+
+@keyframes flashFX{
+    0%,100%{
+        opacity:0;
+    }
+
+    48%{
+        opacity:.8;
     }
 }
 
@@ -975,12 +1007,27 @@ body.leaving .exit::after{
 
     pointer-events:none;
 
-    background:
-        var(--yellow);
+    background:var(--yellow);
+
+    clip-path:
+        polygon(
+            50% 0,
+            65% 35%,
+            100% 50%,
+            65% 65%,
+            50% 100%,
+            35% 65%,
+            0 50%,
+            35% 35%
+        );
 
     animation:
         trailFade
         .5s forwards;
+}
+
+.trail.red{
+    background:var(--red);
 }
 
 @keyframes trailFade{
@@ -999,29 +1046,55 @@ body.leaving .exit::after{
 
 @media(max-width:800px){
 
-    body{
-        overflow:auto;
-    }
-
-    .feedback-bg{
+    .background{
         background-position:
-            66% center;
+            65% center;
 
-        filter:
-            brightness(.55);
+        filter:brightness(.72);
     }
 
-    .feedback-panel{
+    .search-area{
+        left:5%;
+        top:auto;
+        bottom:6%;
+
         width:90%;
 
-        margin:
-            95px auto 50px;
+        padding:13px;
 
-        padding:0;
+        background:
+            rgba(0,0,0,.72);
+
+        border-left:
+            5px solid
+            var(--red);
     }
 
-    .type-options{
-        grid-template-columns:1fr;
+    .search-form{
+        height:55px;
+    }
+
+    .engine-section{
+        display:block;
+
+        margin-top:14px;
+    }
+
+    .engine-title{
+        display:none;
+    }
+
+    .engine-buttons{
+        gap:6px;
+    }
+
+    .engine{
+        height:42px;
+        font-size:10px;
+    }
+
+    .search-note{
+        display:none;
     }
 
     .top-nav{
@@ -1029,15 +1102,18 @@ body.leaving .exit::after{
         right:8px;
     }
 
-    .success-card{
-        width:86%;
-        padding:
-            40px 20px;
+    .nav-link{
+        padding:7px 9px;
+        font-size:11px;
+    }
+
+    .hand-energy{
+        display:none;
     }
 }
 
 @media(pointer:fine){
-    body,input,textarea,button,a,label{
+    body,input,button,a{
         cursor:none;
     }
 }
@@ -1053,334 +1129,135 @@ body.leaving .exit::after{
 
 <body>
 
+<div class="stage">
 
-<div class="feedback-bg"></div>
-
-<div class="entry-shock"></div>
-
-
-<div class="feedback-content">
+    <div
+        class="background"
+        id="background">
+    </div>
 
     <nav class="top-nav">
 
         <a
-            href="index.html"
-            data-page>
-            返回搜索
+            href="feedback.html"
+            class="nav-link"
+            id="feedbackLink">
+
+            <span class="nav-icon">✉</span>
+            <span>反馈</span>
+
         </a>
+
+        <div class="nav-divider"></div>
 
         <a
             href="creator.html"
-            data-page>
-            创作者信息
+            class="nav-link"
+            id="creatorLink">
+
+            <span class="nav-icon">♟</span>
+            <span>创作者信息</span>
+
         </a>
 
     </nav>
 
 
-    <main class="feedback-panel">
-
-        <header class="feedback-title">
-
-            <h1>
-                意见<span>反馈</span>
-            </h1>
-
-            <div class="english">
-                FEEDBACK
-            </div>
-
-        </header>
-
-
-        <div class="slogan">
-            你的反馈，是我们的行动力！
-        </div>
-
+    <main class="search-area">
 
         <form
-            class="feedback-form"
-            id="feedbackForm">
+            class="search-form"
+            id="searchForm">
 
+            <input
+                class="search-input"
+                id="searchInput"
+                type="text"
+                autocomplete="off"
+                placeholder="搜索任何内容..."
+            >
 
-            <div class="field">
+            <button
+                class="search-button"
+                type="submit"
+                aria-label="搜索">
 
-                <div class="field-label">
+                <span class="search-icon"></span>
 
-                    <span class="cn-label">
-                        反馈类型
-                    </span>
+            </button>
 
-                    <span class="en-label">
-                        TYPE
-                    </span>
+        </form>
 
-                </div>
 
+        <div class="engine-section">
 
-                <div class="type-options">
+            <span class="engine-title">
+                快捷搜索：
+            </span>
 
-
-                    <div class="type-option">
-
-                        <input
-                            id="feature"
-                            type="radio"
-                            name="feedback_type"
-                            value="功能建议"
-                            checked>
-
-                        <label for="feature">
-                            ✦ 功能建议
-                        </label>
-
-                    </div>
-
-
-                    <div class="type-option">
-
-                        <input
-                            id="bug"
-                            type="radio"
-                            name="feedback_type"
-                            value="问题反馈">
-
-                        <label for="bug">
-                            ⚠ 问题反馈
-                        </label>
-
-                    </div>
-
-
-                    <div class="type-option">
-
-                        <input
-                            id="other"
-                            type="radio"
-                            name="feedback_type"
-                            value="其他">
-
-                        <label for="other">
-                            ◆ 其他
-                        </label>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-
-            <div class="field">
-
-                <div class="field-label">
-
-                    <span class="cn-label">
-                        详细描述
-                    </span>
-
-                    <span class="en-label">
-                        DETAIL
-                    </span>
-
-                </div>
-
-
-                <div class="textarea-wrap">
-
-                    <textarea
-                        id="message"
-                        name="message"
-                        maxlength="500"
-                        required
-                        placeholder="告诉我你对 PHANTOM SEARCH 的想法……"></textarea>
-
-
-                    <div class="char-count">
-
-                        <span id="charCount">
-                            0
-                        </span>
-
-                        / 500
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="field">
-
-                <div class="field-label">
-
-                    <span class="cn-label">
-                        满意度
-                    </span>
-
-                    <span class="en-label">
-                        RATING
-                    </span>
-
-                </div>
-
-
-                <div class="rating-row">
-
-                    <button
-                        class="star"
-                        type="button"
-                        data-value="1">
-                        ★
-                    </button>
-
-                    <button
-                        class="star"
-                        type="button"
-                        data-value="2">
-                        ★
-                    </button>
-
-                    <button
-                        class="star"
-                        type="button"
-                        data-value="3">
-                        ★
-                    </button>
-
-                    <button
-                        class="star"
-                        type="button"
-                        data-value="4">
-                        ★
-                    </button>
-
-                    <button
-                        class="star"
-                        type="button"
-                        data-value="5">
-                        ★
-                    </button>
-
-
-                    <span
-                        class="rating-text"
-                        id="ratingText">
-
-                        点击星星评分
-
-                    </span>
-
-
-                    <input
-                        type="hidden"
-                        name="rating"
-                        id="ratingInput">
-
-                </div>
-
-            </div>
-
-
-            <div class="field">
-
-                <div class="field-label">
-
-                    <span class="cn-label">
-                        联系方式
-                    </span>
-
-                    <span class="en-label">
-                        CONTACT / OPTIONAL
-                    </span>
-
-                </div>
-
-
-                <input
-                    class="contact-input"
-                    type="text"
-                    name="contact"
-                    maxlength="120"
-                    placeholder="邮箱 / 社交账号（可选）">
-
-            </div>
-
-
-            <div class="submit-wrap">
+            <div class="engine-buttons">
 
                 <button
-                    class="submit-button"
-                    id="submitButton"
-                    type="submit">
+                    class="engine active"
+                    type="button"
+                    data-engine="bing">
+                    Bing
+                </button>
 
-                    <span>
-                        提交反馈 ➤
-                    </span>
+                <button
+                    class="engine"
+                    type="button"
+                    data-engine="google">
+                    Google
+                </button>
 
+                <button
+                    class="engine"
+                    type="button"
+                    data-engine="youtube">
+                    YouTube
+                </button>
+
+                <button
+                    class="engine"
+                    type="button"
+                    data-engine="wikipedia">
+                    Wikipedia
                 </button>
 
             </div>
 
+        </div>
 
-            <div
-                class="form-status"
-                id="formStatus">
-            </div>
-
-        </form>
+        <div class="search-note">
+            默认使用 Bing；也可以切换搜索引擎或直接输入网址。
+        </div>
 
     </main>
 
-</div>
 
-
-<div
-    class="success-screen"
-    id="successScreen">
-
-    <div class="success-card">
-
-        <h2>
-
-            THANKS
-            <br>
-
-            <span>
-                FOR YOUR
-            </span>
-
-            <br>
-
-            FEEDBACK!
-
-        </h2>
-
-
-        <p>
-            反馈已成功送达。
-            <br>
-            感谢你帮助 PHANTOM SEARCH 变得更好。
-        </p>
-
-
-        <button
-            class="success-close"
-            id="successClose"
-            type="button">
-
-            RETURN ↩
-
-        </button>
-
+    <div class="hand-energy">
+        <div class="energy-ring"></div>
+        <div class="energy-ring"></div>
+        <div class="energy-core"></div>
     </div>
 
 </div>
 
 
-<div class="exit"></div>
+<div class="transition">
+
+    <div class="target creator-target"></div>
+
+    <div class="target feedback-target"></div>
+
+    <div class="transition-tarot"></div>
+
+    <div class="transition-shock"></div>
+
+    <div class="transition-flash"></div>
+
+</div>
 
 
 <div
@@ -1392,90 +1269,58 @@ body.leaving .exit::after{
 <script>
 
 /* =====================================================
-   ENTRY
+   SEARCH
 ===================================================== */
 
-if(
-    sessionStorage.getItem(
-        "phantomTransition"
-    )
-    ===
-    "feedback"
-){
+const searchForm =
+    document.getElementById("searchForm");
 
-    document.body.classList.add(
-        "from-home"
-    );
+const searchInput =
+    document.getElementById("searchInput");
 
-    sessionStorage.removeItem(
-        "phantomTransition"
-    );
-}
+const engineButtons =
+    document.querySelectorAll(".engine");
 
+let currentEngine =
+    "bing";
 
-/* =====================================================
-   CHAR COUNT
-===================================================== */
+const engines = {
 
-const message =
-    document.getElementById(
-        "message"
-    );
+    bing:
+        "https://www.bing.com/search?q=",
 
-const charCount =
-    document.getElementById(
-        "charCount"
-    );
+    google:
+        "https://www.google.com/search?q=",
+
+    youtube:
+        "https://www.youtube.com/results?search_query=",
+
+    wikipedia:
+        "https://zh.wikipedia.org/w/index.php?search="
+};
 
 
-message.addEventListener(
-    "input",
-    ()=>{
+engineButtons.forEach(button=>{
 
-        charCount.textContent =
-            message.value.length;
-
-    }
-);
-
-
-/* =====================================================
-   RATING
-===================================================== */
-
-const stars =
-    document.querySelectorAll(
-        ".star"
-    );
-
-const ratingInput =
-    document.getElementById(
-        "ratingInput"
-    );
-
-const ratingText =
-    document.getElementById(
-        "ratingText"
-    );
-
-let rating=0;
-
-
-stars.forEach(star=>{
-
-    star.addEventListener(
+    button.addEventListener(
         "click",
-        ()=>{
+        function(){
 
-            rating =
-                Number(
-                    star.dataset.value
-                );
+            engineButtons.forEach(
+                item =>
+                    item.classList.remove(
+                        "active"
+                    )
+            );
 
-            ratingInput.value =
-                rating;
+            this.classList.add(
+                "active"
+            );
 
-            updateStars();
+            currentEngine =
+                this.dataset.engine;
+
+            searchInput.focus();
 
         }
     );
@@ -1483,309 +1328,160 @@ stars.forEach(star=>{
 });
 
 
-function updateStars(){
-
-    stars.forEach(star=>{
-
-        star.classList.toggle(
-            "active",
-            Number(
-                star.dataset.value
-            )
-            <=
-            rating
-        );
-
-    });
-
-
-    ratingText.textContent =
-        rating
-        ?
-        rating + " / 5"
-        :
-        "点击星星评分";
-
-}
-
-
-/* =====================================================
-   FORM SUBMIT
-===================================================== */
-
-const form =
-    document.getElementById(
-        "feedbackForm"
-    );
-
-const submitButton =
-    document.getElementById(
-        "submitButton"
-    );
-
-const formStatus =
-    document.getElementById(
-        "formStatus"
-    );
-
-const successScreen =
-    document.getElementById(
-        "successScreen"
-    );
-
-
-form.addEventListener(
+searchForm.addEventListener(
     "submit",
-    async event=>{
+    event=>{
 
         event.preventDefault();
 
+        const value =
+            searchInput.value.trim();
 
-        if(
-            message.value
-            .trim()
-            .length < 3
-        ){
+        if(!value){
 
-            error(
-                "请至少写下几个字的反馈内容。"
-            );
+            searchInput.focus();
 
             return;
         }
 
-
         if(
-            rating === 0
+            /^https?:\/\//i
+            .test(value)
         ){
 
-            error(
-                "请先选择 1–5 星满意度。"
-            );
+            location.href =
+                value;
 
             return;
         }
 
+        if(
+            !/\s/.test(value)
+            &&
+            /^[a-z0-9-]+(\.[a-z0-9-]+)+([/?#].*)?$/i
+            .test(value)
+        ){
 
-        submitButton.disabled =
-            true;
+            location.href =
+                "https://" + value;
 
-
-        submitButton
-            .querySelector("span")
-            .textContent =
-            "正在发送……";
-
-
-        formStatus.className =
-            "form-status sending";
-
-
-        formStatus.textContent =
-            "正在发送反馈……";
-
-
-        const data =
-            new FormData(form);
-
-
-        data.append(
-            "_subject",
-            "PHANTOM SEARCH - New Feedback"
-        );
-
-
-        data.append(
-            "_template",
-            "table"
-        );
-
-
-        try{
-
-            const response =
-                await fetch(
-                    "https://formsubmit.co/ajax/Henrychen2008@hotmail.com",
-                    {
-                        method:"POST",
-
-                        headers:{
-                            "Accept":
-                            "application/json"
-                        },
-
-                        body:data
-                    }
-                );
-
-
-            if(
-                !response.ok
-            ){
-
-                throw new Error();
-
-            }
-
-
-            const result =
-                await response.json();
-
-
-            if(
-                result.success === true
-                ||
-                result.success === "true"
-            ){
-
-                success();
-
-            }else{
-
-                throw new Error();
-
-            }
-
-        }
-        catch(err){
-
-            console.error(err);
-
-
-            error(
-                "暂时没有发送成功，请稍后再试。"
-            );
-
-
-            resetButton();
-
+            return;
         }
 
-    }
-);
-
-
-function success(){
-
-    successScreen
-        .classList
-        .add("show");
-
-
-    form.reset();
-
-
-    rating=0;
-
-    ratingInput.value="";
-
-    updateStars();
-
-
-    charCount.textContent="0";
-
-
-    formStatus.textContent="";
-
-    formStatus.className=
-        "form-status";
-
-
-    resetButton();
-
-}
-
-
-function error(text){
-
-    formStatus.className =
-        "form-status error";
-
-    formStatus.textContent =
-        text;
-
-}
-
-
-function resetButton(){
-
-    submitButton.disabled=
-        false;
-
-
-    submitButton
-        .querySelector("span")
-        .textContent =
-        "提交反馈 ➤";
-
-}
-
-
-/* SUCCESS CLOSE */
-
-document
-.getElementById(
-    "successClose"
-)
-.addEventListener(
-    "click",
-    ()=>{
-
-        successScreen
-            .classList
-            .remove("show");
+        location.href =
+            engines[currentEngine]
+            +
+            encodeURIComponent(value);
 
     }
 );
 
 
 /* =====================================================
-   PAGE EXIT
+   PAGE TRANSITION
 ===================================================== */
 
-let leaving=false;
+let leaving =
+    false;
 
 
 document
-.querySelectorAll(
-    "[data-page]"
-)
-.forEach(link=>{
+.getElementById("creatorLink")
+.addEventListener(
+    "click",
+    event=>{
 
-    link.addEventListener(
-        "click",
-        event=>{
+        event.preventDefault();
 
-            event.preventDefault();
+        if(leaving)return;
 
-            if(leaving)return;
+        leaving = true;
 
-            leaving=true;
+        sessionStorage.setItem(
+            "phantomTransition",
+            "creator"
+        );
+
+        document.body
+            .classList
+            .add("to-creator");
+
+        setTimeout(()=>{
+
+            location.href =
+                "creator.html";
+
+        },1180);
+
+    }
+);
 
 
-            document.body
-                .classList
-                .add("leaving");
+document
+.getElementById("feedbackLink")
+.addEventListener(
+    "click",
+    event=>{
+
+        event.preventDefault();
+
+        if(leaving)return;
+
+        leaving = true;
+
+        sessionStorage.setItem(
+            "phantomTransition",
+            "feedback"
+        );
+
+        document.body
+            .classList
+            .add("to-feedback");
+
+        setTimeout(()=>{
+
+            location.href =
+                "feedback.html";
+
+        },1010);
+
+    }
+);
 
 
-            const target=
-                link.href;
+/* =====================================================
+   PARALLAX
+===================================================== */
+
+const background =
+    document.getElementById("background");
 
 
-            setTimeout(
-                ()=>{
+document.addEventListener(
+    "mousemove",
+    event=>{
 
-                    location.href=
-                        target;
+        if(leaving)return;
 
-                },
-                470
-            );
+        const x =
+            event.clientX /
+            innerWidth - .5;
 
-        }
-    );
+        const y =
+            event.clientY /
+            innerHeight - .5;
 
-});
+        background.style.transform =
+            `
+            scale(1.03)
+            translate(
+                ${x * -5}px,
+                ${y * -3}px
+            )
+            `;
+
+    }
+);
 
 
 /* =====================================================
@@ -1793,15 +1489,13 @@ document
 ===================================================== */
 
 const cursor =
-    document.getElementById(
-        "cursor"
-    );
+    document.getElementById("cursor");
 
 let mx=-100;
 let my=-100;
 let cx=-100;
 let cy=-100;
-let last=0;
+let lastTrail=0;
 
 
 document.addEventListener(
@@ -1811,51 +1505,10 @@ document.addEventListener(
         mx=event.clientX;
         my=event.clientY;
 
-
-        const now=
-            performance.now();
-
-
-        if(
-            now-last > 48
-            &&
-            matchMedia(
-                "(pointer:fine)"
-            ).matches
-        ){
-
-            last=now;
-
-
-            const p=
-                document.createElement(
-                    "span"
-                );
-
-
-            p.className=
-                "trail";
-
-
-            p.style.left=
-                mx+"px";
-
-
-            p.style.top=
-                my+"px";
-
-
-            document.body.appendChild(
-                p
-            );
-
-
-            setTimeout(
-                ()=>p.remove(),
-                520
-            );
-
-        }
+        trail(
+            mx,
+            my
+        );
 
     }
 );
@@ -1866,25 +1519,65 @@ function cursorLoop(){
     cx+=(mx-cx)*.3;
     cy+=(my-cy)*.3;
 
-
     cursor.style.left=
         cx+"px";
-
 
     cursor.style.top=
         cy+"px";
 
-
     requestAnimationFrame(
         cursorLoop
     );
-
 }
-
 
 cursorLoop();
 
-</script>
 
+function trail(x,y){
+
+    if(
+        !matchMedia(
+            "(pointer:fine)"
+        ).matches
+    )return;
+
+    const now =
+        performance.now();
+
+    if(
+        now-lastTrail < 45
+    )return;
+
+    lastTrail=now;
+
+    const p =
+        document.createElement("span");
+
+    p.className =
+        Math.random()>.58
+        ?
+        "trail red"
+        :
+        "trail";
+
+    p.style.left =
+        x +
+        (Math.random()-.5)*10 +
+        "px";
+
+    p.style.top =
+        y +
+        (Math.random()-.5)*10 +
+        "px";
+
+    document.body.appendChild(p);
+
+    setTimeout(
+        ()=>p.remove(),
+        520
+    );
+}
+
+</script>
 </body>
 </html>
