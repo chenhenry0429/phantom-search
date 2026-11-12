@@ -57,8 +57,8 @@
         <article class="bio">
           <p class="eyebrow">CREATOR CARD / HC</p>
           <h3>你好，我是陈植轩。</h3>
-          <p>我叫陈植轩，也叫 Henry。我在天津大学香港理工大学深圳未来技术学院读大一，专业是计算机科学与技术。以后想继续探索计算机，也在考虑脑机接口方向。</p>
-          <p>做 Phantom Search 时，我从一个搜索框开始，逐步加上搜索引擎切换、能翻面的档案卡和页面转场。</p>
+          <p>我叫陈植轩，也叫 Henry。2026 年 11 月访谈时，我在天津大学香港理工大学深圳未来技术学院读大一，专业是计算机科学与技术。</p>
+          <p>选计算机主要是看好它的发展前景。脑机接口吸引我，是因为这种曾经像科幻的技术正在走进现实。我希望它有一天能帮助更多人。</p>
           <a href="https://github.com/chenhenry0429" target="_blank" rel="noopener">GitHub · chenhenry0429 ↗</a>
         </article>
         <div class="skills">
@@ -78,11 +78,19 @@
           <h3>书架上的浪与水</h3>
           <p>我喜欢西方哲学和史铁生的散文。印象最深的是《病隙碎笔》结尾的浪与水，以及书里对思想如何在人与人之间传递的思考。</p>
           <p class="profile-tags">《失乐园》 · 《查拉图斯特拉如是说》 · 《浮士德》 · 《存在主义咖啡馆》</p>
+          <details class="profile-detail">
+            <summary>为什么这段文字让我共鸣</summary>
+            <p>我的左耳有重度听力障碍，几乎听不到声音。读史铁生时，我能体会到文字里的绝望与不甘。他的作品促使我反思自己、认真承担责任。我也相信意志能帮助我面对困难。</p>
+          </details>
         </article>
         <article>
           <p class="eyebrow">03 / AFTER CLASS</p>
           <h3>下课之后</h3>
           <p>平时喜欢阅读、打游戏、听音乐，也喜欢睡觉和吃东西。最近尤其喜欢 Persona 系列，做这个主页时也想把喜欢的怪盗视觉带进来。</p>
+          <details class="profile-detail">
+            <summary>一箱可乐的冰箱事故</summary>
+            <p>刚上大学约一个月，我把一箱可乐放进了急冻层。同学下午开冰箱时，几乎整箱可乐都溢出来冻成了沙冰。我找物业借了根棍子一点点铲，最后手上全是可乐味。</p>
+          </details>
         </article>
       </div>
     </section>
@@ -95,6 +103,7 @@
             <p class="eyebrow">WEB PROJECT / 2026</p>
             <h3>Phantom Search</h3>
             <p>一个受《女神异闻录 5》启发的搜索入口。除了多引擎搜索，它把创作者信息藏进一张可翻转的卡片，还用不同的转场串起搜索、档案和反馈页面。</p>
+            <p>我提出想法和需求，和 AI 一步步搭起框架。AI 协助编写、运行代码。现在的搜索功能比较基础，我想做更多实用项目，下一项还在想。</p>
             <ul class="tags" aria-label="项目标签"><li>多引擎搜索</li><li>动态卡片</li><li>响应式网页</li></ul>
             <div class="work-links"><a href="https://chenhenry0429.github.io/phantom-search/" target="_blank" rel="noopener">访问原项目 ↗</a><a href="https://github.com/chenhenry0429/phantom-search" target="_blank" rel="noopener">查看源码 ↗</a></div>
           </div>
@@ -109,7 +118,7 @@
         <div class="echo-guide">
           <p class="eyebrow">FIELD GUIDE / 提问指南</p>
           <h3>从一个具体问题开始</h3>
-          <p>可以问「洛基」这个代号怎么来的、最近在读什么，也可以聊计算机、脑机接口和 Phantom Search 的设计。</p>
+          <p>可以问「洛基」这个代号怎么来的、我为什么读计算机，也可以聊阅读、趣事或 Phantom Search 是怎么做出来的。</p>
           <p>分身根据公开档案回答。资料不足时会说明，涉及个人隐私时会婉拒。</p>
           <a href="#work">查看作品与原始资料 ↗</a>
         </div>
@@ -121,16 +130,20 @@
           <button type="button">为什么选「洛基」做代号？</button>
           <button type="button">哪段阅读经历最触动你？</button>
           <button type="button">你现在学什么，以后想探索什么？</button>
-          <button type="button">为什么选择 Persona 怪盗风格？</button>
+          <button type="button">你和 AI 怎么分工做 Phantom Search？</button>
           <button type="button">What did you build?</button>
         </div>
-        <div class="mascot">
+        <div class="mascot" id="mascot">
           <button class="mascot-button" id="mascot-button" type="button" aria-label="点击雨宫莲，开始向 Henry 的数字分身提问" aria-controls="question">
             <span class="mascot-arrival"><img class="mascot-sprite" src="./joker.svg" width="160" height="174" alt=""></span>
           </button>
           <div class="mascot-caption">
             <p class="mascot-name">JOKER <span>/</span> 雨宫莲</p>
             <p class="mascot-bubble" id="mascot-bubble" aria-live="polite">点我，开始对话！</p>
+            <div class="mascot-controls">
+              <button type="button" id="mascot-joke">讲个冷笑话</button>
+              <label><input type="checkbox" id="mascot-quiet">关闭闲聊</label>
+            </div>
           </div>
         </div>
         <form id="chat-form">
@@ -147,6 +160,16 @@
           <p class="label"><span class="diamond"></span> 04 / FEEDBACK</p>
           <h2>反馈<span class="red">.</span></h2>
           <p class="feedback-intro">发现了问题，或者有想看的新内容？告诉我你试了什么、看到了什么。</p>
+          <div class="contact" id="contact">
+            <h3>联系我</h3>
+            <p>欢迎聊阅读、游戏、技术或项目合作，也可以直接发网页反馈。</p>
+            <a href="mailto:Henrychen2008@hotmail.com">Henrychen2008@hotmail.com <small>首选邮箱</small></a>
+            <details class="profile-detail">
+              <summary>其他联系方式</summary>
+              <a href="mailto:chenhenry860@gmail.com">chenhenry860@gmail.com</a>
+              <a href="tel:+8618476106267">18476106267</a>
+            </details>
+          </div>
         </div>
         <form class="feedback-form" id="feedback-form" method="post" aria-label="主页反馈">
           <fieldset>

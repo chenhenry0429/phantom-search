@@ -6,16 +6,70 @@ const status = document.querySelector("#status");
 const log = document.querySelector("#messages");
 const portrait = document.querySelector("#portrait");
 const mascot = document.querySelector("#mascot-button");
+const mascotArea = document.querySelector("#mascot");
 const mascotBubble = document.querySelector("#mascot-bubble");
+const mascotJoke = document.querySelector("#mascot-joke");
+const mascotQuiet = document.querySelector("#mascot-quiet");
 const chatApi = document.querySelector('meta[name="chat-api-base"]')?.content || "";
 const welcome = log.firstElementChild.cloneNode(true);
 const greetings = ["要聊聊吗？", "下一条线索，由你来问。", "来问问 Henry 的作品吧！"];
+const jokes = [
+  "冷笑话 · 第 86 号元素是？西元，因为砹在西元前。认真答是氡。",
+  "冷笑话 · 物理课上的问题：为什么不拿微波炉加热微波炉？",
+  "冷笑话 · 为什么网页不爱开会？因为它一打开就有好多标签。",
+];
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
 let greeting = 0;
 let mascotAction;
 let turns = [];
 let request;
 let composing = false;
+let jokeIndex = 0;
+let automaticJokes = 0;
+let mascotVisible = false;
+let idleTimer;
+let bubbleTimer;
+
+function showMascotBubble(message) {
+  clearTimeout(bubbleTimer);
+  mascotBubble.textContent = message;
+  bubbleTimer = setTimeout(() => { mascotBubble.textContent = "点我，开始对话！"; }, 9000);
+}
+
+function tellJoke() {
+  showMascotBubble(jokes[jokeIndex]);
+  jokeIndex = (jokeIndex + 1) % jokes.length;
+}
+
+function scheduleIdleJoke() {
+  clearTimeout(idleTimer);
+  if (!mascotVisible || document.hidden || mascotQuiet.checked || automaticJokes >= 2 ||
+      request || composing || document.activeElement === input || input.value.trim()) return;
+
+  idleTimer = setTimeout(() => {
+    automaticJokes++;
+    tellJoke();
+    scheduleIdleJoke();
+  }, 60000);
+}
+
+if ("IntersectionObserver" in window) {
+  new IntersectionObserver(([entry]) => {
+    mascotVisible = entry.isIntersecting && entry.intersectionRatio >= 0.25;
+    scheduleIdleJoke();
+  }, { threshold: 0.25 }).observe(mascotArea);
+}
+document.addEventListener("visibilitychange", scheduleIdleJoke);
+document.querySelector("#echo").addEventListener("pointermove", scheduleIdleJoke, { passive: true });
+document.querySelector("#echo").addEventListener("keydown", scheduleIdleJoke);
+mascotQuiet.addEventListener("change", () => {
+  if (mascotQuiet.checked) showMascotBubble("点我，开始对话！");
+  scheduleIdleJoke();
+});
+mascotJoke.addEventListener("click", () => {
+  tellJoke();
+  scheduleIdleJoke();
+});
 
 portrait.addEventListener("click", () => {
   const flipped = portrait.getAttribute("aria-pressed") === "false";
@@ -67,6 +121,9 @@ input.addEventListener("compositionend", () => {
 input.addEventListener("blur", () => {
   composing = false;
 });
+for (const event of ["focus", "blur", "input", "compositionstart", "compositionend"]) {
+  input.addEventListener(event, scheduleIdleJoke);
+}
 input.addEventListener("keydown", (event) => {
   if (event.key !== "Enter" || !(event.ctrlKey || event.metaKey) ||
       composing || event.isComposing || event.keyCode === 229) return;
@@ -80,6 +137,7 @@ form.addEventListener("submit", async (event) => {
   if (!question || request || composing) return;
   const controller = new AbortController();
   request = controller;
+  scheduleIdleJoke();
   send.disabled = true;
   input.value = "";
   addMessage("user", question);
@@ -109,6 +167,7 @@ form.addEventListener("submit", async (event) => {
     if (request === controller) {
       request = undefined;
       send.disabled = false;
+      scheduleIdleJoke();
     }
   }
 });
@@ -121,7 +180,7 @@ document.querySelectorAll(".suggestions button").forEach((button) => {
 });
 
 mascot.addEventListener("click", () => {
-  mascotBubble.textContent = greetings[greeting];
+  showMascotBubble(greetings[greeting]);
   greeting = (greeting + 1) % greetings.length;
   mascotAction?.cancel();
   if (!reduceMotion.matches) {
