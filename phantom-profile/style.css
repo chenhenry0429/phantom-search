@@ -147,8 +147,13 @@ h2{font-size:clamp(35px,6vw,62px);letter-spacing:-.06em;line-height:1.14;font-we
 .mascot-caption{min-width:0}
 .mascot-name{margin:0 0 5px;color:var(--yellow);font:800 10px/1.3 var(--mono);letter-spacing:.11em}
 .mascot-name span{color:var(--red)}
-.mascot-bubble{position:relative;width:fit-content;margin:0;padding:6px 11px;background:var(--cream);color:var(--ink);border-left:3px solid var(--red);box-shadow:3px 3px 0 #920e26;font-size:13px;font-weight:800}
-.mascot-bubble::before{content:"";position:absolute;top:8px;left:-11px;border:5px solid transparent;border-right-color:var(--red)}
+.mascot-bubble-frame{position:relative;width:fit-content;max-width:100%}
+.mascot-bubble{position:relative;margin:0;padding:6px 34px 6px 11px;background:var(--cream);color:var(--ink);border-left:3px solid var(--red);box-shadow:3px 3px 0 #920e26;font-size:13px;font-weight:800;line-height:1.45;white-space:pre-line;overflow-wrap:anywhere}
+.mascot-bubble:empty{padding:0;border:0;box-shadow:none}
+.mascot-bubble:not(:empty)::before{content:"";position:absolute;top:8px;left:-11px;border:5px solid transparent;border-right-color:var(--red)}
+.mascot-close{position:absolute;inset:2px 2px auto auto;width:28px;height:26px;padding:0;border:0;background:transparent;color:var(--ink);font:700 20px/1 var(--body)}
+.mascot-close:hover{background:#f3dbc9}
+.mascot-close:focus-visible{outline:2px solid #a8102a;outline-offset:-2px}
 .mascot-controls{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;margin-top:7px;color:var(--dim);font-size:12px}
 .mascot-controls button{padding:3px 7px;border:1px solid var(--line);background:var(--ink);color:var(--yellow);font:inherit}
 .mascot-controls label{display:flex;gap:4px;align-items:center;cursor:pointer}

@@ -8,47 +8,146 @@ const portrait = document.querySelector("#portrait");
 const mascot = document.querySelector("#mascot-button");
 const mascotArea = document.querySelector("#mascot");
 const mascotBubble = document.querySelector("#mascot-bubble");
+const mascotClose = document.querySelector("#mascot-close");
 const mascotJoke = document.querySelector("#mascot-joke");
 const mascotQuiet = document.querySelector("#mascot-quiet");
 const chatApi = document.querySelector('meta[name="chat-api-base"]')?.content || "";
 const welcome = log.firstElementChild.cloneNode(true);
 const greetings = ["要聊聊吗？", "下一条线索，由你来问。", "来问问 Henry 的作品吧！"];
 const jokes = [
-  "冷笑话 · 第 86 号元素是？西元，因为砹在西元前。认真答是氡。",
-  "冷笑话 · 物理课上的问题：为什么不拿微波炉加热微波炉？",
-  "冷笑话 · 为什么网页不爱开会？因为它一打开就有好多标签。",
+  "已知砹是第 85 号元素，那么第 86 号元素是什么？\n西元。因为砹在西元前。",
+  "为什么不拿微波炉加热微波炉？",
+  "图书馆最公平的地方，是你学没学懂，闭馆铃都响得一样响。",
+  "选课系统问我是否确定。我当然不确定，但确定的人已经选完了。",
+  "课件上写着「一看便知」。我照做了，现在知道我没看懂。",
+  "小组作业里最团结的一刻，是大家同时说「我都行」。",
+  "老师说证明留作练习。这道题很懂礼貌，把证明又留给了老师。",
+  "这学期选修怎么选？\n先选哪天能休。",
+  "早八签到只查人到没到。很合理，灵魂通常要到第二节课。",
+  "我排在食堂队伍的最后。只要没人排在我后面，我就永远是压轴。",
+  "吃饭是我最擅长的多线程任务。\n嚼着这一口，已经开始安排下一口。",
+  "菜单上写「任选两样」。我选了现在吃和待会儿再吃。",
+  "食堂开了个轻食窗口。我掂了掂餐盒，店名起得很诚实。",
+  "我想早点睡，就把闹钟定早了。问题被成功转交给明天的我。",
+  "闹钟响了。我在等第二份独立证据。",
+  "周末想补觉。醒来一看，周末也被补进去了。",
+  "睡前背了遍单词，做梦时一个也没见到。它们大概背着我走了。",
+  "拖延最讲究向后兼容。昨天没做的事，今天还能打开。",
+  "我给待办事项加了优先级。现在我知道应该先拖延哪一个。",
+  "我花了一下午优化学习计划。它现在快得惊人，一分钟就能看完。",
+  "代码只在我电脑上运行。它对办公地点有明确要求。",
+  "老师说这题要会解。我只会解压，压缩包已经打开了。",
+  "代码没写注释。我很信任三天前的自己。三天前的自己显然也很信任我。",
+  "文件名叫「最终版 2」，给最终版留一点成长空间。",
+  "函数最有边界感。该返回的时候，它真会走。",
+  "为什么抽屉里放饼干？\n正餐还没到，先读一点缓存。",
+  "网页问我是否接受 Cookie。\n我接受。它没给。",
+  "进度条卡在 99%。剩下的 1% 正在争取独立。",
+  "游戏让我找失踪的人。地图直接标了坐标，看来只有我没收到通知。",
+  "打最终 Boss 前舍不得喝药。通关后背包很健康。",
+  "游戏说按任意键继续。我按了关机键，范围确实说得太宽了。",
+  "我在开放世界里迷路。地图不同意，说这叫探索。",
+  "Boss 有三条血，我有三次耐心。数值设计得很对称。",
+  "怪盗最擅长偷什么？\n偷时间。一个「再来一局」，半小时就不见了。",
+  "怪盗偷走了桌上的作业。老师问，提交记录也一起偷走了吗？",
+  "怪盗的预告函写「今晚取走宝物」。物业回信问他来访需不需要登记。",
+  "我把伞带出门了。天气一整天都没机会证明我准备充分。",
+  "桌面收拾干净了。现在找东西，终于可以从零开始。",
+  "镜子说我今天状态不错。证据不足，它只看了一面。",
+  "电梯说最近有起有落。门一开，它就不聊了。",
 ];
+// Bump the key if the joke list is reordered or its entries change.
+const jokeStorageKey = "phantom-profile:mascot-jokes:v1";
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
 let greeting = 0;
 let mascotAction;
 let turns = [];
 let request;
 let composing = false;
-let jokeIndex = 0;
 let automaticJokes = 0;
 let mascotVisible = false;
 let idleTimer;
 let bubbleTimer;
+const jokeState = readJokeState();
+mascotQuiet.checked = jokeState.quiet;
 
-function showMascotBubble(message) {
-  clearTimeout(bubbleTimer);
-  mascotBubble.textContent = message;
-  bubbleTimer = setTimeout(() => { mascotBubble.textContent = "点我，开始对话！"; }, 9000);
+function readJokeState() {
+  let saved;
+  try {
+    saved = JSON.parse(localStorage.getItem(jokeStorageKey));
+  } catch {
+    // The current page can still keep its own deck when storage is unavailable.
+  }
+  const validIndex = (index) => Number.isInteger(index) && index >= 0 && index < jokes.length;
+  const quiet = saved?.quiet === true;
+  const last = validIndex(saved?.last) ? saved.last : null;
+  const remaining = saved?.remaining;
+  if (last !== null && Array.isArray(remaining) && remaining.length < jokes.length &&
+      remaining.every((index) => validIndex(index) && index !== last) &&
+      new Set(remaining).size === remaining.length) {
+    return { remaining, last, quiet };
+  }
+  return { remaining: [], last, quiet };
 }
 
-function tellJoke() {
-  showMascotBubble(jokes[jokeIndex]);
-  jokeIndex = (jokeIndex + 1) % jokes.length;
+function saveJokeState() {
+  try {
+    localStorage.setItem(jokeStorageKey, JSON.stringify(jokeState));
+  } catch {
+    // The in-memory state remains active.
+  }
+}
+
+function dismissMascotBubble() {
+  clearTimeout(bubbleTimer);
+  if (document.activeElement === mascotClose) mascotJoke.focus({ preventScroll: true });
+  mascotClose.hidden = true;
+  mascotBubble.textContent = "";
+  delete mascotBubble.dataset.kind;
+}
+
+function showMascotBubble(message, kind = "greeting") {
+  clearTimeout(bubbleTimer);
+  mascotBubble.dataset.kind = kind;
+  mascotBubble.textContent = message;
+  mascotClose.hidden = false;
+  const duration = kind === "greeting" ? 9000 : Math.min(24000, Math.max(10000, 4800 + message.length * 250));
+  bubbleTimer = setTimeout(dismissMascotBubble, duration);
+}
+
+function tellJoke(kind) {
+  if (!jokeState.remaining.length) {
+    const deck = jokes.map((_, index) => index);
+    for (let index = deck.length - 1; index > 0; index--) {
+      const other = Math.floor(Math.random() * (index + 1));
+      [deck[index], deck[other]] = [deck[other], deck[index]];
+    }
+    const top = deck.length - 1;
+    if (deck[top] === jokeState.last) {
+      const other = Math.floor(Math.random() * top);
+      [deck[top], deck[other]] = [deck[other], deck[top]];
+    }
+    jokeState.remaining = deck;
+  }
+  jokeState.last = jokeState.remaining.pop();
+  saveJokeState();
+  showMascotBubble(jokes[jokeState.last], kind);
+  if (mascotJoke.textContent !== "再来一个") mascotJoke.textContent = "再来一个";
+}
+
+function canTellIdleJoke() {
+  return mascotVisible && !document.hidden && !mascotQuiet.checked && automaticJokes < 2 &&
+    !request && !composing && document.activeElement !== input && !input.value.trim();
 }
 
 function scheduleIdleJoke() {
   clearTimeout(idleTimer);
-  if (!mascotVisible || document.hidden || mascotQuiet.checked || automaticJokes >= 2 ||
-      request || composing || document.activeElement === input || input.value.trim()) return;
+  if (!canTellIdleJoke()) return;
 
   idleTimer = setTimeout(() => {
+    if (!canTellIdleJoke()) return;
     automaticJokes++;
-    tellJoke();
+    tellJoke("idle");
     scheduleIdleJoke();
   }, 60000);
 }
@@ -63,11 +162,17 @@ document.addEventListener("visibilitychange", scheduleIdleJoke);
 document.querySelector("#echo").addEventListener("pointermove", scheduleIdleJoke, { passive: true });
 document.querySelector("#echo").addEventListener("keydown", scheduleIdleJoke);
 mascotQuiet.addEventListener("change", () => {
-  if (mascotQuiet.checked) showMascotBubble("点我，开始对话！");
+  jokeState.quiet = mascotQuiet.checked;
+  saveJokeState();
+  if (mascotQuiet.checked && mascotBubble.dataset.kind === "idle") dismissMascotBubble();
   scheduleIdleJoke();
 });
 mascotJoke.addEventListener("click", () => {
-  tellJoke();
+  tellJoke("manual");
+  scheduleIdleJoke();
+});
+mascotClose.addEventListener("click", () => {
+  dismissMascotBubble();
   scheduleIdleJoke();
 });
 

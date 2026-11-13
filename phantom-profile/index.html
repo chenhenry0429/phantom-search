@@ -139,10 +139,13 @@
           </button>
           <div class="mascot-caption">
             <p class="mascot-name">JOKER <span>/</span> 雨宫莲</p>
-            <p class="mascot-bubble" id="mascot-bubble" aria-live="polite">点我，开始对话！</p>
+            <div class="mascot-bubble-frame">
+              <p class="mascot-bubble" id="mascot-bubble" role="status" aria-atomic="true">点我，开始对话！</p>
+              <button class="mascot-close" id="mascot-close" type="button" aria-label="关闭气泡" aria-controls="mascot-bubble">×</button>
+            </div>
             <div class="mascot-controls">
-              <button type="button" id="mascot-joke">讲个冷笑话</button>
-              <label><input type="checkbox" id="mascot-quiet">关闭闲聊</label>
+              <button type="button" id="mascot-joke" aria-controls="mascot-bubble">讲个冷笑话</button>
+              <label><input type="checkbox" id="mascot-quiet">关闭自动闲聊</label>
             </div>
           </div>
         </div>
