@@ -4,11 +4,11 @@
 
 ## 直接访问
 
-- **[PHANTOM PERSONA ARCHIVE · 个人主页与数字分身](https://chenhenry0429.github.io/phantom-search/phantom-profile/)**
+- **[PHANTOM PERSONA ARCHIVE · 个人主页与数字分身](https://chenhenry0429.github.io/phantom-persona-archive/)**
 - [Phantom Search · 原始搜索主页](https://chenhenry0429.github.io/phantom-search/)
 - [个人主页备用入口](https://phantom-profile-henry-chen.chenhenry860.chatgpt.site/)
 
-个人主页位于本仓库的 `phantom-profile/` 子目录，并非单独的同名仓库。仓库根网址打开的是原始搜索项目；也可以从其顶部「个人主页」进入。
+个人主页已迁至 [独立仓库](https://github.com/chenhenry0429/phantom-persona-archive)。仓库根网址打开的是原始搜索项目，顶部「个人主页」通往新站。
 
 ## 个人主页内容
 
@@ -19,7 +19,7 @@
 - `index.html`：原始搜索主页，含个人主页入口。
 - `creator.html`：原版创作者页。
 - `feedback.html`：原版反馈页。
-- `phantom-profile/`：个人主页静态发布文件。
+- `phantom-profile/`：旧个人主页跳转入口。
 
 GitHub Pages 托管静态网页，个人主页的模型请求由公开的 Sites 后端处理；模型密钥保存在服务端，不在本仓库内。Pages 的部署结果可在本仓库 Actions 中查看。
 
